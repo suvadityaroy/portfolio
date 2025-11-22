@@ -60,14 +60,49 @@ export default function Projects() {
     <section id="projects" className="py-20 bg-gradient-to-br from-black via-pink-950/30 via-fuchsia-950/25 to-black relative overflow-hidden">
       <SectionBackground variant="violet" />
       
-      {/* Static dots */}
-      {[...Array(12)].map((_, i) => (
-        <div
+      {/* Star field pattern */}
+      {[...Array(15)].map((_, i) => (
+        <motion.div
           key={i}
-          className="absolute w-1 h-1 rounded-full bg-pink-400/20"
+          className="absolute w-1 h-1 rounded-full bg-pink-400/40"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            opacity: [0.2, 1, 0.2],
+            scale: [1, 1.5, 1],
+          }}
+          transition={{
+            duration: 2 + Math.random() * 3,
+            repeat: Infinity,
+            delay: Math.random() * 3,
+          }}
+        />
+      ))}
+      
+      {/* Rotating triangles */}
+      {[...Array(3)].map((_, i) => (
+        <motion.div
+          key={`tri-${i}`}
+          className="absolute border-2 border-fuchsia-500/10"
+          style={{
+            width: 0,
+            height: 0,
+            borderLeft: `${30 + i * 15}px solid transparent`,
+            borderRight: `${30 + i * 15}px solid transparent`,
+            borderBottom: `${50 + i * 25}px solid rgba(217, 70, 239, 0.1)`,
+            left: `${15 + i * 15}%`,
+            top: `${20 + (i % 2) * 40}%`,
+          }}
+          animate={{
+            rotate: [0, 360],
+            y: [0, -20, 0],
+          }}
+          transition={{
+            duration: 18 + i * 2,
+            repeat: Infinity,
+            ease: "easeInOut",
           }}
         />
       ))}

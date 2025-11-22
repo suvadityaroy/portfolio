@@ -49,24 +49,79 @@ export default function Contact() {
     <section id="contact" className="py-20 bg-gradient-to-br from-gray-800 via-emerald-950/30 via-green-950/20 to-gray-900 relative overflow-hidden">
       <SectionBackground variant="emerald" />
       
-      {/* Static dots */}
-      {[...Array(12)].map((_, i) => (
-        <div
+      {/* Animated wallpaper pattern */}
+      <motion.div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `
+            repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(16, 185, 129, 0.4) 35px, rgba(16, 185, 129, 0.4) 70px),
+            repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(34, 197, 94, 0.4) 35px, rgba(34, 197, 94, 0.4) 70px)
+          `,
+          backgroundSize: '100px 100px',
+        }}
+        animate={{
+          backgroundPosition: ['0px 0px', '100px 100px'],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+      />
+      
+      {/* Floating geometric shapes */}
+      {[...Array(4)].map((_, i) => (
+        <motion.div
           key={i}
-          className="absolute w-1 h-1 rounded-full bg-emerald-400/20"
+          className="absolute rounded-full border-2 border-emerald-500/10"
+          style={{
+            width: `${80 + i * 40}px`,
+            height: `${80 + i * 40}px`,
+            left: `${10 + i * 12}%`,
+            top: `${15 + (i % 3) * 25}%`,
+          }}
+          animate={{
+            y: [0, -30, 0],
+            x: [0, 20, 0],
+            rotate: [0, 180, 360],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 15 + i * 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: i * 0.5,
+          }}
+        />
+      ))}
+      
+      {/* Glowing dots pattern */}
+      {[...Array(10)].map((_, i) => (
+        <motion.div
+          key={`dot-${i}`}
+          className="absolute w-2 h-2 rounded-full bg-emerald-400/20"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            opacity: [0.2, 0.8, 0.2],
+            scale: [1, 1.5, 1],
+          }}
+          transition={{
+            duration: 3 + Math.random() * 2,
+            repeat: Infinity,
+            delay: Math.random() * 2,
           }}
         />
       ))}
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          viewport={{ once: true, margin: "-50px" }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Get In Touch</h2>
