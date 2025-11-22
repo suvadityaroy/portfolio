@@ -22,9 +22,9 @@ export default function Hero() {
 
   useEffect(() => {
     const currentPhrase = phrases[currentPhraseIndex];
-    const typingSpeed = isDeleting ? 30 : 80;
-    const pauseAtEnd = 2500;
-    const pauseBeforeDelete = 300;
+    const typingSpeed = isDeleting ? 25 : 70;
+    const pauseAtEnd = 1500;
+    const pauseBeforeDelete = 200;
 
     if (!isDeleting && charIndex === currentPhrase.length) {
       setTimeout(() => setIsDeleting(true), pauseAtEnd);
