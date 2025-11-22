@@ -82,6 +82,7 @@ export default function SectionBackground({ variant = 'blue' }: SectionBackgroun
       {/* Animated gradient waves */}
       <motion.div
         className={`absolute inset-0 bg-gradient-to-br ${colors.gradient1} opacity-60`}
+        style={{ willChange: 'transform' }}
         animate={{
           scale: [1, 1.08, 1],
           rotate: [0, 3, 0],
@@ -95,6 +96,7 @@ export default function SectionBackground({ variant = 'blue' }: SectionBackgroun
       
       <motion.div
         className={`absolute inset-0 bg-gradient-to-tr ${colors.gradient2} opacity-40`}
+        style={{ willChange: 'transform' }}
         animate={{
           scale: [1.08, 1, 1.08],
           rotate: [0, -3, 0],
@@ -109,6 +111,7 @@ export default function SectionBackground({ variant = 'blue' }: SectionBackgroun
       {/* Large blurred orbs - more subtle */}
       <motion.div
         className={`absolute -top-32 -left-32 w-[600px] h-[600px] ${colors.orb1} rounded-full blur-[100px]`}
+        style={{ willChange: 'transform', transform: 'translateZ(0)' }}
         animate={{
           x: [0, 80, 0],
           y: [0, -40, 0],
@@ -123,6 +126,7 @@ export default function SectionBackground({ variant = 'blue' }: SectionBackgroun
       
       <motion.div
         className={`absolute -bottom-32 -right-32 w-[700px] h-[700px] ${colors.orb2} rounded-full blur-[120px]`}
+        style={{ willChange: 'transform', transform: 'translateZ(0)' }}
         animate={{
           x: [0, -60, 0],
           y: [0, 60, 0],
@@ -137,6 +141,7 @@ export default function SectionBackground({ variant = 'blue' }: SectionBackgroun
 
       <motion.div
         className={`absolute top-1/2 left-1/2 w-[500px] h-[500px] ${colors.orb3} rounded-full blur-[90px] -translate-x-1/2 -translate-y-1/2`}
+        style={{ willChange: 'transform', transform: 'translateZ(0)' }}
         animate={{
           x: [0, 40, 0],
           y: [0, -50, 0],
