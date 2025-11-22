@@ -6,7 +6,7 @@ import SectionBackground from './SectionBackground';
 
 const projects = [
   {
-    title: 'Real-Time Anomaly Detection',
+    title: 'Real-Time Anomaly Detection Dashboard',
     description: 'A dashboard for detecting anomalies in real-time data streams using machine learning algorithms.',
     tags: ['AI', 'Python', 'Dashboard', 'Security'],
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800',
@@ -38,7 +38,7 @@ const projects = [
     demo: ''
   },
   {
-    title: 'Custom Firewall',
+    title: 'Firewall',
     description: 'A custom firewall implementation in Python to monitor and control incoming and outgoing network traffic.',
     tags: ['Cybersecurity', 'Python', 'Networking'],
     image: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=800',
