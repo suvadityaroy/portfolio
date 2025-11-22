@@ -22,16 +22,9 @@ export default function Hero() {
 
   useEffect(() => {
     const currentPhrase = phrases[currentPhraseIndex];
-    
-    // Variable speed for more natural typing
-    const getTypingSpeed = () => {
-      if (isDeleting) return 20;
-      // Add slight randomness for natural feel
-      return 50 + Math.random() * 30;
-    };
-    
+    const typingSpeed = isDeleting ? 25 : 70;
     const pauseAtEnd = 1500;
-    const pauseBeforeDelete = 300;
+    const pauseBeforeDelete = 200;
 
     if (!isDeleting && charIndex === currentPhrase.length) {
       setTimeout(() => setIsDeleting(true), pauseAtEnd);
@@ -49,7 +42,7 @@ export default function Hero() {
     const timeout = setTimeout(() => {
       setDisplayedText(currentPhrase.substring(0, charIndex + (isDeleting ? -1 : 1)));
       setCharIndex((prev) => prev + (isDeleting ? -1 : 1));
-    }, getTypingSpeed());
+    }, typingSpeed);
 
     return () => clearTimeout(timeout);
   }, [charIndex, isDeleting, currentPhraseIndex, phrases]);
@@ -77,28 +70,19 @@ export default function Hero() {
                 ease: "linear"
               }}
               style={{
-                backgroundSize: '200% 200%',
-                willChange: 'background-position'
+                backgroundSize: '200% 200%'
               }}
             >
-              <motion.span
-                key={displayedText}
-                initial={{ opacity: 0.8 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.1 }}
-              >
-                {displayedText}
-              </motion.span>
+              {displayedText}
               <motion.span
                 animate={{ 
-                  opacity: [1, 0.3, 1],
+                  opacity: [1, 0, 1],
                 }}
                 transition={{
-                  duration: 0.9,
+                  duration: 0.8,
                   repeat: Infinity,
-                  ease: [0.4, 0, 0.6, 1]
+                  ease: "easeInOut"
                 }}
-                style={{ display: 'inline-block' }}
               >
                 |
               </motion.span>
