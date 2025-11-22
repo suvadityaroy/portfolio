@@ -150,7 +150,7 @@ export default function SectionBackground({ variant = 'blue' }: SectionBackgroun
       />
 
       {/* Subtle floating particles */}
-      {[...Array(12)].map((_, i) => (
+      {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
           className={`absolute w-1 h-1 ${colors.particles} rounded-full blur-[2px]`}

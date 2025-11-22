@@ -39,7 +39,7 @@ export default function About() {
       <SectionBackground variant="blue" />
       
       {/* Floating particles with trails */}
-      {[...Array(25)].map((_, i) => (
+      {[...Array(12)].map((_, i) => (
         <motion.div
           key={`particle-${i}`}
           className="absolute rounded-full bg-blue-400/30"
@@ -66,7 +66,7 @@ export default function About() {
       ))}
       
       {/* Animated connecting lines */}
-      {[...Array(6)].map((_, i) => (
+      {[...Array(3)].map((_, i) => (
         <motion.div
           key={`line-${i}`}
           className="absolute h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"
@@ -115,7 +115,7 @@ export default function About() {
       ))}
       
       {/* Glowing nodes */}
-      {[...Array(8)].map((_, i) => (
+      {[...Array(4)].map((_, i) => (
         <motion.div
           key={`node-${i}`}
           className="absolute w-2 h-2 rounded-full bg-blue-500/50"

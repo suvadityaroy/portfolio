@@ -61,7 +61,7 @@ export default function Projects() {
       <SectionBackground variant="violet" />
       
       {/* Star field pattern */}
-      {[...Array(30)].map((_, i) => (
+      {[...Array(15)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute w-1 h-1 rounded-full bg-pink-400/40"
@@ -82,7 +82,7 @@ export default function Projects() {
       ))}
       
       {/* Rotating triangles */}
-      {[...Array(6)].map((_, i) => (
+      {[...Array(3)].map((_, i) => (
         <motion.div
           key={`tri-${i}`}
           className="absolute border-2 border-fuchsia-500/10"

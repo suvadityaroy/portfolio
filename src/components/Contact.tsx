@@ -70,7 +70,7 @@ export default function Contact() {
       />
       
       {/* Floating geometric shapes */}
-      {[...Array(8)].map((_, i) => (
+      {[...Array(4)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute rounded-full border-2 border-emerald-500/10"
@@ -96,7 +96,7 @@ export default function Contact() {
       ))}
       
       {/* Glowing dots pattern */}
-      {[...Array(20)].map((_, i) => (
+      {[...Array(10)].map((_, i) => (
         <motion.div
           key={`dot-${i}`}
           className="absolute w-2 h-2 rounded-full bg-emerald-400/20"

@@ -66,7 +66,7 @@ export default function Certifications() {
       />
       
       {/* Spinning diamonds */}
-      {[...Array(8)].map((_, i) => (
+      {[...Array(4)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute border-2 border-indigo-500/10"

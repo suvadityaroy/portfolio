@@ -111,7 +111,7 @@ export default function Skills() {
       />
       
       {/* Tech nodes */}
-      {[...Array(15)].map((_, i) => (
+      {[...Array(8)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute w-3 h-3 rounded-full bg-cyan-500/30 shadow-lg shadow-cyan-500/50"

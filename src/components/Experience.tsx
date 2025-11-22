@@ -33,7 +33,7 @@ export default function Experience() {
       <SectionBackground variant="violet" />
       
       {/* Twinkling stars */}
-      {[...Array(40)].map((_, i) => (
+      {[...Array(20)].map((_, i) => (
         <motion.div
           key={`star-${i}`}
           className="absolute rounded-full bg-white"
@@ -80,7 +80,7 @@ export default function Experience() {
       ))}
       
       {/* Star clusters */}
-      {[...Array(8)].map((_, i) => (
+      {[...Array(4)].map((_, i) => (
         <motion.div
           key={`cluster-${i}`}
           className="absolute"
