@@ -22,17 +22,20 @@ export default function Hero() {
 
   useEffect(() => {
     const currentPhrase = phrases[currentPhraseIndex];
-    const typingSpeed = isDeleting ? 25 : 60;
-    const pauseTime = isDeleting ? 200 : 2000;
+    const typingSpeed = isDeleting ? 30 : 80;
+    const pauseAtEnd = 2500;
+    const pauseBeforeDelete = 300;
 
     if (!isDeleting && charIndex === currentPhrase.length) {
-      setTimeout(() => setIsDeleting(true), pauseTime);
+      setTimeout(() => setIsDeleting(true), pauseAtEnd);
       return;
     }
 
     if (isDeleting && charIndex === 0) {
-      setIsDeleting(false);
-      setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
+      setTimeout(() => {
+        setIsDeleting(false);
+        setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
+      }, pauseBeforeDelete);
       return;
     }
 
@@ -56,10 +59,34 @@ export default function Hero() {
         >
           <h2 className="text-blue-400 font-semibold tracking-wide uppercase mb-4">Software Engineer</h2>
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 min-h-[1.2em]">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
+            <motion.span 
+              className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
+              animate={{ 
+                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+              style={{
+                backgroundSize: '200% 200%'
+              }}
+            >
               {displayedText}
-              <span className="animate-pulse">|</span>
-            </span>
+              <motion.span
+                animate={{ 
+                  opacity: [1, 0, 1],
+                }}
+                transition={{
+                  duration: 0.8,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                |
+              </motion.span>
+            </motion.span>
           </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
             Specializing in full-stack development with a passion for Cybersecurity, AI, Cloud Computing, and IoT technologies.
