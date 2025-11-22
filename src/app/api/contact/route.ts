@@ -5,13 +5,18 @@ export async function POST(request: Request) {
   try {
     const { name, email, message } = await request.json();
 
-    // Create a transporter using Gmail
+    // Create a transporter - supports Gmail, Outlook, Yahoo, and custom SMTP
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: process.env.SMTP_HOST || 'smtp.gmail.com',
+      port: parseInt(process.env.SMTP_PORT || '587'),
+      secure: process.env.SMTP_SECURE === 'true', // true for 465, false for other ports
       auth: {
-        user: process.env.EMAIL_USER, // Your Gmail address
-        pass: process.env.EMAIL_PASSWORD, // Your Gmail App Password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
       },
+      tls: {
+        rejectUnauthorized: false // Allow self-signed certificates
+      }
     });
 
     // Email content
