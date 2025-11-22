@@ -32,83 +32,16 @@ export default function Experience() {
     <section id="experience" className="py-20 bg-gradient-to-br from-gray-800 via-purple-950/20 via-violet-950/30 to-gray-800 relative overflow-hidden">
       <SectionBackground variant="violet" />
       
-      {/* Twinkling stars */}
-      {[...Array(20)].map((_, i) => (
-        <motion.div
-          key={`star-${i}`}
-          className="absolute rounded-full bg-white"
-          style={{
-            width: `${1 + Math.random() * 2}px`,
-            height: `${1 + Math.random() * 2}px`,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            boxShadow: '0 0 4px rgba(255, 255, 255, 0.8)',
-          }}
-          animate={{
-            opacity: [0.2, 1, 0.2],
-            scale: [1, 1.3, 1],
-          }}
-          transition={{
-            duration: 1.5 + Math.random() * 2,
-            repeat: Infinity,
-            delay: Math.random() * 3,
-          }}
-        />
-      ))}
-      
-      {/* Shooting stars */}
-      {[...Array(3)].map((_, i) => (
-        <motion.div
-          key={`shooting-${i}`}
-          className="absolute h-px bg-gradient-to-r from-transparent via-violet-400 to-transparent"
-          style={{
-            width: '100px',
-            top: `${20 + i * 25}%`,
-            left: '-100px',
-          }}
-          animate={{
-            x: ['0vw', '110vw'],
-            opacity: [0, 1, 0],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            delay: i * 5 + 3,
-            ease: "easeOut",
-          }}
-        />
-      ))}
-      
-      {/* Star clusters */}
-      {[...Array(4)].map((_, i) => (
-        <motion.div
-          key={`cluster-${i}`}
-          className="absolute"
+      {/* Static stars - no animation */}
+      {[...Array(15)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-1 h-1 rounded-full bg-purple-400/30"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
           }}
-        >
-          {[...Array(4)].map((_, j) => (
-            <motion.div
-              key={j}
-              className="absolute w-1 h-1 rounded-full bg-purple-400/60"
-              style={{
-                left: `${j * 5}px`,
-                top: `${Math.sin(j) * 5}px`,
-              }}
-              animate={{
-                opacity: [0.3, 0.8, 0.3],
-                scale: [1, 1.5, 1],
-              }}
-              transition={{
-                duration: 2 + Math.random(),
-                repeat: Infinity,
-                delay: j * 0.2,
-              }}
-            />
-          ))}
-        </motion.div>
+        />
       ))}
       
       <div className="container mx-auto px-4 relative z-10">

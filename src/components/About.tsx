@@ -38,100 +38,14 @@ export default function About() {
     <section id="about" className="py-20 bg-gradient-to-br from-gray-900 via-blue-950/30 via-slate-900 to-gray-900 relative overflow-hidden">
       <SectionBackground variant="blue" />
       
-      {/* Floating particles with trails */}
-      {[...Array(12)].map((_, i) => (
-        <motion.div
-          key={`particle-${i}`}
-          className="absolute rounded-full bg-blue-400/30"
+      {/* Simplified dots - minimal animation */}
+      {[...Array(8)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-1 h-1 rounded-full bg-blue-400/20"
           style={{
-            width: `${2 + Math.random() * 4}px`,
-            height: `${2 + Math.random() * 4}px`,
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            boxShadow: '0 0 10px rgba(59, 130, 246, 0.5)',
-          }}
-          animate={{
-            y: [0, -30, 0],
-            x: [0, Math.random() * 20 - 10, 0],
-            opacity: [0.3, 0.7, 0.3],
-            scale: [1, 1.5, 1],
-          }}
-          transition={{
-            duration: 4 + Math.random() * 4,
-            repeat: Infinity,
-            delay: Math.random() * 3,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-      
-      {/* Animated connecting lines */}
-      {[...Array(3)].map((_, i) => (
-        <motion.div
-          key={`line-${i}`}
-          className="absolute h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"
-          style={{
-            width: '200px',
-            left: `${i * 20}%`,
-            top: `${30 + (i % 2) * 30}%`,
-            transformOrigin: 'center',
-          }}
-          animate={{
-            rotate: [0, 360],
-            opacity: [0.2, 0.5, 0.2],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 15 + i * 2,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      ))}
-      
-      {/* Orbiting rings */}
-      {[...Array(4)].map((_, i) => (
-        <motion.div
-          key={`ring-${i}`}
-          className="absolute border border-blue-400/10 rounded-full"
-          style={{
-            width: `${150 + i * 100}px`,
-            height: `${150 + i * 100}px`,
-            left: '50%',
-            top: '50%',
-            marginLeft: `-${75 + i * 50}px`,
-            marginTop: `-${75 + i * 50}px`,
-          }}
-          animate={{
-            rotate: [0, i % 2 === 0 ? 360 : -360],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 20 + i * 5,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      ))}
-      
-      {/* Glowing nodes */}
-      {[...Array(4)].map((_, i) => (
-        <motion.div
-          key={`node-${i}`}
-          className="absolute w-2 h-2 rounded-full bg-blue-500/50"
-          style={{
-            left: `${10 + i * 12}%`,
-            top: `${15 + (i % 3) * 30}%`,
-            boxShadow: '0 0 15px rgba(59, 130, 246, 0.8)',
-          }}
-          animate={{
-            scale: [1, 2, 1],
-            opacity: [0.5, 1, 0.5],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            delay: i * 0.4,
           }}
         />
       ))}

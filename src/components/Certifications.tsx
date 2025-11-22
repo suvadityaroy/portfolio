@@ -48,43 +48,14 @@ export default function Certifications() {
     <section id="certifications" className="py-20 bg-gradient-to-br from-slate-800 via-indigo-950/30 via-blue-950/20 to-slate-800 relative overflow-hidden">
       <SectionBackground variant="indigo" />
       
-      {/* Diamond pattern */}
-      <motion.div
-        className="absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0L80 40L40 80L0 40z' fill='none' stroke='%236366f1' stroke-width='1'/%3E%3C/svg%3E")`,
-          backgroundSize: '80px 80px',
-        }}
-        animate={{
-          backgroundPosition: ['0px 0px', '80px 80px'],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      />
-      
-      {/* Spinning diamonds */}
-      {[...Array(4)].map((_, i) => (
-        <motion.div
+      {/* Static dots */}
+      {[...Array(8)].map((_, i) => (
+        <div
           key={i}
-          className="absolute border-2 border-indigo-500/10"
+          className="absolute w-1 h-1 rounded-full bg-indigo-400/20"
           style={{
-            width: `${50 + i * 20}px`,
-            height: `${50 + i * 20}px`,
-            left: `${10 + i * 12}%`,
-            top: `${10 + (i % 3) * 30}%`,
-            transform: 'rotate(45deg)',
-          }}
-          animate={{
-            rotate: [45, 405],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 15 + i * 2,
-            repeat: Infinity,
-            ease: "linear",
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
           }}
         />
       ))}

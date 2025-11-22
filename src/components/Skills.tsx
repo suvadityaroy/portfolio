@@ -94,39 +94,14 @@ export default function Skills() {
     <section id="skills" className="py-20 bg-gradient-to-br from-gray-900 via-cyan-950/30 via-blue-950/25 to-black relative overflow-hidden">
       <SectionBackground variant="cyan" />
       
-      {/* Circuit board pattern */}
-      <motion.div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0v100M0 50h100' stroke='%2306b6d4' stroke-width='1'/%3E%3Ccircle cx='50' cy='50' r='5' fill='%2306b6d4'/%3E%3C/svg%3E")`,
-          backgroundSize: '50px 50px',
-        }}
-        animate={{
-          opacity: [0.02, 0.05, 0.02],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-        }}
-      />
-      
-      {/* Tech nodes */}
+      {/* Static dots */}
       {[...Array(8)].map((_, i) => (
-        <motion.div
+        <div
           key={i}
-          className="absolute w-3 h-3 rounded-full bg-cyan-500/30 shadow-lg shadow-cyan-500/50"
+          className="absolute w-1 h-1 rounded-full bg-cyan-400/20"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.3, 0.8, 0.3],
-          }}
-          transition={{
-            duration: 2 + Math.random() * 2,
-            repeat: Infinity,
-            delay: Math.random() * 2,
           }}
         />
       ))}
