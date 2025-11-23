@@ -14,30 +14,73 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+  /* Force GPU compositing */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* Performance optimizations for smooth animations */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Better rendering */
+  text-rendering: optimizeLegibility;
 }
 
-/* GPU acceleration for sections */
+/* Maximum GPU acceleration for sections */
 section {
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
-
-/* Optimize motion elements */
-[class*="motion"] {
   will-change: transform, opacity;
   transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  /* Hardware acceleration */
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+/* Optimize all motion elements */
+[class*="motion"], [class*="absolute"] {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* GPU acceleration for all divs with animations */
+div[style*="transform"], div[style*="opacity"] {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Optimize blur effects */
+[class*="blur"] {
+  will-change: filter;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* Reduce paint operations */
 img {
   content-visibility: auto;
   contain: layout style paint;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Optimize rounded elements */
+[class*="rounded"] {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Better gradient rendering */
+[class*="gradient"] {
+  will-change: background-position;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
