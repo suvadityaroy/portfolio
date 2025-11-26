@@ -129,7 +129,6 @@ export default function Projects() {
               viewport={{ once: true }}
               className="group bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-blue-500/50 transition-all duration-500"
               whileHover={{ y: -8, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
             >
               <div className="relative h-48 overflow-hidden">
                 <div className="absolute inset-0 bg-blue-500/20 group-hover:bg-transparent transition-colors z-10"></div>

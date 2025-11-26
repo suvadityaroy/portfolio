@@ -137,7 +137,6 @@ export default function Experience() {
               <motion.div 
                 className="bg-gray-900 p-6 rounded-lg border border-gray-800 hover:border-blue-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20"
                 whileHover={{ scale: 1.02, y: -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
                   <h3 className="text-xl font-bold text-white flex items-center">

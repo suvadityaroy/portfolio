@@ -151,10 +151,8 @@ export default function Skills() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.02 }}
               className="bg-black p-6 rounded-xl border border-gray-800 hover:border-blue-500/50 transition-all duration-300 shadow-lg hover:shadow-blue-500/10"
               whileHover={{ scale: 1.02, y: -4 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <div className="flex items-center mb-4">
                 <div className="p-2 bg-gray-900 rounded-lg mr-3">
