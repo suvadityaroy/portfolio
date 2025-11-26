@@ -109,10 +109,8 @@ export default function Certifications() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.05 }}
-              className="bg-gray-900 p-8 rounded-xl border border-gray-800 hover:border-blue-500/50 transition-all duration-300 flex flex-col items-center text-center hover:shadow-lg hover:shadow-blue-500/20"
               whileHover={{ scale: 1.03, y: -4 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="bg-gray-900 p-8 rounded-xl border border-gray-800 hover:border-blue-500/50 transition-all duration-300 flex flex-col items-center text-center hover:shadow-lg hover:shadow-blue-500/20"
             >
               <div className="mb-6 p-4 bg-gray-800 rounded-full">
                 {cert.icon}
