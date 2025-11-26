@@ -164,10 +164,8 @@ export default function Skills() {
                 {skillGroup.items.map((item, i) => (
                   <motion.div 
                     key={i} 
-                    whileHover={{ scale: 1.05, y: -5 }}
                     className="flex flex-col items-center justify-center bg-gray-900 border border-gray-800 hover:border-blue-500 rounded-lg p-4 min-w-[80px] cursor-default transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20"
                     whileHover={{ scale: 1.08, y: -2 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   >
                     <div className="text-3xl mb-2">
                       {item.icon}
