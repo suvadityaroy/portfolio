@@ -152,7 +152,9 @@ export default function Skills() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.02 }}
-              className="bg-black p-6 rounded-xl border border-gray-800 hover:border-blue-500/50 transition-all shadow-lg hover:shadow-blue-500/10"
+              className="bg-black p-6 rounded-xl border border-gray-800 hover:border-blue-500/50 transition-all duration-300 shadow-lg hover:shadow-blue-500/10"
+              whileHover={{ scale: 1.02, y: -4 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <div className="flex items-center mb-4">
                 <div className="p-2 bg-gray-900 rounded-lg mr-3">
@@ -165,7 +167,9 @@ export default function Skills() {
                   <motion.div 
                     key={i} 
                     whileHover={{ scale: 1.05, y: -5 }}
-                    className="flex flex-col items-center justify-center bg-gray-900 border border-gray-800 hover:border-blue-500 rounded-lg p-4 min-w-[80px] cursor-default transition-all hover:shadow-lg hover:shadow-blue-500/20"
+                    className="flex flex-col items-center justify-center bg-gray-900 border border-gray-800 hover:border-blue-500 rounded-lg p-4 min-w-[80px] cursor-default transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20"
+                    whileHover={{ scale: 1.08, y: -2 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   >
                     <div className="text-3xl mb-2">
                       {item.icon}
