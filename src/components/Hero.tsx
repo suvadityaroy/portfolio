@@ -149,31 +149,23 @@ export default function Hero() {
                 opacity: 1, 
                 y: 0, 
                 rotateX: 0, 
-                scale: phrases[currentPhraseIndex] === 'Vulnerability Management' ? [1, 1.08, 1] : 1 
+                scale: [1, 1.05, 1]
               }}
               exit={{ opacity: 0, y: -50, rotateX: -90, scale: 0.8 }}
               transition={{ 
                 duration: 0.6,
                 ease: [0.34, 1.56, 0.64, 1],
                 scale: {
-                  duration: 1.5,
-                  repeat: phrases[currentPhraseIndex] === 'Vulnerability Management' ? Infinity : 0,
+                  duration: 2,
+                  repeat: Infinity,
                   repeatType: "reverse",
                   ease: "easeInOut"
                 }
               }}
-              className={`text-2xl md:text-4xl font-bold ${
-                phrases[currentPhraseIndex] === 'Vulnerability Management' 
-                  ? 'text-red-500' 
-                  : 'text-transparent bg-clip-text bg-gradient-to-r from-primary-400 via-cyan-400 to-blue-400'
-              }`}
+              className="text-2xl md:text-4xl font-bold text-yellow-400"
               style={{
-                textShadow: phrases[currentPhraseIndex] === 'Vulnerability Management' 
-                  ? '0 0 50px rgba(239, 68, 68, 1), 0 0 100px rgba(239, 68, 68, 0.6), 0 0 150px rgba(239, 68, 68, 0.3)' 
-                  : '0 0 30px rgba(59, 130, 246, 0.5)',
-                WebkitTextStroke: phrases[currentPhraseIndex] === 'Vulnerability Management' 
-                  ? '1.5px rgba(239, 68, 68, 0.5)' 
-                  : 'none'
+                textShadow: '0 0 40px rgba(250, 204, 21, 0.9), 0 0 80px rgba(250, 204, 21, 0.6), 0 0 120px rgba(250, 204, 21, 0.3)',
+                WebkitTextStroke: '1px rgba(250, 204, 21, 0.4)'
               }}
             >
               {phrases[currentPhraseIndex]}
