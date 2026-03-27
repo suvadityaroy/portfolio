@@ -80,33 +80,49 @@ export default function Experience() {
           {experiences.map((exp, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.08, ease: "easeOut" }}
+              viewport={{ once: true, margin: "-50px" }}
+              whileHover={{ y: -4, transition: { duration: 0.3 } }}
               className="relative"
             >
-              <div className="bg-dark-850 border border-dark-800 p-8 rounded-xl hover:border-primary-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/10">
+              <div className="bg-dark-850 border border-dark-800 p-6 md:p-8 rounded-xl hover:border-primary-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary-500/20 group">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
                   <div className="flex-1">
-                    <h3 className="text-2xl font-heading font-bold text-white mb-1">
+                    <motion.h3 
+                      className="text-xl md:text-2xl font-heading font-bold text-white mb-1 group-hover:text-primary-400 transition-colors"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: index * 0.08 + 0.2 }}
+                    >
                       {exp.role}
-                    </h3>
-                    <h4 className="text-lg text-primary-400 font-medium mb-2">{exp.company}</h4>
+                    </motion.h3>
+                    <h4 className="text-base md:text-lg text-primary-400 font-medium mb-2">{exp.company}</h4>
                     {exp.location && (
                       <p className="text-sm text-gray-500">{exp.location}</p>
                     )}
                   </div>
-                  <span className="text-sm text-gray-400 bg-dark-900 border border-dark-700 px-4 py-2 rounded-lg mt-3 md:mt-0 w-fit">
+                  <motion.span 
+                    className="text-sm text-gray-400 bg-dark-900 border border-dark-700 px-4 py-2 rounded-lg mt-3 md:mt-0 w-fit group-hover:border-primary-500/30 transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                  >
                     {exp.period}
-                  </span>
+                  </motion.span>
                 </div>
                 <ul className="space-y-3 mt-6">
                   {exp.description.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-gray-300">
-                      <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0"></span>
+                    <motion.li 
+                      key={i} 
+                      className="flex items-start gap-3 text-sm md:text-base text-gray-300"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.08 + i * 0.05 }}
+                      viewport={{ once: true }}
+                    >
+                      <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0 group-hover:scale-125 transition-transform"></span>
                       <span className="leading-relaxed">{item}</span>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
               </div>

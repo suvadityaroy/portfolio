@@ -89,46 +89,65 @@ export default function Projects() {
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              viewport={{ once: true }}
-              className="group bg-dark-900 border border-dark-800 rounded-xl overflow-hidden hover:border-primary-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/10"
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, delay: index * 0.06, ease: "easeOut" }}
+              viewport={{ once: true, margin: "-50px" }}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="group bg-dark-900 border border-dark-800 rounded-xl overflow-hidden hover:border-primary-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary-500/20"
             >
               <div className="relative h-48 overflow-hidden bg-gradient-to-br from-dark-800 to-dark-850">
-                <img 
+                <motion.img 
                   src={project.image} 
                   alt={project.title} 
-                  className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500"
+                  className="w-full h-full object-cover opacity-60 transition-all duration-500"
+                  whileHover={{ scale: 1.1, opacity: 0.9 }}
+                  transition={{ duration: 0.5 }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-900 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/50 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
+                <motion.div 
+                  className="absolute top-3 right-3 flex gap-2"
+                  initial={{ opacity: 0, y: -10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.06 + 0.2 }}
+                >
+                  <div className="px-2 py-1 bg-primary-500/90 backdrop-blur-sm rounded text-xs font-semibold text-white">Featured</div>
+                </motion.div>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-heading font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">{project.title}</h3>
-                <p className="text-gray-400 mb-4 text-sm leading-relaxed line-clamp-3">{project.description}</p>
+                <h3 className="text-lg md:text-xl font-heading font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">{project.title}</h3>
+                <p className="text-sm md:text-base text-gray-400 mb-4 leading-relaxed line-clamp-3">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="px-3 py-1 bg-dark-800 border border-dark-700 text-primary-400 rounded-md text-xs font-medium">
+                  {project.tags.map((tag, i) => (
+                    <motion.span 
+                      key={tag}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.06 + i * 0.03 }}
+                      viewport={{ once: true }}
+                      whileHover={{ scale: 1.05 }}
+                      className="px-3 py-1 bg-dark-800 border border-dark-700 text-primary-400 rounded-md text-xs font-medium hover:border-primary-500/50 hover:bg-primary-500/5 transition-all cursor-default"
+                    >
                       {tag}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
                 <div className="flex gap-3 pt-4 border-t border-dark-800">
                   <Link 
                     href={project.github} 
                     target="_blank"
-                    className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium"
+                    className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium group/link"
                   >
-                    <Github className="w-4 h-4" />
+                    <Github className="w-4 h-4 group-hover/link:rotate-12 transition-transform" />
                     Code
                   </Link>
                   {project.demo && (
                     <Link 
                       href={project.demo} 
                       target="_blank"
-                      className="flex items-center gap-2 text-gray-400 hover:text-primary-400 transition-colors text-sm font-medium"
+                      className="flex items-center gap-2 text-gray-400 hover:text-primary-400 transition-colors text-sm font-medium group/link"
                     >
-                      <ExternalLink className="w-4 h-4" />
+                      <ExternalLink className="w-4 h-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
                       Live Demo
                     </Link>
                   )}

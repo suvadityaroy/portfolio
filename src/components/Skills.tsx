@@ -124,29 +124,39 @@ export default function Skills() {
           {skills.map((skillGroup, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              viewport={{ once: true }}
-              className="bg-dark-850 border border-dark-800 p-6 rounded-xl hover:border-primary-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/10"
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, delay: index * 0.06, ease: "easeOut" }}
+              viewport={{ once: true, margin: "-50px" }}
+              whileHover={{ y: -6, transition: { duration: 0.3 } }}
+              className="bg-dark-850 border border-dark-800 p-6 rounded-xl hover:border-primary-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary-500/20 group cursor-pointer"
             >
               <div className="flex items-center gap-3 mb-5">
-                <div className="p-2.5 bg-dark-900 rounded-lg border border-dark-700">
+                <motion.div 
+                  className="p-2.5 bg-dark-900 rounded-lg border border-dark-700 group-hover:border-primary-500/50 group-hover:bg-primary-500/10 transition-all duration-300"
+                  whileHover={{ rotate: 360, scale: 1.1 }}
+                  transition={{ duration: 0.6 }}
+                >
                   {skillGroup.icon}
-                </div>
-                <h3 className="text-lg font-heading font-semibold text-white">{skillGroup.category}</h3>
+                </motion.div>
+                <h3 className="text-base md:text-lg font-heading font-semibold text-white group-hover:text-primary-400 transition-colors">{skillGroup.category}</h3>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 {skillGroup.items.map((item, i) => (
-                  <div 
-                    key={i} 
-                    className="flex items-center gap-2 bg-dark-900 border border-dark-700 rounded-lg p-3 hover:border-primary-500/30 transition-colors"
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: index * 0.06 + i * 0.03 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className="flex items-center gap-2 bg-dark-900 border border-dark-700 rounded-lg p-2.5 hover:border-primary-500/40 hover:bg-primary-500/5 transition-all duration-200 cursor-pointer"
                   >
-                    <div className="text-lg flex-shrink-0">
+                    <div className="text-base flex-shrink-0">
                       {item.icon}
                     </div>
                     <span className="text-xs text-gray-300 font-medium leading-tight">{item.name}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>

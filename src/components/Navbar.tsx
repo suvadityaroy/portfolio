@@ -18,10 +18,17 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+      
+      // Calculate scroll progress
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      setScrollProgress(scrolled);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -33,6 +40,14 @@ export default function Navbar() {
         ? 'bg-dark-900/80 backdrop-blur-xl border-b border-dark-800 shadow-lg' 
         : 'bg-transparent'
     }`}>
+      {/* Scroll Progress Bar */}
+      <motion.div 
+        className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary-500 via-blue-500 to-cyan-500"
+        style={{ width: `${scrollProgress}%` }}
+        initial={{ width: 0 }}
+        transition={{ duration: 0.1 }}
+      />
+      
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Link href="#home" className="text-2xl font-heading font-bold text-white group">
           <span className="text-primary-400">S</span>uvaditya

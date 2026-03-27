@@ -67,50 +67,53 @@ export default function Contact() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-50px" }}
             className="space-y-6"
           >
-            <h3 className="text-2xl font-heading font-bold text-white mb-8">Contact Information</h3>
+            <h3 className="text-xl md:text-2xl font-heading font-bold text-white mb-8">Contact Information</h3>
             <div className="space-y-5">
-              <div className="flex items-center gap-4 p-4 bg-dark-850 border border-dark-800 rounded-lg hover:border-primary-500/50 transition-colors">
-                <div className="p-3 bg-primary-500/10 rounded-lg">
-                  <Mail className="w-6 h-6 text-primary-400" />
-                </div>
-                <div>
-                  <h4 className="text-white font-medium mb-1">Email</h4>
-                  <a href="mailto:suvadityaroy.dev@gmail.com" className="text-gray-400 hover:text-primary-400 transition-colors">suvadityaroy.dev@gmail.com</a>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 p-4 bg-dark-850 border border-dark-800 rounded-lg hover:border-primary-500/50 transition-colors">
-                <div className="p-3 bg-primary-500/10 rounded-lg">
-                  <Phone className="w-6 h-6 text-primary-400" />
-                </div>
-                <div>
-                  <h4 className="text-white font-medium mb-1">Phone</h4>
-                  <a href="tel:+918525017278" className="text-gray-400 hover:text-primary-400 transition-colors">+91 8525017278</a>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 p-4 bg-dark-850 border border-dark-800 rounded-lg hover:border-primary-500/50 transition-colors">
-                <div className="p-3 bg-primary-500/10 rounded-lg">
-                  <MapPin className="w-6 h-6 text-primary-400" />
-                </div>
-                <div>
-                  <h4 className="text-white font-medium mb-1">Location</h4>
-                  <p className="text-gray-400">Kolkata, West Bengal, India</p>
-                </div>
-              </div>
+              {[
+                { icon: Mail, title: 'Email', value: 'suvadityaroy.dev@gmail.com', href: 'mailto:suvadityaroy.dev@gmail.com' },
+                { icon: Phone, title: 'Phone', value: '+91 8525017278', href: 'tel:+918525017278' },
+                { icon: MapPin, title: 'Location', value: 'Kolkata, West Bengal, India', href: null }
+              ].map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                  className="flex items-center gap-4 p-4 bg-dark-850 border border-dark-800 rounded-lg hover:border-primary-500/50 hover:shadow-lg hover:shadow-primary-500/10 transition-all cursor-pointer group"
+                >
+                  <motion.div 
+                    className="p-3 bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 transition-colors"
+                    whileHover={{ rotate: 15, scale: 1.1 }}
+                  >
+                    <item.icon className="w-6 h-6 text-primary-400" />
+                  </motion.div>
+                  <div>
+                    <h4 className="text-white font-medium mb-1">{item.title}</h4>
+                    {item.href ? (
+                      <a href={item.href} className="text-sm md:text-base text-gray-400 hover:text-primary-400 transition-colors">{item.value}</a>
+                    ) : (
+                      <p className="text-sm md:text-base text-gray-400">{item.value}</p>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="bg-dark-850 border border-dark-800 p-8 rounded-xl"
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-50px" }}
+            className="bg-dark-850 border border-dark-800 p-6 md:p-8 rounded-xl hover:border-primary-500/30 transition-colors"
           >
             {submitStatus === 'success' ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">

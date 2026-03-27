@@ -65,22 +65,27 @@ export default function Certifications() {
           {certifications.map((cert, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              viewport={{ once: true }}
-              className="bg-dark-900 border border-dark-800 p-6 rounded-xl hover:border-primary-500/50 transition-all duration-300 flex flex-col hover:shadow-lg hover:shadow-primary-500/10"
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, delay: index * 0.06, ease: "easeOut" }}
+              viewport={{ once: true, margin: "-50px" }}
+              whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.3 } }}
+              className="bg-dark-900 border border-dark-800 p-6 rounded-xl hover:border-primary-500/50 transition-all duration-300 flex flex-col hover:shadow-2xl hover:shadow-primary-500/20 group cursor-pointer"
             >
               <div className="flex items-start gap-4 mb-4">
-                <div className="p-3 bg-dark-800 rounded-lg border border-dark-700 flex-shrink-0">
+                <motion.div 
+                  className="p-3 bg-dark-800 rounded-lg border border-dark-700 flex-shrink-0 group-hover:border-primary-500/50 group-hover:bg-primary-500/5 transition-all"
+                  whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
+                  transition={{ duration: 0.5 }}
+                >
                   {cert.icon}
-                </div>
+                </motion.div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-heading font-semibold text-white mb-1 leading-tight">{cert.name}</h3>
+                  <h3 className="text-base md:text-lg font-heading font-semibold text-white mb-1 leading-tight group-hover:text-primary-400 transition-colors">{cert.name}</h3>
                   <p className="text-primary-400 font-medium text-sm">{cert.issuer}</p>
                 </div>
               </div>
-              <p className="text-gray-500 text-sm mt-auto pt-4 border-t border-dark-800">{cert.date}</p>
+              <p className="text-gray-500 text-sm mt-auto pt-4 border-t border-dark-800 group-hover:border-primary-500/30 transition-colors">{cert.date}</p>
             </motion.div>
           ))}
         </div>
