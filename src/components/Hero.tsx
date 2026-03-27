@@ -150,21 +150,9 @@ export default function Hero() {
             <Link href="https://linkedin.com/in/suvadityaroy" target="_blank" className="text-gray-400 hover:text-primary-400 transition-colors">
               <Linkedin className="w-6 h-6" />
             </Link>
-            <Link href="mailto:contact@example.com" className="text-gray-400 hover:text-primary-400 transition-colors">
+            <Link href="mailto:suvadityaroy.dev@gmail.com" className="text-gray-400 hover:text-primary-400 transition-colors">
               <Mail className="w-6 h-6" />
             </Link>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-            </Link>
-          </div>
-
-          <div className="flex justify-center space-x-6 text-gray-400">
-            <a href="https://github.com/suvadityaroy" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Github size={24} /></a>
-            <a href="https://www.linkedin.com/in/suvadityaroy/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Linkedin size={24} /></a>
-            <a href="mailto:suvadityaroy.dev@gmail.com" className="hover:text-white transition-colors"><Mail size={24} /></a>
           </div>
         </motion.div>
       </div>
