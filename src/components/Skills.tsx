@@ -101,8 +101,82 @@ const skills = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-20 bg-gradient-to-br from-gray-900 via-cyan-950/30 via-blue-950/25 to-black relative overflow-hidden">
-      <SectionBackground variant="cyan" />
+    <section id="skills" className="py-24 bg-dark-900 relative overflow-hidden">
+      {/* Subtle background elements */}
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl"></div>
+      
+      <div className="container mx-auto px-6 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">Technical Skills</h2>
+          <div className="w-20 h-1 bg-primary-500 mx-auto rounded-full"></div>
+          <p className="text-gray-400 mt-6 max-w-2xl mx-auto">
+            Comprehensive security expertise across cloud platforms, enterprise tools, and security frameworks
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skills.map((skillGroup, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              viewport={{ once: true }}
+              className="bg-dark-850 border border-dark-800 p-6 rounded-xl hover:border-primary-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/10"
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="p-2.5 bg-dark-900 rounded-lg border border-dark-700">
+                  {skillGroup.icon}
+                </div>
+                <h3 className="text-lg font-heading font-semibold text-white">{skillGroup.category}</h3>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                {skillGroup.items.map((item, i) => (
+                  <div 
+                    key={i} 
+                    className="flex items-center gap-2 bg-dark-900 border border-dark-700 rounded-lg p-3 hover:border-primary-500/30 transition-colors"
+                  >
+                    <div className="text-lg flex-shrink-0">
+                      {item.icon}
+                    </div>
+                    <span className="text-xs text-gray-300 font-medium leading-tight">{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Featured Tools */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="mt-16 bg-gradient-to-br from-primary-500/10 to-blue-500/5 border border-primary-500/20 rounded-xl p-8"
+        >
+          <h3 className="text-2xl font-heading font-bold text-white mb-6 text-center">Enterprise Security Tools</h3>
+          <div className="flex flex-wrap justify-center gap-4">
+            {['Wiz CSPM', 'CyberArk PAM/EPM', 'Qualys VMDR', 'Veracode SAST', 'Proofpoint', 'DigiCert', 'Splunk SIEM', 'AWS Security Hub'].map((tool, idx) => (
+              <span 
+                key={idx}
+                className="px-5 py-2.5 bg-dark-900/80 border border-primary-500/30 rounded-lg text-sm font-medium text-white hover:bg-dark-800 hover:border-primary-500/50 transition-all cursor-default"
+              >
+                {tool}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
       
       {/* Circuit board pattern */}
       <motion.div

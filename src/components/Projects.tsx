@@ -65,8 +65,81 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 bg-gradient-to-br from-black via-pink-950/30 via-fuchsia-950/25 to-black relative overflow-hidden">
-      <SectionBackground variant="violet" />
+    <section id="projects" className="py-24 bg-dark-950 relative overflow-hidden">
+      {/* Subtle gradient */}
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-primary-500/5 via-transparent to-transparent"></div>
+      
+      <div className="container mx-auto px-6 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">Featured Projects</h2>
+          <div className="w-20 h-1 bg-primary-500 mx-auto rounded-full"></div>
+          <p className="text-gray-400 mt-6 max-w-2xl mx-auto">
+            Cloud security tools, automation platforms, and research projects
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              viewport={{ once: true }}
+              className="group bg-dark-900 border border-dark-800 rounded-xl overflow-hidden hover:border-primary-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/10"
+            >
+              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-dark-800 to-dark-850">
+                <img 
+                  src={project.image} 
+                  alt={project.title} 
+                  className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-900 to-transparent"></div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-heading font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">{project.title}</h3>
+                <p className="text-gray-400 mb-4 text-sm leading-relaxed line-clamp-3">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="px-3 py-1 bg-dark-800 border border-dark-700 text-primary-400 rounded-md text-xs font-medium">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-3 pt-4 border-t border-dark-800">
+                  <Link 
+                    href={project.github} 
+                    target="_blank"
+                    className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium"
+                  >
+                    <Github className="w-4 h-4" />
+                    Code
+                  </Link>
+                  {project.demo && (
+                    <Link 
+                      href={project.demo} 
+                      target="_blank"
+                      className="flex items-center gap-2 text-gray-400 hover:text-primary-400 transition-colors text-sm font-medium"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      Live Demo
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
       
       {/* Star field pattern */}
       {[...Array(15)].map((_, i) => (

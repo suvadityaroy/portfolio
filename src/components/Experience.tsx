@@ -60,8 +60,63 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-20 bg-gradient-to-br from-gray-800 via-purple-950/20 via-violet-950/30 to-gray-800 relative overflow-hidden">
-      <SectionBackground variant="violet" />
+    <section id="experience" className="py-24 bg-dark-900 relative overflow-hidden">
+      {/* Subtle background */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+      
+      <div className="container mx-auto px-6 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">Professional Experience</h2>
+          <div className="w-20 h-1 bg-primary-500 mx-auto rounded-full"></div>
+        </motion.div>
+
+        <div className="max-w-4xl mx-auto space-y-8">
+          {experiences.map((exp, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="bg-dark-850 border border-dark-800 p-8 rounded-xl hover:border-primary-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/10">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-heading font-bold text-white mb-1">
+                      {exp.role}
+                    </h3>
+                    <h4 className="text-lg text-primary-400 font-medium mb-2">{exp.company}</h4>
+                    {exp.location && (
+                      <p className="text-sm text-gray-500">{exp.location}</p>
+                    )}
+                  </div>
+                  <span className="text-sm text-gray-400 bg-dark-900 border border-dark-700 px-4 py-2 rounded-lg mt-3 md:mt-0 w-fit">
+                    {exp.period}
+                  </span>
+                </div>
+                <ul className="space-y-3 mt-6">
+                  {exp.description.map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-gray-300">
+                      <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
       
       {/* Twinkling stars */}
       {[...Array(20)].map((_, i) => (
