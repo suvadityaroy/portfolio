@@ -152,10 +152,10 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <span 
-              className="text-transparent bg-clip-text bg-gradient-to-r from-primary-300 via-blue-400 to-cyan-300"
+              className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400"
               style={{
-                textShadow: '0 0 40px rgba(59, 130, 246, 0.8), 0 0 80px rgba(59, 130, 246, 0.4)',
-                WebkitTextStroke: '1px rgba(59, 130, 246, 0.3)'
+                textShadow: '0 0 40px rgba(168, 85, 247, 0.8), 0 0 80px rgba(236, 72, 153, 0.4)',
+                WebkitTextStroke: '1px rgba(168, 85, 247, 0.3)'
               }}
             >
               Suvaditya Roy
