@@ -15,16 +15,26 @@ export default function Hero() {
     'Vulnerability Management'
   ];
 
-  const taglineText = "Securing 300+ cloud assets with enterprise security tools. Springer-published researcher in blockchain security.";
+  const codeLines = [
+    "Securing 300+ cloud assets with enterprise security tools",
+    "Springer-published researcher in blockchain security",
+    "Enterprise security: Wiz CSPM, CyberArk PAM, Qualys VMDR",
+    "Python automation for log analysis and vulnerability tracking",
+    "Cloud security expert in AWS and Azure environments",
+    "SOC operations with Splunk and incident response",
+    "Currently Security Engineer at ITPeopleNetwork Kolkata"
+  ];
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [charIndex, setCharIndex] = useState(0);
   
-  // Typing animation for tagline
-  const [taglineDisplayed, setTaglineDisplayed] = useState('');
-  const [taglineCharIndex, setTaglineCharIndex] = useState(0);
+  // Typing animation for rotating code lines
+  const [currentCodeLineIndex, setCurrentCodeLineIndex] = useState(0);
+  const [codeLineDisplayed, setCodeLineDisplayed] = useState('');
+  const [codeLineCharIndex, setCodeLineCharIndex] = useState(0);
+  const [isCodeLineDeleting, setIsCodeLineDeleting] = useState(false);
 
   // Typewriter for main role
   useEffect(() => {
@@ -54,16 +64,33 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, [charIndex, isDeleting, currentPhraseIndex, phrases]);
 
-  // Typing animation for tagline (starts after delay)
+  // Rotating typing animation for code lines
   useEffect(() => {
-    if (taglineCharIndex < taglineText.length) {
-      const timeout = setTimeout(() => {
-        setTaglineDisplayed(taglineText.substring(0, taglineCharIndex + 1));
-        setTaglineCharIndex(taglineCharIndex + 1);
-      }, 40); // Faster typing for tagline
-      return () => clearTimeout(timeout);
+    const currentCodeLine = codeLines[currentCodeLineIndex];
+    const typingSpeed = isCodeLineDeleting ? 20 : 50;
+    const pauseAtEnd = 3000; // Pause to read the line
+    const pauseBeforeDelete = 500;
+
+    if (!isCodeLineDeleting && codeLineCharIndex === currentCodeLine.length) {
+      setTimeout(() => setIsCodeLineDeleting(true), pauseAtEnd);
+      return;
     }
-  }, [taglineCharIndex, taglineText]);
+
+    if (isCodeLineDeleting && codeLineCharIndex === 0) {
+      setTimeout(() => {
+        setIsCodeLineDeleting(false);
+        setCurrentCodeLineIndex((prev) => (prev + 1) % codeLines.length);
+      }, pauseBeforeDelete);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setCodeLineDisplayed(currentCodeLine.substring(0, codeLineCharIndex + (isCodeLineDeleting ? -1 : 1)));
+      setCodeLineCharIndex((prev) => prev + (isCodeLineDeleting ? -1 : 1));
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [codeLineCharIndex, isCodeLineDeleting, currentCodeLineIndex, codeLines]);
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center bg-dark-950 relative overflow-hidden">
@@ -117,14 +144,20 @@ export default function Hero() {
             Hi, I'm
           </motion.p>
 
-          {/* Name */}
+          {/* Name - More Visible with Glow Effect */}
           <motion.h1 
-            className="text-6xl md:text-8xl lg:text-9xl font-heading font-black text-white mb-6 leading-none"
+            className="text-6xl md:text-8xl lg:text-9xl font-heading font-black mb-6 leading-none drop-shadow-2xl"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 via-blue-500 to-cyan-400">
+            <span 
+              className="text-transparent bg-clip-text bg-gradient-to-r from-primary-300 via-blue-400 to-cyan-300"
+              style={{
+                textShadow: '0 0 40px rgba(59, 130, 246, 0.8), 0 0 80px rgba(59, 130, 246, 0.4)',
+                WebkitTextStroke: '1px rgba(59, 130, 246, 0.3)'
+              }}
+            >
               Suvaditya Roy
             </span>
           </motion.h1>
@@ -148,39 +181,80 @@ export default function Hero() {
             </p>
           </motion.div>
 
-          {/* Coding-style typing tagline */}
+          {/* Coding-style rotating message */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mb-12 max-w-3xl mx-auto"
+            className="mb-12 max-w-4xl mx-auto"
           >
-            <div className="bg-dark-900/50 backdrop-blur-sm border border-dark-700 rounded-xl p-6 shadow-2xl">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="flex gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            <div className="bg-gradient-to-br from-dark-900/80 to-dark-800/80 backdrop-blur-md border-2 border-primary-500/20 rounded-2xl p-6 md:p-8 shadow-2xl shadow-primary-500/10 hover:border-primary-500/40 transition-all duration-500">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="flex gap-2">
+                    <motion.div 
+                      className="w-3 h-3 rounded-full bg-red-500 cursor-pointer hover:bg-red-400"
+                      whileHover={{ scale: 1.2 }}
+                    ></motion.div>
+                    <motion.div 
+                      className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer hover:bg-yellow-400"
+                      whileHover={{ scale: 1.2 }}
+                    ></motion.div>
+                    <motion.div 
+                      className="w-3 h-3 rounded-full bg-green-500 cursor-pointer hover:bg-green-400"
+                      whileHover={{ scale: 1.2 }}
+                    ></motion.div>
+                  </div>
+                  <span className="text-xs md:text-sm text-gray-400 ml-2 font-mono">about.js</span>
                 </div>
-                <span className="text-xs text-gray-500 ml-2 font-mono">about.me</span>
+                <div className="flex gap-2">
+                  <motion.div 
+                    className="w-6 h-1 bg-gray-600 rounded"
+                    animate={{ opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  ></motion.div>
+                  <motion.div 
+                    className="w-6 h-1 bg-gray-600 rounded"
+                    animate={{ opacity: [1, 0.5, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                  ></motion.div>
+                  <motion.div 
+                    className="w-6 h-1 bg-gray-600 rounded"
+                    animate={{ opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                  ></motion.div>
+                </div>
               </div>
-              <div className="font-mono text-left">
-                <span className="text-purple-400">const</span>{' '}
-                <span className="text-blue-400">securityEngineer</span>{' '}
-                <span className="text-white">=</span>{' '}
-                <span className="text-yellow-400">"</span>
-                <span className="text-green-400">
-                  {taglineDisplayed}
-                  <motion.span
-                    animate={{ opacity: [1, 0, 1] }}
-                    transition={{ duration: 0.5, repeat: Infinity }}
-                    className="text-white"
-                  >
-                    {taglineCharIndex < taglineText.length ? '|' : ''}
-                  </motion.span>
-                </span>
-                <span className="text-yellow-400">{taglineCharIndex >= taglineText.length ? '"' : ''}</span>
-                <span className="text-white">{taglineCharIndex >= taglineText.length ? ';' : ''}</span>
+              <div className="font-mono text-sm md:text-base text-left overflow-x-auto">
+                <div className="flex items-start gap-2">
+                  <span className="text-gray-600 select-none">1</span>
+                  <div className="flex-1">
+                    <span className="text-purple-400">const</span>{' '}
+                    <span className="text-blue-400">about</span>{' '}
+                    <span className="text-white">=</span>{' '}
+                    <span className="text-yellow-400">"</span>
+                    <span className="text-green-400">
+                      {codeLineDisplayed}
+                      <motion.span
+                        animate={{ opacity: [1, 0, 1] }}
+                        transition={{ duration: 0.5, repeat: Infinity }}
+                        className="text-white bg-white/20 px-0.5"
+                      >
+                        {!isCodeLineDeleting ? '█' : ''}
+                      </motion.span>
+                    </span>
+                    <span className="text-yellow-400">{codeLineCharIndex === codeLines[currentCodeLineIndex].length ? '"' : ''}</span>
+                    <span className="text-white">{codeLineCharIndex === codeLines[currentCodeLineIndex].length ? ';' : ''}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 flex items-center gap-2 text-xs text-gray-500">
+                <motion.div 
+                  className="w-2 h-2 rounded-full bg-green-500"
+                  animate={{ scale: [1, 1.3, 1], opacity: [1, 0.5, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                ></motion.div>
+                <span>Live Preview</span>
               </div>
             </div>
           </motion.div>
