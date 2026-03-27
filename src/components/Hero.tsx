@@ -15,11 +15,18 @@ export default function Hero() {
     'Vulnerability Management'
   ];
 
+  const taglineText = "Securing 300+ cloud assets with enterprise security tools. Springer-published researcher in blockchain security.";
+
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [charIndex, setCharIndex] = useState(0);
+  
+  // Typing animation for tagline
+  const [taglineDisplayed, setTaglineDisplayed] = useState('');
+  const [taglineCharIndex, setTaglineCharIndex] = useState(0);
 
+  // Typewriter for main role
   useEffect(() => {
     const currentPhrase = phrases[currentPhraseIndex];
     const typingSpeed = isDeleting ? 25 : 70;
@@ -46,6 +53,17 @@ export default function Hero() {
 
     return () => clearTimeout(timeout);
   }, [charIndex, isDeleting, currentPhraseIndex, phrases]);
+
+  // Typing animation for tagline (starts after delay)
+  useEffect(() => {
+    if (taglineCharIndex < taglineText.length) {
+      const timeout = setTimeout(() => {
+        setTaglineDisplayed(taglineText.substring(0, taglineCharIndex + 1));
+        setTaglineCharIndex(taglineCharIndex + 1);
+      }, 40); // Faster typing for tagline
+      return () => clearTimeout(timeout);
+    }
+  }, [taglineCharIndex, taglineText]);
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center bg-dark-950 relative overflow-hidden">
@@ -130,52 +148,49 @@ export default function Hero() {
             </p>
           </motion.div>
 
-          {/* Colorful tech stack badges */}
+          {/* Coding-style typing tagline */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap justify-center gap-3 mb-12 max-w-3xl mx-auto"
-          >
-            {[
-              { name: 'Wiz CSPM', color: 'from-blue-500 to-blue-600', icon: '🛡️' },
-              { name: 'CyberArk PAM', color: 'from-purple-500 to-purple-600', icon: '🔐' },
-              { name: 'Qualys VMDR', color: 'from-red-500 to-red-600', icon: '🔍' },
-              { name: 'Python', color: 'from-yellow-500 to-yellow-600', icon: '🐍' },
-              { name: 'AWS Security', color: 'from-orange-500 to-orange-600', icon: '☁️' },
-              { name: 'Splunk', color: 'from-green-500 to-green-600', icon: '📊' }
-            ].map((tech, i) => (
-              <motion.div
-                key={tech.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.7 + i * 0.05 }}
-                whileHover={{ scale: 1.1, y: -5 }}
-                className={`px-4 py-2 bg-gradient-to-r ${tech.color} text-white rounded-full text-sm font-semibold shadow-lg cursor-default flex items-center gap-2`}
-              >
-                <span>{tech.icon}</span>
-                <span>{tech.name}</span>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Simple tagline */}
-          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="text-base md:text-lg text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed"
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mb-12 max-w-3xl mx-auto"
           >
-            Securing <span className="text-white font-semibold">300+ cloud assets</span> with enterprise security tools. 
-            <span className="text-primary-400"> Springer-published researcher</span> in blockchain security.
-          </motion.p>
+            <div className="bg-dark-900/50 backdrop-blur-sm border border-dark-700 rounded-xl p-6 shadow-2xl">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <span className="text-xs text-gray-500 ml-2 font-mono">about.me</span>
+              </div>
+              <div className="font-mono text-left">
+                <span className="text-purple-400">const</span>{' '}
+                <span className="text-blue-400">securityEngineer</span>{' '}
+                <span className="text-white">=</span>{' '}
+                <span className="text-yellow-400">"</span>
+                <span className="text-green-400">
+                  {taglineDisplayed}
+                  <motion.span
+                    animate={{ opacity: [1, 0, 1] }}
+                    transition={{ duration: 0.5, repeat: Infinity }}
+                    className="text-white"
+                  >
+                    {taglineCharIndex < taglineText.length ? '|' : ''}
+                  </motion.span>
+                </span>
+                <span className="text-yellow-400">{taglineCharIndex >= taglineText.length ? '"' : ''}</span>
+                <span className="text-white">{taglineCharIndex >= taglineText.length ? ';' : ''}</span>
+              </div>
+            </div>
+          </motion.div>
           
           {/* CTA Buttons with enhanced animations */}
           <motion.div 
             className="flex flex-wrap justify-center gap-4 mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
           >
             <Link 
               href="#projects" 
@@ -198,7 +213,7 @@ export default function Hero() {
             className="flex items-center justify-center gap-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
+            transition={{ duration: 0.8, delay: 1.0 }}
           >
             <Link 
               href="https://github.com/suvadityaroy" 
