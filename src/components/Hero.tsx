@@ -8,11 +8,11 @@ import { useState, useEffect } from 'react';
 
 export default function Hero() {
   const phrases = [
-    'Cloud Security Engineer',
-    'CSPM & IAM Specialist',
-    'Vulnerability Management',
-    'Security Automation',
-    'Cloud-Native Security'
+    'Security Engineer',
+    'Cloud Security',
+    'CSPM Specialist',
+    'Python Automation',
+    'Vulnerability Management'
   ];
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -87,29 +87,38 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-5xl mx-auto"
+          className="max-w-5xl mx-auto text-center"
         >
-          {/* Main heading with stagger animation */}
-          <motion.h1 
-            className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white mb-8 leading-tight"
-            initial={{ opacity: 0, y: 30 }}
+          {/* Simple greeting */}
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-lg md:text-xl text-gray-400 mb-4 font-light tracking-wide"
+          >
+            Hi, I'm
+          </motion.p>
+
+          {/* Name */}
+          <motion.h1 
+            className="text-6xl md:text-8xl lg:text-9xl font-heading font-black text-white mb-6 leading-none"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <motion.span
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="block"
-            >
-              Cloud Security Engineer
-            </motion.span>
-            <motion.span 
-              className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 via-blue-400 to-cyan-400 inline-block mt-2"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 via-blue-500 to-cyan-400">
+              Suvaditya Roy
+            </span>
+          </motion.h1>
+
+          {/* Dynamic role with typewriter */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="mb-12"
+          >
+            <p className="text-2xl md:text-4xl text-gray-300 font-light">
               {displayedText}
               <motion.span
                 animate={{ opacity: [1, 0, 1] }}
@@ -118,84 +127,96 @@ export default function Hero() {
               >
                 |
               </motion.span>
-            </motion.span>
-          </motion.h1>
+            </p>
+          </motion.div>
 
-          {/* Professional subtitle with reveal animation */}
+          {/* Colorful tech stack badges */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="space-y-4 mb-10"
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-wrap justify-center gap-3 mb-12 max-w-3xl mx-auto"
           >
-            <p className="text-xl md:text-2xl text-gray-300 max-w-4xl leading-relaxed">
-              Experienced Security Engineer specializing in <span className="text-white font-semibold bg-primary-500/10 px-2 py-1 rounded">Cloud Security Posture Management</span>, <span className="text-white font-semibold bg-purple-500/10 px-2 py-1 rounded">Privileged Access Management</span>, and <span className="text-white font-semibold bg-red-500/10 px-2 py-1 rounded">Vulnerability Assessment</span>.
-            </p>
-            
-            <p className="text-base md:text-lg text-gray-400 max-w-3xl leading-relaxed">
-              Proven track record securing enterprise cloud infrastructure with <span className="text-primary-400 font-medium">Wiz CSPM</span>, <span className="text-purple-400 font-medium">CyberArk PAM/EPM</span>, and <span className="text-red-400 font-medium">Qualys VMDR</span> across 300+ production assets. Expertise in Python automation, AWS/Azure security, and SOC operations with Splunk.
-            </p>
-
-            <p className="text-sm md:text-base text-gray-500 max-w-3xl">
-              <span className="inline-flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-primary-500 rounded-full animate-pulse"></span>
-                Springer-published researcher in Blockchain Security
-              </span>
-              <span className="mx-3 text-dark-700">•</span>
-              <span className="inline-flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                Open to Cloud Security Engineering opportunities
-              </span>
-            </p>
+            {[
+              { name: 'Wiz CSPM', color: 'from-blue-500 to-blue-600', icon: '🛡️' },
+              { name: 'CyberArk PAM', color: 'from-purple-500 to-purple-600', icon: '🔐' },
+              { name: 'Qualys VMDR', color: 'from-red-500 to-red-600', icon: '🔍' },
+              { name: 'Python', color: 'from-yellow-500 to-yellow-600', icon: '🐍' },
+              { name: 'AWS Security', color: 'from-orange-500 to-orange-600', icon: '☁️' },
+              { name: 'Splunk', color: 'from-green-500 to-green-600', icon: '📊' }
+            ].map((tech, i) => (
+              <motion.div
+                key={tech.name}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.7 + i * 0.05 }}
+                whileHover={{ scale: 1.1, y: -5 }}
+                className={`px-4 py-2 bg-gradient-to-r ${tech.color} text-white rounded-full text-sm font-semibold shadow-lg cursor-default flex items-center gap-2`}
+              >
+                <span>{tech.icon}</span>
+                <span>{tech.name}</span>
+              </motion.div>
+            ))}
           </motion.div>
+
+          {/* Simple tagline */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="text-base md:text-lg text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed"
+          >
+            Securing <span className="text-white font-semibold">300+ cloud assets</span> with enterprise security tools. 
+            <span className="text-primary-400"> Springer-published researcher</span> in blockchain security.
+          </motion.p>
           
           {/* CTA Buttons with enhanced animations */}
           <motion.div 
-            className="flex flex-wrap gap-4"
+            className="flex flex-wrap justify-center gap-4 mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
+            transition={{ duration: 0.8, delay: 1.0 }}
           >
             <Link 
               href="#projects" 
-              className="group relative px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 transition-all duration-300 flex items-center gap-2 shadow-xl shadow-primary-500/30 hover:shadow-2xl hover:shadow-primary-500/40 hover:scale-105 overflow-hidden"
+              className="group relative px-8 py-4 bg-gradient-to-r from-primary-500 via-blue-500 to-cyan-500 text-white rounded-full font-semibold hover:shadow-2xl hover:shadow-primary-500/50 transition-all duration-300 flex items-center gap-2 hover:scale-110 overflow-hidden"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
-              <span className="relative">View Projects</span>
+              <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+              <span className="relative">View My Work</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative" />
             </Link>
             <Link 
               href="#contact" 
-              className="group px-8 py-4 bg-dark-800/50 backdrop-blur-sm border-2 border-dark-700 text-white rounded-xl font-semibold hover:bg-dark-700 hover:border-primary-500 transition-all duration-300 hover:scale-105 shadow-lg"
+              className="group px-8 py-4 bg-transparent border-2 border-white/20 text-white rounded-full font-semibold hover:bg-white/10 hover:border-white/40 backdrop-blur-sm transition-all duration-300 hover:scale-110"
             >
-              Get in Touch
+              Let's Connect
             </Link>
           </motion.div>
 
           {/* Social Links with hover animations */}
           <motion.div 
-            className="flex items-center gap-6 mt-12"
+            className="flex items-center justify-center gap-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.1 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
           >
             <Link 
               href="https://github.com/suvadityaroy" 
               target="_blank" 
-              className="group p-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-gray-400 hover:text-white hover:border-primary-500 hover:bg-primary-500/10 transition-all duration-300 hover:scale-110"
+              className="group p-4 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-full text-gray-400 hover:text-white hover:border-white hover:from-gray-700 hover:to-gray-800 transition-all duration-300 hover:scale-125 shadow-lg hover:shadow-xl"
             >
               <Github className="w-6 h-6" />
             </Link>
             <Link 
               href="https://linkedin.com/in/suvadityaroy" 
               target="_blank" 
-              className="group p-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-gray-400 hover:text-white hover:border-blue-500 hover:bg-blue-500/10 transition-all duration-300 hover:scale-110"
+              className="group p-4 bg-gradient-to-br from-blue-600 to-blue-700 border border-blue-500 rounded-full text-white hover:from-blue-500 hover:to-blue-600 transition-all duration-300 hover:scale-125 shadow-lg hover:shadow-blue-500/50"
             >
               <Linkedin className="w-6 h-6" />
             </Link>
             <Link 
               href="mailto:suvadityaroy.dev@gmail.com" 
-              className="group p-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-gray-400 hover:text-white hover:border-green-500 hover:bg-green-500/10 transition-all duration-300 hover:scale-110"
+              className="group p-4 bg-gradient-to-br from-green-600 to-green-700 border border-green-500 rounded-full text-white hover:from-green-500 hover:to-green-600 transition-all duration-300 hover:scale-125 shadow-lg hover:shadow-green-500/50"
             >
               <Mail className="w-6 h-6" />
             </Link>
