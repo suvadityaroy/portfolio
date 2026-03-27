@@ -1,6 +1,6 @@
-# Modern Portfolio
+# Cybersecurity Portfolio
 
-A modern, interactive portfolio for a Software Engineer specializing in Cybersecurity, AI, Cloud Computing, and IoT.
+A modern, interactive portfolio showcasing expertise in Cybersecurity, including Penetration Testing, Threat Intelligence, Network Security, SOC Operations, and Cloud Security.
 
 ## Tech Stack
 

@@ -6,52 +6,52 @@ import SectionBackground from './SectionBackground';
 
 const projects = [
   {
-    title: 'Real-Time Anomaly Detection Dashboard',
-    description: 'A dashboard for detecting anomalies in real-time data streams using machine learning algorithms.',
-    tags: ['AI', 'Python', 'Dashboard', 'Security'],
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800',
-    github: 'https://github.com/suvadityaroy/Real-Time-Anomaly-Detection-Dashboard',
-    demo: 'https://real-time-anomaly-detection-dashboard.up.railway.app'
-  },
-  {
-    title: 'Distributed Workflow Orchestrator',
-    description: 'A system to manage and orchestrate distributed workflows efficiently, ensuring reliability and scalability.',
-    tags: ['Python', 'Distributed Systems', 'Software Engineering'],
-    image: 'https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&q=80&w=800',
-    github: 'https://github.com/suvadityaroy/Distributed-Workflow-Orchestrator',
-    demo: 'https://distributed-workflow-orchestrator-production.up.railway.app'
-  },
-  {
-    title: 'Fake News Detector',
-    description: 'An AI-powered tool designed to identify and flag fake news articles using natural language processing.',
-    tags: ['AI', 'NLP', 'Python', 'Machine Learning'],
-    image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=800',
-    github: 'https://github.com/suvadityaroy/Fake-News-Detector',
-    demo: 'https://fake-news-detector.up.railway.app/static/index.html'
-  },
-  {
-    title: 'Blockchain Voting System',
-    description: 'A secure and transparent voting system built on blockchain technology to ensure election integrity.',
-    tags: ['Blockchain', 'Security', 'Decentralized'],
-    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800',
-    github: 'https://github.com/suvadityaroy/Online-Voting-System-Using-Blockchain-Technology',
+    title: 'Advanced Network Scanner with Nmap',
+    description: 'Comprehensive vulnerability scanner leveraging Nmap with automated reporting, asset discovery, and threat intelligence integration.',
+    tags: ['Go', 'Nmap', 'Pentesting', 'Automation'],
+    image: 'https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?auto=format&fit=crop&q=80&w=800',
+    github: 'https://github.com/suvadityaroy/Advance-Network-Scanner-Using-Nmap',
     demo: ''
   },
   {
-    title: 'Firewall',
-    description: 'A custom firewall implementation in Python to monitor and control incoming and outgoing network traffic.',
-    tags: ['Cybersecurity', 'Python', 'Networking'],
+    title: 'Custom Firewall Implementation',
+    description: 'Python-based stateful packet inspection firewall with deep packet analysis, rule-based filtering, and real-time threat blocking.',
+    tags: ['Python', 'Network Security', 'Packet Analysis'],
     image: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=800',
     github: 'https://github.com/suvadityaroy/Firewall',
     demo: ''
   },
   {
-    title: 'Advanced Network Scanner',
-    description: 'An advanced network scanner tool leveraging Nmap for comprehensive vulnerability assessment and mapping.',
-    tags: ['Go', 'Cybersecurity', 'Networking', 'Nmap'],
-    image: 'https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?auto=format&fit=crop&q=80&w=800',
-    github: 'https://github.com/suvadityaroy/Advance-Network-Scanner-Using-Nmap',
+    title: 'Security Operations Center (SOC) Dashboard',
+    description: 'Real-time threat monitoring dashboard with ML-powered anomaly detection, automated incident response, and SIEM integration.',
+    tags: ['Python', 'SIEM', 'Threat Detection', 'ML'],
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800',
+    github: 'https://github.com/suvadityaroy/Real-Time-Anomaly-Detection-Dashboard',
+    demo: 'https://real-time-anomaly-detection-dashboard.up.railway.app'
+  },
+  {
+    title: 'Blockchain-Based Secure Voting System',
+    description: 'Decentralized voting platform using blockchain for tamper-proof elections with end-to-end encryption and voter anonymity.',
+    tags: ['Blockchain', 'Cryptography', 'Security', 'Smart Contracts'],
+    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800',
+    github: 'https://github.com/suvadityaroy/Online-Voting-System-Using-Blockchain-Technology',
     demo: ''
+  },
+  {
+    title: 'Automated Vulnerability Assessment Platform',
+    description: 'Comprehensive VAPT platform integrating multiple security tools, generating detailed reports with CVSS scoring and remediation guides.',
+    tags: ['Python', 'VAPT', 'Automation', 'Reporting'],
+    image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800',
+    github: 'https://github.com/suvadityaroy',
+    demo: ''
+  },
+  {
+    title: 'AI-Powered Phishing Detection System',
+    description: 'Machine learning model trained to detect phishing emails and malicious URLs with 98% accuracy using NLP and behavioral analysis.',
+    tags: ['AI', 'NLP', 'Threat Intelligence', 'Python'],
+    image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&q=80&w=800',
+    github: 'https://github.com/suvadityaroy/Fake-News-Detector',
+    demo: 'https://fake-news-detector.up.railway.app/static/index.html'
   }
 ];
 

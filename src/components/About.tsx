@@ -7,29 +7,29 @@ import SectionBackground from './SectionBackground';
 
 const features = [
   {
-    icon: <Code className="w-8 h-8 text-blue-500" />,
-    title: 'Software Engineering',
-    description: 'Building robust, scalable applications using modern frameworks and best practices.'
+    icon: <Shield className="w-8 h-8 text-red-500" />,
+    title: 'Penetration Testing',
+    description: 'Conducting comprehensive security assessments, identifying vulnerabilities, and providing remediation strategies.'
+  },
+  {
+    icon: <Shield className="w-8 h-8 text-blue-500" />,
+    title: 'Threat Intelligence & SOC',
+    description: 'Monitoring security events, analyzing threats, and implementing incident response protocols.'
   },
   {
     icon: <Shield className="w-8 h-8 text-green-500" />,
-    title: 'Cybersecurity',
-    description: 'Implementing secure coding practices and understanding threat landscapes.'
+    title: 'Network Security',
+    description: 'Designing secure network architectures, implementing firewalls, IDS/IPS, and conducting network hardening.'
   },
   {
-    icon: <Brain className="w-8 h-8 text-purple-500" />,
-    title: 'Artificial Intelligence',
-    description: 'Leveraging machine learning models to solve complex problems and automate tasks.'
+    icon: <Cloud className="w-8 h-8 text-purple-500" />,
+    title: 'Cloud Security',
+    description: 'Securing cloud infrastructure on AWS, Azure, and GCP with focus on identity management and compliance.'
   },
   {
-    icon: <Cloud className="w-8 h-8 text-sky-500" />,
-    title: 'Cloud Computing',
-    description: 'Designing and deploying scalable, reliable, and secure cloud-native architectures.'
-  },
-  {
-    icon: <Wifi className="w-8 h-8 text-orange-500" />,
-    title: 'Internet of Things',
-    description: 'Connecting physical devices to the digital world for smarter solutions.'
+    icon: <Brain className="w-8 h-8 text-yellow-500" />,
+    title: 'Security Automation',
+    description: 'Developing automated security tools, SIEM integration, and AI-powered threat detection systems.'
   }
 ];
 

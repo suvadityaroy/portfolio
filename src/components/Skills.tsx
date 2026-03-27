@@ -14,77 +14,87 @@ import {
 
 const skills = [
   { 
-    category: 'Frontend', 
-    icon: <Code className="w-6 h-6 mb-2 text-blue-400" />,
-    items: [
-      { name: 'React', icon: <SiReact className="w-5 h-5 text-[#61DAFB]" /> },
-      { name: 'Next.js', icon: <SiNextdotjs className="w-5 h-5 text-white" /> },
-      { name: 'TypeScript', icon: <SiTypescript className="w-5 h-5 text-[#3178C6]" /> },
-      { name: 'Tailwind CSS', icon: <SiTailwindcss className="w-5 h-5 text-[#06B6D4]" /> }
-    ]
-  },
-  { 
-    category: 'Backend', 
-    icon: <Server className="w-6 h-6 mb-2 text-green-400" />,
-    items: [
-      { name: 'Node.js', icon: <SiNodedotjs className="w-5 h-5 text-[#339933]" /> },
-      { name: 'Python', icon: <SiPython className="w-5 h-5 text-[#3776AB]" /> },
-      { name: 'Go', icon: <SiGo className="w-5 h-5 text-[#00ADD8]" /> },
-      { name: 'MongoDB', icon: <SiMongodb className="w-5 h-5 text-[#47A248]" /> },
-      { name: 'PostgreSQL', icon: <SiPostgresql className="w-5 h-5 text-[#4169E1]" /> },
-      { name: 'Redis', icon: <SiRedis className="w-5 h-5 text-[#DC382D]" /> }
-    ]
-  },
-  { 
-    category: 'Cybersecurity', 
+    category: 'Penetration Testing', 
     icon: <Shield className="w-6 h-6 mb-2 text-red-400" />,
     items: [
-      { name: 'VAPT', icon: <Shield className="w-5 h-5 text-red-500" /> },
-      { name: 'SOC Analyst', icon: <Shield className="w-5 h-5 text-blue-500" /> },
-      { name: 'Network Security', icon: <Shield className="w-5 h-5 text-green-500" /> },
-      { name: 'Cryptography', icon: <Shield className="w-5 h-5 text-yellow-500" /> },
-      { name: 'OWASP Top 10', icon: <Shield className="w-5 h-5 text-purple-500" /> }
+      { name: 'Metasploit', icon: <Shield className="w-5 h-5 text-red-500" /> },
+      { name: 'Burp Suite', icon: <Shield className="w-5 h-5 text-orange-500" /> },
+      { name: 'Nmap', icon: <Shield className="w-5 h-5 text-blue-500" /> },
+      { name: 'Wireshark', icon: <Shield className="w-5 h-5 text-cyan-500" /> },
+      { name: 'Kali Linux', icon: <Terminal className="w-5 h-5 text-purple-500" /> },
+      { name: 'OWASP ZAP', icon: <Shield className="w-5 h-5 text-green-500" /> }
     ]
   },
   { 
-    category: 'AI & Data', 
-    icon: <Brain className="w-6 h-6 mb-2 text-purple-400" />,
+    category: 'Security Operations', 
+    icon: <Shield className="w-6 h-6 mb-2 text-blue-400" />,
     items: [
-      { name: 'Generative AI', icon: <Brain className="w-5 h-5 text-yellow-400" /> },
-      { name: 'TensorFlow', icon: <SiTensorflow className="w-5 h-5 text-[#FF6F00]" /> },
-      { name: 'PyTorch', icon: <SiPytorch className="w-5 h-5 text-[#EE4C2C]" /> },
-      { name: 'NLP', icon: <Brain className="w-5 h-5 text-purple-400" /> },
-      { name: 'Data Analysis', icon: <Brain className="w-5 h-5 text-blue-400" /> }
+      { name: 'SIEM (Splunk)', icon: <Shield className="w-5 h-5 text-green-500" /> },
+      { name: 'ELK Stack', icon: <Shield className="w-5 h-5 text-yellow-500" /> },
+      { name: 'EDR/XDR', icon: <Shield className="w-5 h-5 text-red-500" /> },
+      { name: 'Incident Response', icon: <Shield className="w-5 h-5 text-orange-500" /> },
+      { name: 'Threat Hunting', icon: <Shield className="w-5 h-5 text-purple-500" /> },
+      { name: 'Log Analysis', icon: <Shield className="w-5 h-5 text-blue-500" /> }
     ]
   },
   { 
-    category: 'Cloud Computing', 
+    category: 'Network Security', 
+    icon: <Wifi className="w-6 h-6 mb-2 text-green-400" />,
+    items: [
+      { name: 'Firewalls', icon: <Shield className="w-5 h-5 text-red-500" /> },
+      { name: 'IDS/IPS', icon: <Shield className="w-5 h-5 text-blue-500" /> },
+      { name: 'VPN', icon: <Shield className="w-5 h-5 text-green-500" /> },
+      { name: 'Network Monitoring', icon: <Wifi className="w-5 h-5 text-cyan-500" /> },
+      { name: 'Packet Analysis', icon: <Wifi className="w-5 h-5 text-purple-500" /> },
+      { name: 'Zero Trust', icon: <Shield className="w-5 h-5 text-yellow-500" /> }
+    ]
+  },
+  { 
+    category: 'Cloud Security', 
     icon: <Cloud className="w-6 h-6 mb-2 text-sky-400" />,
     items: [
-      { name: 'AWS', icon: <SiAmazon className="w-5 h-5 text-[#FF9900]" /> },
-      { name: 'Azure', icon: <Cloud className="w-5 h-5 text-[#0078D4]" /> },
-      { name: 'Google Cloud', icon: <SiGooglecloud className="w-5 h-5 text-[#4285F4]" /> },
-      { name: 'Serverless', icon: <Cloud className="w-5 h-5 text-cyan-400" /> },
-      { name: 'Terraform', icon: <SiTerraform className="w-5 h-5 text-[#7B42BC]" /> }
+      { name: 'AWS Security', icon: <SiAmazon className="w-5 h-5 text-[#FF9900]" /> },
+      { name: 'Azure Security', icon: <Cloud className="w-5 h-5 text-[#0078D4]" /> },
+      { name: 'GCP Security', icon: <SiGooglecloud className="w-5 h-5 text-[#4285F4]" /> },
+      { name: 'IAM', icon: <Shield className="w-5 h-5 text-green-500" /> },
+      { name: 'Cloud Compliance', icon: <Shield className="w-5 h-5 text-blue-500" /> },
+      { name: 'Container Security', icon: <SiDocker className="w-5 h-5 text-[#2496ED]" /> }
     ]
   },
   { 
-    category: 'IoT', 
-    icon: <Wifi className="w-6 h-6 mb-2 text-orange-400" />,
+    category: 'Security Frameworks', 
+    icon: <Shield className="w-6 h-6 mb-2 text-purple-400" />,
     items: [
-      { name: 'Raspberry Pi', icon: <SiRaspberrypi className="w-5 h-5 text-[#C51A4A]" /> },
-      { name: 'Arduino', icon: <SiArduino className="w-5 h-5 text-[#00979D]" /> },
-      { name: 'Sensors', icon: <Wifi className="w-5 h-5 text-orange-400" /> }
+      { name: 'MITRE ATT&CK', icon: <Shield className="w-5 h-5 text-red-500" /> },
+      { name: 'NIST CSF', icon: <Shield className="w-5 h-5 text-blue-500" /> },
+      { name: 'ISO 27001', icon: <Shield className="w-5 h-5 text-green-500" /> },
+      { name: 'OWASP Top 10', icon: <Shield className="w-5 h-5 text-purple-500" /> },
+      { name: 'CIS Controls', icon: <Shield className="w-5 h-5 text-yellow-500" /> },
+      { name: 'PCI DSS', icon: <Shield className="w-5 h-5 text-orange-500" /> }
     ]
   },
   { 
-    category: 'DevOps', 
-    icon: <Terminal className="w-6 h-6 mb-2 text-yellow-400" />,
+    category: 'Programming & Scripting', 
+    icon: <Code className="w-6 h-6 mb-2 text-yellow-400" />,
     items: [
-      { name: 'Docker', icon: <SiDocker className="w-5 h-5 text-[#2496ED]" /> },
-      { name: 'Kubernetes', icon: <SiKubernetes className="w-5 h-5 text-[#326CE5]" /> },
-      { name: 'CI/CD', icon: <Terminal className="w-5 h-5 text-green-400" /> },
-      { name: 'Jenkins', icon: <SiJenkins className="w-5 h-5 text-[#D24939]" /> }
+      { name: 'Python', icon: <SiPython className="w-5 h-5 text-[#3776AB]" /> },
+      { name: 'Bash', icon: <Terminal className="w-5 h-5 text-green-500" /> },
+      { name: 'PowerShell', icon: <Terminal className="w-5 h-5 text-blue-500" /> },
+      { name: 'Go', icon: <SiGo className="w-5 h-5 text-[#00ADD8]" /> },
+      { name: 'JavaScript', icon: <SiTypescript className="w-5 h-5 text-yellow-400" /> },
+      { name: 'SQL', icon: <SiPostgresql className="w-5 h-5 text-[#4169E1]" /> }
+    ]
+  },
+  { 
+    category: 'Cryptography & Forensics', 
+    icon: <Shield className="w-6 h-6 mb-2 text-orange-400" />,
+    items: [
+      { name: 'Encryption', icon: <Shield className="w-5 h-5 text-yellow-500" /> },
+      { name: 'PKI', icon: <Shield className="w-5 h-5 text-green-500" /> },
+      { name: 'Digital Forensics', icon: <Shield className="w-5 h-5 text-red-500" /> },
+      { name: 'Malware Analysis', icon: <Shield className="w-5 h-5 text-purple-500" /> },
+      { name: 'Reverse Engineering', icon: <Code className="w-5 h-5 text-blue-500" /> },
+      { name: 'Hash Analysis', icon: <Shield className="w-5 h-5 text-cyan-500" /> }
     ]
   },
 ];

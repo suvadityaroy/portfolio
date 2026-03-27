@@ -8,11 +8,11 @@ import { useState, useEffect } from 'react';
 
 export default function Hero() {
   const phrases = [
-    'Building the Future',
-    'Securing the World',
-    'Innovating with AI',
-    'Crafting Solutions',
-    'Shaping Tomorrow'
+    'Defending Digital Assets',
+    'Securing the Cyber Realm',
+    'Hunting Cyber Threats',
+    'Penetration Testing Expert',
+    'Protecting Networks'
   ];
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -57,7 +57,7 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
           className="text-center"
         >
-          <h2 className="text-blue-400 font-semibold tracking-wide uppercase mb-4">Software Engineer</h2>
+          <h2 className="text-blue-400 font-semibold tracking-wide uppercase mb-4">Cybersecurity Specialist</h2>
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 min-h-[1.2em]">
             <motion.span 
               className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
@@ -89,7 +89,7 @@ export default function Hero() {
             </motion.span>
           </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
-            Specializing in full-stack development with a passion for Cybersecurity, AI, Cloud Computing, and IoT technologies.
+            Cybersecurity Professional specializing in Penetration Testing, Vulnerability Assessment, Threat Hunting, SOC Operations, and Secure Cloud Architecture.
           </p>
           
           <div className="flex justify-center space-x-4 mb-12">
