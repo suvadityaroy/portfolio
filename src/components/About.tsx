@@ -7,29 +7,29 @@ import SectionBackground from './SectionBackground';
 
 const features = [
   {
+    icon: <Cloud className="w-8 h-8 text-blue-500" />,
+    title: 'Cloud Security (CSPM)',
+    description: 'Securing cloud environments using Wiz CSPM, identifying misconfigurations and compliance gaps across AWS and Azure.'
+  },
+  {
+    icon: <Shield className="w-8 h-8 text-purple-500" />,
+    title: 'Privileged Access Management',
+    description: 'Managing enterprise PAM/EPM operations with CyberArk, enforcing least-privilege controls across 20+ endpoints.'
+  },
+  {
     icon: <Shield className="w-8 h-8 text-red-500" />,
-    title: 'Penetration Testing',
-    description: 'Conducting comprehensive security assessments, identifying vulnerabilities, and providing remediation strategies.'
+    title: 'Vulnerability Management',
+    description: 'Conducting vulnerability assessments using Qualys VMDR across 300+ assets, prioritizing remediation and coordinating with teams.'
   },
   {
-    icon: <Shield className="w-8 h-8 text-blue-500" />,
-    title: 'Threat Intelligence & SOC',
-    description: 'Monitoring security events, analyzing threats, and implementing incident response protocols.'
-  },
-  {
-    icon: <Shield className="w-8 h-8 text-green-500" />,
-    title: 'Network Security',
-    description: 'Designing secure network architectures, implementing firewalls, IDS/IPS, and conducting network hardening.'
-  },
-  {
-    icon: <Cloud className="w-8 h-8 text-purple-500" />,
-    title: 'Cloud Security',
-    description: 'Securing cloud infrastructure on AWS, Azure, and GCP with focus on identity management and compliance.'
-  },
-  {
-    icon: <Brain className="w-8 h-8 text-yellow-500" />,
+    icon: <Brain className="w-8 h-8 text-green-500" />,
     title: 'Security Automation',
-    description: 'Developing automated security tools, SIEM integration, and AI-powered threat detection systems.'
+    description: 'Building Python automation for log analysis, alert triage, vulnerability tracking, and cloud security workflows.'
+  },
+  {
+    icon: <Shield className="w-8 h-8 text-yellow-500" />,
+    title: 'Security Operations',
+    description: 'Supporting incident detection and response using Splunk, network traffic analysis, and certificate lifecycle management.'
   }
 ];
 
@@ -174,10 +174,13 @@ export default function About() {
             className="lg:w-2/3"
           >
             <p className="text-gray-400 text-lg leading-relaxed mb-4">
-              I am a <span className="text-blue-400 font-semibold">Software Developer</span> with strong engineering fundamentals and hands-on experience in Cloud, Cybersecurity, AI tools, Blockchain, and IoT. I build scalable, secure, and high-performance systems with clean architecture and production-grade reliability.
+              I am a <span className="text-blue-400 font-semibold">Security Engineer</span> with a strong focus on Cloud Security, currently working at IT People Network (Kolkata), with hands-on experience in enterprise tools including <span className="text-blue-400 font-semibold">Wiz (CSPM), CyberArk (PAM & EPM), Qualys (VMDR), Veracode (SAST), Proofpoint, and DigiCert</span>. I contribute to securing cloud environments by identifying misconfigurations, supporting access control enforcement, and assisting in vulnerability remediation across production systems, with a growing focus on AWS and Azure security.
+            </p>
+            <p className="text-gray-400 text-lg leading-relaxed mb-4">
+              My core experience includes cloud security posture management using <span className="text-purple-400 font-semibold">Wiz</span>, privileged access management with <span className="text-purple-400 font-semibold">CyberArk</span>, and vulnerability assessment and prioritization using <span className="text-purple-400 font-semibold">Qualys VMDR across 300+ assets</span>. I also develop Python-based automation for log analysis, alert triage, and cloud security workflows, improving operational efficiency. Additionally, I support incident detection and response using Splunk, along with network traffic analysis and Linux-based vulnerability assessments.
             </p>
             <p className="text-gray-400 text-lg leading-relaxed">
-              My work philosophy is simple: <span className="text-purple-400 font-semibold">build intentionally</span>, <span className="text-blue-400 font-semibold">automate wherever possible</span>, and deliver solutions that meet the standards of top-tier engineering teams.
+              I am a <span className="text-blue-400 font-semibold">Springer-published research author</span> in blockchain security and am actively seeking Cloud Security Engineer roles in product-based companies, startups, and MNCs, where I can contribute to securing scalable, cloud-native systems through CSPM, IAM, vulnerability management, and security automation.
             </p>
           </motion.div>
         </div>

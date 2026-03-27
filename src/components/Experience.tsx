@@ -6,23 +6,54 @@ import SectionBackground from './SectionBackground';
 
 const experiences = [
   {
-    company: 'University of Engineering & Management Kolkata — IEDC Lab',
-    role: 'Software & Systems Engineering Intern',
-    period: 'Jun 2024 – Present',
+    company: 'ITPeopleNetwork',
+    role: 'Trainee Security Engineer',
+    period: 'Feb 2026 – Present · 2 mos',
+    location: 'Kolkata, West Bengal, India · On-site',
     description: [
-      'Developed a high-performance network scanner in Golang using concurrency patterns, increasing scan throughput by 40%.',
-      'Designed an asynchronous distributed upload pipeline with SQL-backed caching, reducing re-scan time by 60%.',
-      'Automated multi-host Nmap assessments and optimized execution flow for large-scale system analysis.'
+      'Contributed to enterprise security operations across Wiz (CSPM), CyberArk (PAM/EPM), Qualys (VMDR), Veracode (SAST), Proofpoint, and DigiCert in a production environment.',
+      'Monitored cloud infrastructure using Wiz, identifying misconfigurations and compliance gaps, and enabling remediation aligned with cloud security best practices.',
+      'Supported CyberArk PAM & EPM operations, assisting in privileged access management and enforcing least-privilege controls across 20+ endpoints.',
+      'Conducted vulnerability assessment and triage using Qualys VMDR across 300+ assets, prioritizing critical risks and coordinating remediation with internal teams.',
+      'Managed certificate lifecycle operations using DigiCert, including issuance, renewal, and validation of 100+ enterprise certificates.',
+      'Built Python-based automation for log analysis, vulnerability tracking, and alert triage, improving SOC efficiency and reducing manual workload in Splunk workflows.'
     ]
   },
   {
-    company: 'CFSS Cyber & Forensics Solutions',
-    role: 'Cyber Security Intern',
-    period: 'Dec 2023 – May 2024',
+    company: 'University of Engineering & Management (UEM)',
+    role: 'Software & Systems Engineering Intern',
+    period: 'Jun 2024 – Jan 2026 · 1 yr 8 mos',
+    location: 'West Bengal, India · Hybrid',
     description: [
-      'Analyzed backend systems, identified vulnerabilities, and improved system reliability using Python-based automation.',
-      'Implemented password policy audits reducing unauthorized access attempts by 40%.',
-      'Collaborated within an agile SDLC environment, focusing on documentation, testing, and issue triaging.'
+      'Developed backend components and automation tools for network scanning and monitoring workflows using Python and Golang, improving reliability across distributed environments.',
+      'Designed and implemented RESTful internal APIs for orchestration, task scheduling, and data ingestion pipelines.',
+      'Optimized system performance through efficient I/O handling, caching mechanisms, and structured logging, reducing re-scan latency and improving throughput.',
+      'Built backend services to support real-time diagnostics, observability, and system health tracking.',
+      'Collaborated with senior engineers on design reviews, documentation, and performance benchmarking of backend systems.'
+    ]
+  },
+  {
+    company: 'CFSS Cyber & Forensics Security Solutions',
+    role: 'Cyber Security Intern',
+    period: 'Dec 2023 – May 2024 · 6 mos',
+    location: 'India · Remote',
+    description: [
+      'Conducted vulnerability assessments and configuration audits on Linux-based systems to identify security gaps and misconfigurations.',
+      'Developed Python automation scripts to streamline security testing, log analysis, and credential checks.',
+      'Performed network traffic analysis using TCP/IP tools to assist in incident investigation and system hardening.',
+      'Documented findings and supported implementation of security best practices to reduce risk exposure.'
+    ]
+  },
+  {
+    company: 'PwC Switzerland',
+    role: 'Cyber Security Analyst Intern',
+    period: 'Oct 2023 – Nov 2023 · 2 mos',
+    location: 'India · Remote',
+    description: [
+      'Assisted in application security reviews by analyzing authentication flows, access control mechanisms, and secure data-handling practices.',
+      'Executed vulnerability assessments and supported threat modeling for web applications.',
+      'Analyzed datasets to identify anomalies and contributed to risk assessment reports.',
+      'Supported security review processes by documenting issues and recommending mitigation strategies.'
     ]
   }
 ];
@@ -148,6 +179,9 @@ export default function Experience() {
                   </span>
                 </div>
                 <h4 className="text-lg text-blue-400 mb-2">{exp.company}</h4>
+                {exp.location && (
+                  <p className="text-sm text-gray-500 mb-3">{exp.location}</p>
+                )}
                 <ul className="list-disc list-inside text-gray-400 space-y-2">
                   {exp.description.map((item, i) => (
                     <li key={i}>{item}</li>

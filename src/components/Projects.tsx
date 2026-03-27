@@ -6,50 +6,58 @@ import SectionBackground from './SectionBackground';
 
 const projects = [
   {
-    title: 'Advanced Network Scanner with Nmap',
-    description: 'Comprehensive vulnerability scanner leveraging Nmap with automated reporting, asset discovery, and threat intelligence integration.',
-    tags: ['Go', 'Nmap', 'Pentesting', 'Automation'],
+    title: 'Cloud Intrusion Detection System',
+    description: 'Python-based intrusion detection system for cloud environments, leveraging ML algorithms to identify anomalous behavior and security threats in real-time across AWS infrastructure.',
+    tags: ['Python', 'AWS', 'Machine Learning', 'IDS'],
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800',
+    github: 'https://github.com/suvadityaroy/Cloud-Intrusion-Detection-System',
+    demo: ''
+  },
+  {
+    title: 'AWS IAM Policy Audit Tool',
+    description: 'Automated Python tool for auditing AWS IAM policies, identifying overly permissive permissions, privilege escalation risks, and compliance violations across cloud accounts.',
+    tags: ['Python', 'AWS', 'IAM', 'Security Automation'],
+    image: 'https://images.unsplash.com/photo-1633265486064-086b219458ec?auto=format&fit=crop&q=80&w=800',
+    github: 'https://github.com/suvadityaroy/AWS-IAM-Policy-Audit',
+    demo: ''
+  },
+  {
+    title: 'AWS Security Scanner',
+    description: 'Comprehensive security assessment tool for AWS environments, scanning for misconfigurations, exposed resources, and compliance violations with automated remediation recommendations.',
+    tags: ['Python', 'AWS', 'CSPM', 'Vulnerability Assessment'],
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
+    github: 'https://github.com/suvadityaroy/AWS-Security-Scanner',
+    demo: ''
+  },
+  {
+    title: 'GoScan - Advanced Network Scanner',
+    description: 'High-performance network scanner built in Go, leveraging Nmap for comprehensive vulnerability assessment, port scanning, and asset discovery with concurrent execution.',
+    tags: ['Go', 'Nmap', 'Network Security', 'VAPT'],
     image: 'https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?auto=format&fit=crop&q=80&w=800',
-    github: 'https://github.com/suvadityaroy/Advance-Network-Scanner-Using-Nmap',
+    github: 'https://github.com/suvadityaroy/GoScan-Advance-Network-Scanner-Using-Nmap',
     demo: ''
-  },
-  {
-    title: 'Custom Firewall Implementation',
-    description: 'Python-based stateful packet inspection firewall with deep packet analysis, rule-based filtering, and real-time threat blocking.',
-    tags: ['Python', 'Network Security', 'Packet Analysis'],
-    image: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=800',
-    github: 'https://github.com/suvadityaroy/Firewall',
-    demo: ''
-  },
-  {
-    title: 'Security Operations Center (SOC) Dashboard',
-    description: 'Real-time threat monitoring dashboard with ML-powered anomaly detection, automated incident response, and SIEM integration.',
-    tags: ['Python', 'SIEM', 'Threat Detection', 'ML'],
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800',
-    github: 'https://github.com/suvadityaroy/Real-Time-Anomaly-Detection-Dashboard',
-    demo: 'https://real-time-anomaly-detection-dashboard.up.railway.app'
   },
   {
     title: 'Blockchain-Based Secure Voting System',
-    description: 'Decentralized voting platform using blockchain for tamper-proof elections with end-to-end encryption and voter anonymity.',
-    tags: ['Blockchain', 'Cryptography', 'Security', 'Smart Contracts'],
+    description: 'Decentralized voting platform using blockchain technology for tamper-proof elections with end-to-end encryption, voter anonymity, and immutable audit trails.',
+    tags: ['Blockchain', 'Smart Contracts', 'Cryptography', 'Web3'],
     image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800',
     github: 'https://github.com/suvadityaroy/Online-Voting-System-Using-Blockchain-Technology',
     demo: ''
   },
   {
-    title: 'Automated Vulnerability Assessment Platform',
-    description: 'Comprehensive VAPT platform integrating multiple security tools, generating detailed reports with CVSS scoring and remediation guides.',
-    tags: ['Python', 'VAPT', 'Automation', 'Reporting'],
-    image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800',
-    github: 'https://github.com/suvadityaroy',
+    title: 'Custom Network Firewall',
+    description: 'Python-based stateful packet inspection firewall with deep packet analysis, custom rule-based filtering, and real-time threat blocking for network traffic control.',
+    tags: ['Python', 'Network Security', 'Firewall', 'Packet Analysis'],
+    image: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=800',
+    github: 'https://github.com/suvadityaroy/Firewall',
     demo: ''
   },
   {
-    title: 'AI-Powered Phishing Detection System',
-    description: 'Machine learning model trained to detect phishing emails and malicious URLs with 98% accuracy using NLP and behavioral analysis.',
-    tags: ['AI', 'NLP', 'Threat Intelligence', 'Python'],
-    image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&q=80&w=800',
+    title: 'AI-Powered Misinformation Detector',
+    description: 'Machine learning-based system for detecting fake news and misinformation using NLP, behavioral analysis, and source credibility scoring with 95%+ accuracy.',
+    tags: ['AI', 'NLP', 'Machine Learning', 'Python'],
+    image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=800',
     github: 'https://github.com/suvadityaroy/Fake-News-Detector',
     demo: 'https://fake-news-detector.up.railway.app/static/index.html'
   }
