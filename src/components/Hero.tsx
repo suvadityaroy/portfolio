@@ -144,16 +144,35 @@ export default function Hero() {
           <div className="mb-12 h-16 md:h-20 flex items-center justify-center overflow-hidden">
             <motion.p
               key={currentPhraseIndex}
-              initial={{ opacity: 0, y: 50, rotateX: 90 }}
-              animate={{ opacity: 1, y: 0, rotateX: 0 }}
-              exit={{ opacity: 0, y: -50, rotateX: -90 }}
+              initial={{ opacity: 0, y: 50, rotateX: 90, scale: 0.8 }}
+              animate={{ 
+                opacity: 1, 
+                y: 0, 
+                rotateX: 0, 
+                scale: phrases[currentPhraseIndex] === 'Vulnerability Management' ? [1, 1.05, 1] : 1 
+              }}
+              exit={{ opacity: 0, y: -50, rotateX: -90, scale: 0.8 }}
               transition={{ 
                 duration: 0.6,
-                ease: [0.34, 1.56, 0.64, 1]
+                ease: [0.34, 1.56, 0.64, 1],
+                scale: {
+                  duration: 2,
+                  repeat: phrases[currentPhraseIndex] === 'Vulnerability Management' ? Infinity : 0,
+                  repeatType: "reverse"
+                }
               }}
-              className="text-2xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-primary-400 via-cyan-400 to-blue-400 font-semibold"
+              className={`text-2xl md:text-4xl text-transparent bg-clip-text font-bold ${
+                phrases[currentPhraseIndex] === 'Vulnerability Management' 
+                  ? 'bg-gradient-to-r from-red-400 via-orange-400 to-yellow-400' 
+                  : 'bg-gradient-to-r from-primary-400 via-cyan-400 to-blue-400'
+              }`}
               style={{
-                textShadow: '0 0 30px rgba(59, 130, 246, 0.5)',
+                textShadow: phrases[currentPhraseIndex] === 'Vulnerability Management' 
+                  ? '0 0 40px rgba(239, 68, 68, 0.8), 0 0 80px rgba(251, 146, 60, 0.6), 0 0 120px rgba(234, 179, 8, 0.4)' 
+                  : '0 0 30px rgba(59, 130, 246, 0.5)',
+                WebkitTextStroke: phrases[currentPhraseIndex] === 'Vulnerability Management' 
+                  ? '1px rgba(239, 68, 68, 0.3)' 
+                  : 'none'
               }}
             >
               {phrases[currentPhraseIndex]}
