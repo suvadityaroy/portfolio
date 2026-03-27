@@ -26,9 +26,6 @@ export default function Hero() {
   ];
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [charIndex, setCharIndex] = useState(0);
   
   // Typing animation for rotating code lines
   const [currentCodeLineIndex, setCurrentCodeLineIndex] = useState(0);
@@ -36,33 +33,14 @@ export default function Hero() {
   const [codeLineCharIndex, setCodeLineCharIndex] = useState(0);
   const [isCodeLineDeleting, setIsCodeLineDeleting] = useState(false);
 
-  // Typewriter for main role
+  // Smooth fade and slide transition for phrases
   useEffect(() => {
-    const currentPhrase = phrases[currentPhraseIndex];
-    const typingSpeed = isDeleting ? 25 : 70;
-    const pauseAtEnd = 1500;
-    const pauseBeforeDelete = 200;
+    const interval = setInterval(() => {
+      setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
+    }, 3000); // Change phrase every 3 seconds
 
-    if (!isDeleting && charIndex === currentPhrase.length) {
-      setTimeout(() => setIsDeleting(true), pauseAtEnd);
-      return;
-    }
-
-    if (isDeleting && charIndex === 0) {
-      setTimeout(() => {
-        setIsDeleting(false);
-        setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
-      }, pauseBeforeDelete);
-      return;
-    }
-
-    const timeout = setTimeout(() => {
-      setDisplayedText(currentPhrase.substring(0, charIndex + (isDeleting ? -1 : 1)));
-      setCharIndex((prev) => prev + (isDeleting ? -1 : 1));
-    }, typingSpeed);
-
-    return () => clearTimeout(timeout);
-  }, [charIndex, isDeleting, currentPhraseIndex, phrases]);
+    return () => clearInterval(interval);
+  }, [phrases.length]);
 
   // Rotating typing animation for code lines
   useEffect(() => {
@@ -162,24 +140,25 @@ export default function Hero() {
             </span>
           </motion.h1>
 
-          {/* Dynamic role with typewriter */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mb-12"
-          >
-            <p className="text-2xl md:text-4xl text-gray-300 font-light">
-              {displayedText}
-              <motion.span
-                animate={{ opacity: [1, 0, 1] }}
-                transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
-                className="text-primary-400"
-              >
-                |
-              </motion.span>
-            </p>
-          </motion.div>
+          {/* Dynamic role with smooth fade and slide */}
+          <div className="mb-12 h-16 md:h-20 flex items-center justify-center overflow-hidden">
+            <motion.p
+              key={currentPhraseIndex}
+              initial={{ opacity: 0, y: 50, rotateX: 90 }}
+              animate={{ opacity: 1, y: 0, rotateX: 0 }}
+              exit={{ opacity: 0, y: -50, rotateX: -90 }}
+              transition={{ 
+                duration: 0.6,
+                ease: [0.34, 1.56, 0.64, 1]
+              }}
+              className="text-2xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-primary-400 via-cyan-400 to-blue-400 font-semibold"
+              style={{
+                textShadow: '0 0 30px rgba(59, 130, 246, 0.5)',
+              }}
+            >
+              {phrases[currentPhraseIndex]}
+            </motion.p>
+          </div>
 
           {/* Coding-style rotating message */}
           <motion.div
