@@ -31,7 +31,7 @@ const projects = [
     demo: ''
   },
   {
-    title: 'GoScan - Advanced Network Scanner',
+    title: 'GoScan Advance Network Scanner Using Nmap',
     description: 'High-performance network scanner built in Go, leveraging Nmap for comprehensive vulnerability assessment, port scanning, and asset discovery with concurrent execution.',
     tags: ['Go', 'Nmap', 'Network Security', 'VAPT'],
     image: 'https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?auto=format&fit=crop&q=80&w=800',
@@ -39,7 +39,7 @@ const projects = [
     demo: ''
   },
   {
-    title: 'Blockchain-Based Secure Voting System',
+    title: 'Online Voting System Using Blockchain Technology',
     description: 'Decentralized voting platform using blockchain technology for tamper-proof elections with end-to-end encryption, voter anonymity, and immutable audit trails.',
     tags: ['Blockchain', 'Smart Contracts', 'Cryptography', 'Web3'],
     image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800',
@@ -55,7 +55,7 @@ const projects = [
     demo: ''
   },
   {
-    title: 'AI-Powered Misinformation Detector',
+    title: 'Fake News Detector',
     description: 'Machine learning-based system for detecting fake news and misinformation using NLP, behavioral analysis, and source credibility scoring with 95%+ accuracy.',
     tags: ['AI', 'NLP', 'Machine Learning', 'Python'],
     image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=800',
