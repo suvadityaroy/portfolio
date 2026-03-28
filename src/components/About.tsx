@@ -61,35 +61,6 @@ export default function About() {
             </motion.p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="space-y-5"
-          >
-            <motion.div 
-              className="flex flex-wrap gap-3 pt-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-            >
-              {['Wiz CSPM', 'CyberArk PAM', 'Qualys VMDR', 'AWS Security', 'Python Automation'].map((skill, i) => (
-                <motion.span
-                  key={skill}
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.4, delay: 0.4 + (i * 0.05) }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  className="px-4 py-2 bg-dark-800 border border-dark-700 rounded-lg text-sm text-gray-300 hover:border-primary-500/50 hover:bg-primary-500/5 transition-colors cursor-default"
-                >
-                  {skill}
-                </motion.span>
-              ))}
-            </motion.div>
-          </motion.div>
         </div>
       </div>
     </section>
