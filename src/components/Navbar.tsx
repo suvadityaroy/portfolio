@@ -50,8 +50,7 @@ export default function Navbar() {
       
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Link href="#home" className="text-2xl font-heading font-bold text-white group">
-          <span className="text-primary-400">S</span>uvaditya
-          <span className="text-primary-400">.</span>
+          <span className="text-primary-400">SR</span>oy
         </Link>
 
         {/* Desktop Menu */}
