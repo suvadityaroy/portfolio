@@ -65,12 +65,6 @@ export default function Navbar() {
               <span className="absolute bottom-1 left-4 right-4 h-0.5 bg-primary-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
             </Link>
           ))}
-          <Link 
-            href="#contact" 
-            className="ml-4 px-6 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-all duration-300 shadow-lg shadow-primary-500/20"
-          >
-            Contact
-          </Link>
         </div>
 
         {/* Mobile Menu Button */}
