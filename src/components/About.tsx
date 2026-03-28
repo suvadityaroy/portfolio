@@ -71,7 +71,7 @@ export default function About() {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-blue-500 rounded-2xl blur-2xl opacity-20"></div>
               <Image 
-                src="/profile-about.jpg"
+                src="/profile.jpg"
                 alt="Suvaditya Roy - Profile"
                 width={350}
                 height={450}
