@@ -30,6 +30,26 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
             viewport={{ once: true, margin: "-100px" }}
+            className="flex justify-center items-center"
+          >
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-blue-500 rounded-2xl blur-2xl opacity-20"></div>
+              <Image 
+                src="/profile.jpg"
+                alt="Suvaditya Roy - Profile"
+                width={350}
+                height={450}
+                className="rounded-2xl shadow-2xl relative z-10 object-cover"
+                priority
+              />
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-100px" }}
             className="space-y-5"
           >
             <motion.p 
@@ -59,26 +79,6 @@ export default function About() {
             >
               <span className="text-primary-400 font-semibold">Springer-published research author</span> in blockchain security, focused on building expertise in CSPM, IAM, vulnerability management, and security automation to secure cloud-native environments.
             </motion.p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="flex justify-center items-center"
-          >
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-blue-500 rounded-2xl blur-2xl opacity-20"></div>
-              <Image 
-                src="/profile.jpg"
-                alt="Suvaditya Roy - Profile"
-                width={350}
-                height={450}
-                className="rounded-2xl shadow-2xl relative z-10 object-cover"
-                priority
-              />
-            </div>
           </motion.div>
         </div>
       </div>
