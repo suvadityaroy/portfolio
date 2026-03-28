@@ -8,8 +8,7 @@ import { useState, useEffect } from 'react';
 
 export default function Hero() {
   const phrases = [
-    'Trainee Security Engineer',
-    'Cloud Security Engineer'
+    'Trainee Security Engineer'
   ];
 
   const codeLines = [
