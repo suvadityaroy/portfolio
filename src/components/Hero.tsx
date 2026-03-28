@@ -8,11 +8,8 @@ import { useState, useEffect } from 'react';
 
 export default function Hero() {
   const phrases = [
-    'Security Engineer',
-    'Cloud Security',
-    'CSPM Specialist',
-    'Python Automation',
-    'Vulnerability Management'
+    'Trainee Security Engineer',
+    'Cloud Security Engineer'
   ];
 
   const codeLines = [
