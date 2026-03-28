@@ -67,7 +67,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              I am a <span className="text-white font-semibold">Security Engineer</span> with a strong focus on Cloud Security, currently working at <span className="text-primary-400 font-medium">IT People Network (Kolkata)</span>, with hands-on experience in enterprise tools including <span className="text-white font-medium">Wiz (CSPM), CyberArk (PAM & EPM), Qualys (VMDR), Veracode (SAST), Proofpoint, and DigiCert</span>.
+              I am a <span className="text-white font-semibold">Trainee Security Engineer</span> specializing in Cloud Security at <span className="text-primary-400 font-medium">IT People Network (Kolkata)</span>, with hands-on experience in <span className="text-white font-medium">Wiz (CSPM), CyberArk (PAM/EPM), Qualys (VMDR), Veracode, Proofpoint, and DigiCert</span>. Skilled in identifying cloud misconfigurations, supporting vulnerability remediation across 300+ assets, and assisting in access control and security operations.
             </motion.p>
             <motion.p 
               className="text-base md:text-lg text-gray-300 leading-relaxed"
@@ -76,7 +76,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              I contribute to securing cloud environments by identifying misconfigurations, supporting access control enforcement, and assisting in vulnerability remediation across production systems, with a growing focus on <span className="text-primary-400 font-medium">AWS and Azure security</span>.
+              Experience includes <span className="text-primary-400 font-medium">CSPM using Wiz</span>, supporting <span className="text-white font-medium">CyberArk PAM</span>, and vulnerability assessment using <span className="text-white font-medium">Qualys VMDR</span>. I also develop <span className="text-primary-400 font-medium">Python-based automation</span> for log analysis and alert triage, and support monitoring using Splunk, along with working knowledge of <span className="text-white font-medium">AWS, Azure, Linux, and network security</span>.
             </motion.p>
             <motion.p 
               className="text-base md:text-lg text-gray-300 leading-relaxed"
@@ -85,7 +85,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              My core experience includes cloud security posture management using <span className="text-white font-medium">Wiz</span>, privileged access management with <span className="text-white font-medium">CyberArk</span>, and vulnerability assessment and prioritization using <span className="text-white font-medium">Qualys VMDR across 300+ assets</span>.
+              <span className="text-primary-400 font-semibold">Springer-published research author</span> in blockchain security, focused on building expertise in CSPM, IAM, vulnerability management, and security automation to secure cloud-native environments.
             </motion.p>
           </motion.div>
 
@@ -103,16 +103,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              I develop <span className="text-primary-400 font-medium">Python-based automation</span> for log analysis, alert triage, and cloud security workflows, improving operational efficiency. Additionally, I support incident detection and response using <span className="text-white font-medium">Splunk</span>, along with network traffic analysis and Linux-based vulnerability assessments.
-            </motion.p>
-            <motion.p 
-              className="text-base md:text-lg text-gray-300 leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              I am a <span className="text-primary-400 font-semibold">Springer-published research author</span> in blockchain security and am actively seeking Cloud Security Engineer roles in product-based companies, startups, and MNCs.
+              I am committed to continuous learning and hands-on development in security operations, focusing on strengthening my expertise in <span className="text-primary-400 font-medium">cloud security posture management, identity and access management, vulnerability management, and security automation</span>.
             </motion.p>
             <motion.div 
               className="flex flex-wrap gap-3 pt-4"
