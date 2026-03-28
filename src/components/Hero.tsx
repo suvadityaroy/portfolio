@@ -132,7 +132,7 @@ export default function Hero() {
                 WebkitTextStroke: '1px rgba(168, 85, 247, 0.3)'
               }}
             >
-              SRoy
+              Suvaditya Roy
             </span>
           </motion.h1>
 
