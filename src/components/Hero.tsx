@@ -34,23 +34,6 @@ const fadeScale = {
   },
 };
 
-// ── Floating background orbs ─────────────────────────────────
-const orbs = [
-  { size: 600, x: '-5%', y: '-10%', color: 'dark:bg-sky-500/8 bg-indigo-100/70',  blur: 'blur-[130px]', duration: 18, dx: [0, 40, -20, 0], dy: [0, -25, 18, 0] },
-  { size: 500, x: '65%', y: '50%',  color: 'dark:bg-indigo-600/8 bg-violet-100/60', blur: 'blur-[110px]', duration: 22, dx: [0, -30, 15, 0], dy: [0, 20, -30, 0] },
-  { size: 350, x: '30%', y: '70%',  color: 'dark:bg-blue-600/6 bg-sky-100/50',   blur: 'blur-[90px]',  duration: 16, dx: [0, 15, -10, 0], dy: [0, -15, 10, 0] },
-];
-
-// ── Tiny floating particles (dark only) ──────────────────────
-const particles = Array.from({ length: 22 }, (_, i) => ({
-  id: i,
-  x: `${5 + Math.random() * 90}%`,
-  y: `${5 + Math.random() * 90}%`,
-  size: Math.random() * 2 + 1,
-  dur: 8 + Math.random() * 10,
-  delay: Math.random() * 6,
-}));
-
 export default function Hero() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
@@ -118,62 +101,8 @@ export default function Hero() {
     <section
       id="home"
       ref={sectionRef}
-      className={`min-h-screen flex items-center justify-center relative overflow-hidden transition-colors duration-500 ${
-        isDark ? 'bg-[#030712]' : 'bg-white'
-      }`}
+      className={`min-h-screen flex items-center justify-center relative transition-colors duration-500 bg-transparent`}
     >
-      {/* ── Backgrounds ────────────────────────────────────── */}
-      {isDark && <div className="aurora-bg absolute inset-0 opacity-55" />}
-      {isDark && <div className="grid-lines-dark absolute inset-0" />}
-      {!isDark && <div className="dot-grid-light absolute inset-0 opacity-35" />}
-
-      {/* Animated orbs — translate only, GPU composited */}
-      <div className="absolute inset-0 pointer-events-none">
-        {orbs.map((orb, i) => (
-          <div
-            key={i}
-            className={`absolute rounded-full pointer-events-none ${orb.blur} animate-orb ${
-              isDark ? orb.color.split(' ')[0] : orb.color.split(' ')[1]
-            }`}
-            style={{ 
-              width: orb.size, 
-              height: orb.size, 
-              left: orb.x, 
-              top: orb.y,
-              '--dx': `${orb.dx[1]}px`,
-              '--dy': `${orb.dy[1]}px`,
-              '--dur': `${orb.duration}s`
-            } as React.CSSProperties}
-          />
-        ))}
-      </div>
-
-      {/* Dark-only floating particles */}
-      {isDark && (
-        <div className="absolute inset-0 pointer-events-none">
-          {particles.map(p => (
-            <div
-              key={p.id}
-              className="absolute rounded-full bg-sky-400/20 animate-particle-scale"
-              style={{ 
-                left: p.x, 
-                top: p.y, 
-                width: p.size, 
-                height: p.size,
-                '--dx': '0px',
-                '--dy': '-28px',
-                '--dur': `${p.dur}s`,
-                '--delay': `${p.delay}s`,
-                '--scale-start': 1,
-                '--scale-mid': 1.8,
-                '--op-start': 0.1,
-                '--op-mid': 0.5
-              } as React.CSSProperties}
-            />
-          ))}
-        </div>
-      )}
-
       {/* ── Main content ───────────────────────────────────── */}
       <div className="container mx-auto px-6 py-20 relative z-10">
         <motion.div

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Briefcase, MapPin, Calendar } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
 import { useRef } from 'react';
@@ -16,9 +16,7 @@ const experiences = [
     description: [
       'Contributed to enterprise security operations across Wiz (CSPM), CyberArk (PAM/EPM), Qualys (VMDR), Veracode (SAST), Proofpoint, and DigiCert in a production environment.',
       'Monitored cloud infrastructure using Wiz, identifying misconfigurations and compliance gaps aligned with cloud security best practices.',
-      'Supported CyberArk PAM & EPM operations, enforcing least-privilege controls across 20+ endpoints.',
       'Conducted vulnerability assessment and triage using Qualys VMDR across 300+ assets, prioritizing critical risks.',
-      'Managed certificate lifecycle using DigiCert — issuance, renewal, and validation of 100+ enterprise certificates.',
       'Built Python automation for log analysis, vulnerability tracking, and alert triage, improving SOC efficiency in Splunk workflows.',
     ],
   },
@@ -72,10 +70,6 @@ export default function Experience() {
   const isDark = theme === 'dark';
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Parallax for the ambient blob
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
-  const blobY = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
-
   const accent  = isDark ? 'text-sky-400'  : 'text-indigo-600';
   const strong  = isDark ? 'text-white'    : 'text-slate-900';
   const divider = isDark
@@ -86,21 +80,11 @@ export default function Experience() {
     <section
       id="experience"
       ref={sectionRef}
-      className={`py-28 relative overflow-hidden transition-colors duration-500 ${
-        isDark ? 'bg-[#030712]' : 'bg-white'
-      }`}
+      className={`py-28 relative overflow-hidden transition-colors duration-500 bg-transparent`}
     >
       {/* Separators */}
       <div className={`absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent ${
         isDark ? 'via-sky-500/20' : 'via-indigo-200/60'} to-transparent`} />
-
-      {/* Parallax blob */}
-      <motion.div
-        style={{ y: blobY }}
-        className={`absolute top-1/3 right-0 w-96 h-96 rounded-full blur-[110px] pointer-events-none ${
-          isDark ? 'bg-sky-500/5' : 'bg-indigo-100/50'
-        }`}
-      />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
@@ -236,31 +220,19 @@ export default function Experience() {
                     {/* Bullet points */}
                     <ul className="space-y-2.5">
                       {exp.description.map((item, i) => (
-                        <motion.li
+                        <li
                           key={i}
-                          initial={{ opacity: 0, x: -10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{
-                            duration: 0.45,
-                            delay: index * 0.1 + i * 0.045,
-                            ease: [0.22, 1, 0.36, 1],
-                          }}
-                          viewport={{ once: true }}
                           className={`flex items-start gap-2.5 text-sm leading-relaxed ${
                             isDark ? 'text-slate-300' : 'text-slate-600'
                           }`}
                         >
-                          <motion.span
+                          <span
                             className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${
                               isDark ? 'bg-sky-500' : 'bg-indigo-400'
                             }`}
-                            initial={{ scale: 0 }}
-                            whileInView={{ scale: 1 }}
-                            transition={{ delay: index * 0.1 + i * 0.045 + 0.1, type: 'spring' as const, stiffness: 400 }}
-                            viewport={{ once: true }}
                           />
                           {item}
-                        </motion.li>
+                        </li>
                       ))}
                     </ul>
                   </motion.div>

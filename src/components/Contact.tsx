@@ -54,20 +54,10 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className={`py-28 relative overflow-hidden transition-colors duration-500 ${
-        isDark ? 'bg-[#030712]' : 'bg-white'
-      }`}
+      className={`py-28 relative overflow-hidden transition-colors duration-500 bg-transparent`}
     >
-      {isDark && (
-        <>
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-sky-500/20 to-transparent" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full bg-sky-500/5 blur-[100px]" />
-          <div className="absolute top-1/3 left-0 w-80 h-80 rounded-full bg-indigo-600/5 blur-[90px]" />
-        </>
-      )}
-      {!isDark && (
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-200 to-transparent" />
-      )}
+      <div className={`absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent ${
+        isDark ? 'via-sky-500/20' : 'via-indigo-200'} to-transparent`} />
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div

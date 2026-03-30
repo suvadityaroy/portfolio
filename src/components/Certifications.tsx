@@ -1,11 +1,20 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Award, ShieldCheck, Cloud, Terminal, Brain } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ShieldCheck, Cloud, Terminal, Brain } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
 import { useRef } from 'react';
 
 const certifications = [
+  {
+    name: 'AWS Security Fundamentals',
+    issuer: 'Amazon Web Services',
+    date: 'Mar 2026',
+    icon: Cloud,
+    iconColor: 'text-orange-500',
+    badge: { dark: 'bg-orange-500/10 border-orange-500/22', light: 'bg-orange-50 border-orange-200' },
+    glow:  { dark: 'hover:shadow-[0_0_30px_rgba(249,115,22,0.12)]', light: 'hover:shadow-[0_8px_30px_rgba(249,115,22,0.1)]' },
+  },
   {
     name: 'Introduction to Generative AI',
     issuer: 'Google',
@@ -43,15 +52,6 @@ const certifications = [
     glow:  { dark: 'hover:shadow-[0_0_30px_rgba(249,115,22,0.12)]', light: 'hover:shadow-[0_8px_30px_rgba(249,115,22,0.1)]' },
   },
   {
-    name: 'Certified Information Systems Security Professional (CISSP)',
-    issuer: 'Simplilearn',
-    date: 'Nov 2023',
-    icon: Award,
-    iconColor: 'text-purple-500',
-    badge: { dark: 'bg-purple-500/10 border-purple-500/22', light: 'bg-purple-50 border-purple-200' },
-    glow:  { dark: 'hover:shadow-[0_0_30px_rgba(168,85,247,0.12)]', light: 'hover:shadow-[0_8px_30px_rgba(168,85,247,0.1)]' },
-  },
-  {
     name: 'Certified in Cybersecurity Specialization (CC)',
     issuer: 'ISC2',
     date: 'Nov 2023',
@@ -81,9 +81,6 @@ export default function Certifications() {
   const isDark = theme === 'dark';
   const sectionRef = useRef<HTMLElement>(null);
 
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
-  const blobY = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
-
   const accent  = isDark ? 'text-sky-400'  : 'text-indigo-600';
   const strong  = isDark ? 'text-white'    : 'text-slate-900';
   const divider = isDark
@@ -94,26 +91,10 @@ export default function Certifications() {
     <section
       id="certifications"
       ref={sectionRef}
-      className={`py-28 relative overflow-hidden transition-colors duration-500 ${
-        isDark ? 'bg-[#050d1a]' : 'bg-slate-50'
-      }`}
+      className={`py-28 relative overflow-hidden transition-colors duration-500 bg-transparent`}
     >
       <div className={`absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent ${
         isDark ? 'via-sky-500/20' : 'via-indigo-200/60'} to-transparent`} />
-
-      {/* Parallax blob */}
-      <motion.div
-        style={{ y: blobY }}
-        className={`absolute bottom-10 left-10 w-96 h-96 rounded-full blur-[110px] pointer-events-none ${
-          isDark ? 'bg-indigo-600/5' : 'bg-indigo-100/50'
-        }`}
-      />
-      <motion.div
-        style={{ y: blobY }}
-        className={`absolute top-16 right-16 w-72 h-72 rounded-full blur-[90px] pointer-events-none ${
-          isDark ? 'bg-sky-500/5' : 'bg-violet-100/50'
-        }`}
-      />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}

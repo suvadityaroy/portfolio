@@ -109,20 +109,12 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className={`py-28 relative overflow-hidden transition-colors duration-500 ${
-        isDark ? 'bg-[#030712]' : 'bg-white'
-      }`}
+      className={`py-28 relative overflow-hidden transition-colors duration-500 bg-transparent`}
     >
-      {isDark && (
-        <>
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-sky-500/20 to-transparent" />
-          <div className="absolute bottom-0 left-1/4 w-96 h-96 rounded-full bg-indigo-600/5 blur-[100px]" />
-          <div className="absolute top-1/3 right-0 w-80 h-80 rounded-full bg-sky-500/5 blur-[80px]" />
-        </>
-      )}
-      {!isDark && (
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-200 to-transparent" />
-      )}
+      {/* Subtly darkened top line just to separate sections if desired */}
+      <div className={`absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent ${
+        isDark ? 'via-sky-500/20' : 'via-indigo-200'
+      } to-transparent`} />
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div

@@ -62,28 +62,9 @@ const projects = [
     demo: '',
     tagColor: { dark: 'bg-red-500/15 text-red-300 border-red-500/25', light: 'bg-red-100 text-red-700 border-red-200' },
   },
-  {
-    title: 'Fake News Detector',
-    description: 'ML-based system for detecting fake news using NLP, behavioral analysis, and source credibility scoring with 95%+ accuracy.',
-    tags: ['AI', 'NLP', 'Machine Learning', 'Python'],
-    image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=800',
-    github: 'https://github.com/suvadityaroy/Fake-News-Detector',
-    demo: 'https://fake-news-detector.up.railway.app/static/index.html',
-    tagColor: { dark: 'bg-pink-500/15 text-pink-300 border-pink-500/25', light: 'bg-pink-100 text-pink-700 border-pink-200' },
-  },
 ];
 
-// Floating particle dots for dark bg
-const floatingParticles = Array.from({ length: 18 }, (_, i) => ({
-  id: i,
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  size: Math.random() * 2 + 1,
-  duration: Math.random() * 8 + 6,
-  delay: Math.random() * 5,
-}));
-
-// 3D tilt card wrapper
+// Floating particles removed in favor of global canvas background
 function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const springCfg = { stiffness: 130, damping: 16, mass: 0.7 };
@@ -153,9 +134,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className={`py-28 relative overflow-hidden transition-colors duration-500 ${
-        isDark ? 'bg-[#050d1a]' : 'bg-slate-50'
-      }`}
+      className={`py-28 relative overflow-hidden transition-colors duration-500 bg-transparent`}
     >
       {/* Top separator */}
       <div className={`absolute top-0 left-0 w-full h-px ${
@@ -163,55 +142,6 @@ export default function Projects() {
           ? 'bg-gradient-to-r from-transparent via-sky-500/25 to-transparent'
           : 'bg-gradient-to-r from-transparent via-indigo-200 to-transparent'
       }`} />
-
-      {/* Dark mode: floating ambient orbs */}
-      {isDark && (
-        <>
-          <div
-            className="absolute top-16 left-8 w-[500px] h-[500px] rounded-full bg-sky-500/5 blur-[120px] pointer-events-none animate-scale-pulse"
-            style={{ '--dur': '14s', '--scale-start': 1, '--scale-mid': 1.12, '--op-start': 0.4, '--op-mid': 0.7 } as React.CSSProperties}
-          />
-          <div
-            className="absolute bottom-16 right-8 w-[400px] h-[400px] rounded-full bg-indigo-600/6 blur-[100px] pointer-events-none animate-scale-pulse"
-            style={{ '--dur': '11s', '--delay': '3s', '--scale-start': 1.1, '--scale-mid': 1, '--op-start': 0.5, '--op-mid': 0.3 } as React.CSSProperties}
-          />
-          {/* Floating particles */}
-          {floatingParticles.map(p => (
-            <div
-              key={p.id}
-              className="absolute rounded-full bg-sky-400/25 pointer-events-none animate-particle-scale"
-              style={{
-                left: `${p.x}%`,
-                top: `${p.y}%`,
-                width: p.size,
-                height: p.size,
-                '--dx': `${Math.sin(p.id) * 12}px`,
-                '--dy': '-30px',
-                '--scale-start': 1,
-                '--scale-mid': 1.6,
-                '--op-start': 0.15,
-                '--op-mid': 0.55,
-                '--dur': `${p.duration}s`,
-                '--delay': `${p.delay}s`
-              } as React.CSSProperties}
-            />
-          ))}
-        </>
-      )}
-
-      {/* Light mode: subtle blobs */}
-      {!isDark && (
-        <>
-          <div
-            className="absolute top-20 right-20 w-80 h-80 rounded-full bg-indigo-100/70 blur-[90px] pointer-events-none animate-scale-pulse"
-            style={{ '--dur': '10s', '--scale-start': 1, '--scale-mid': 1.1, '--op-start': 0.5, '--op-mid': 0.8 } as React.CSSProperties}
-          />
-          <div
-            className="absolute bottom-10 left-10 w-64 h-64 rounded-full bg-violet-100/60 blur-[80px] pointer-events-none animate-scale-pulse"
-            style={{ '--dur': '12s', '--delay': '2s', '--scale-start': 1.1, '--scale-mid': 1, '--op-start': 0.6, '--op-mid': 0.6 } as React.CSSProperties}
-          />
-        </>
-      )}
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section header */}
@@ -222,17 +152,12 @@ export default function Projects() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <motion.p
-            initial={{ opacity: 0, letterSpacing: '0.2em' }}
-            whileInView={{ opacity: 1, letterSpacing: '0.3em' }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className={`text-xs font-bold tracking-[0.3em] uppercase mb-4 ${
+          <p className={`text-xs font-bold tracking-[0.3em] uppercase mb-4 ${
               isDark ? 'text-sky-400' : 'text-indigo-600'
             }`}
           >
             Projects
-          </motion.p>
+          </p>
           <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-900'}`}>
             Featured Work
           </h2>
@@ -390,11 +315,9 @@ export default function Projects() {
                     )}
                     <div className="ml-auto flex items-center gap-1">
                       {[0, 1, 2].map(i => (
-                        <motion.div
+                        <div
                           key={i}
                           className={`w-1.5 h-1.5 rounded-full ${isDark ? 'bg-sky-500/40' : 'bg-indigo-400/40'}`}
-                          animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
-                          transition={{ duration: 1.6, repeat: Infinity, delay: i * 0.25, ease: 'easeInOut' }}
                         />
                       ))}
                     </div>

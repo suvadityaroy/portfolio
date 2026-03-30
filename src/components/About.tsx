@@ -50,33 +50,11 @@ export default function About() {
   return (
     <section
       id="about"
-      className={`py-28 relative overflow-hidden transition-colors duration-500 ${
-        isDark ? 'bg-[#050d1a]' : 'bg-slate-50'
-      }`}
+      className={`py-28 relative overflow-hidden transition-colors duration-500 bg-transparent`}
     >
       {/* Separators */}
       <div className={`absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent ${
         isDark ? 'via-sky-500/20' : 'via-indigo-200/60'} to-transparent`} />
-
-      {/* Ambient blobs */}
-      {isDark && (
-        <>
-          <div
-            className="absolute top-16 right-12 w-80 h-80 rounded-full bg-sky-500/5 blur-[100px] pointer-events-none animate-scale-pulse"
-            style={{ '--dur': '14s', '--scale-start': 1, '--scale-mid': 1.12, '--op-start': 0.4, '--op-mid': 0.7 } as React.CSSProperties}
-          />
-          <div
-            className="absolute bottom-16 left-8 w-72 h-72 rounded-full bg-indigo-600/5 blur-[90px] pointer-events-none animate-scale-pulse"
-            style={{ '--dur': '16s', '--delay': '3s', '--scale-start': 1.1, '--scale-mid': 1, '--op-start': 0.5, '--op-mid': 0.5 } as React.CSSProperties}
-          />
-        </>
-      )}
-      {!isDark && (
-        <div
-          className="absolute top-10 right-16 w-72 h-72 rounded-full bg-indigo-100/70 blur-[90px] pointer-events-none animate-scale-pulse"
-          style={{ '--dur': '12s', '--scale-start': 1, '--scale-mid': 1.1, '--op-start': 0.5, '--op-mid': 0.8 } as React.CSSProperties}
-        />
-      )}
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
