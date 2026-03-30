@@ -16,13 +16,6 @@ const cardVariants = {
     transition: { type: 'spring' as const, stiffness: 240, damping: 22 },
   },
 };
-const itemVariants = {
-  hidden: { opacity: 0, scale: 0.85 },
-  show: {
-    opacity: 1, scale: 1,
-    transition: { type: 'spring' as const, stiffness: 300, damping: 20 },
-  },
-};
 import {
   SiPython, SiGo, SiPostgresql, SiTypescript,
   SiAmazon, SiGooglecloud, SiDocker,
@@ -190,19 +183,11 @@ export default function Skills() {
                   </h3>
                 </div>
 
-                <motion.div
-                  variants={gridVariants}
-                  className="grid grid-cols-2 gap-2"
-                >
+                <div className="grid grid-cols-2 gap-2">
                   {group.items.map((item, i) => (
-                    <motion.div
+                    <div
                       key={i}
-                      variants={itemVariants}
-                      whileHover={{
-                        scale: 1.06, y: -2,
-                        transition: { type: 'spring' as const, stiffness: 400, damping: 18 },
-                      }}
-                      className={`flex items-center gap-1.5 px-2 py-2 rounded-lg border text-xs font-medium cursor-default transition-colors duration-200 ${
+                      className={`flex items-center gap-1.5 px-2 py-2 rounded-lg border text-xs font-medium cursor-default transition-colors duration-150 ${
                         isDark
                           ? 'bg-[#050d1a] border-slate-800 text-slate-300 hover:border-sky-500/35 hover:bg-sky-500/6'
                           : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-indigo-300 hover:bg-indigo-50/70'
@@ -210,9 +195,9 @@ export default function Skills() {
                     >
                       <span className="flex-shrink-0">{item.icon}</span>
                       <span className="leading-tight truncate">{item.name}</span>
-                    </motion.div>
+                    </div>
                   ))}
-                </motion.div>
+                </div>
               </motion.div>
             );
           })}
@@ -237,21 +222,16 @@ export default function Skills() {
           </h3>
           <div className="flex flex-wrap justify-center gap-3">
             {enterpriseTools.map((tool, i) => (
-              <motion.span
+              <span
                 key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.05 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                className={`px-4 py-2 rounded-lg text-sm font-medium border cursor-default transition-all ${
+                className={`px-4 py-2 rounded-lg text-sm font-medium border cursor-default transition-colors duration-150 ${
                   isDark
                     ? 'bg-[#0a1628] border-sky-500/20 text-sky-300 hover:border-sky-400/50 hover:bg-sky-500/10'
                     : 'bg-white border-indigo-200 text-indigo-700 hover:border-indigo-400 hover:shadow-sm shadow-indigo-100'
                 }`}
               >
                 {tool}
-              </motion.span>
+              </span>
             ))}
           </div>
         </motion.div>

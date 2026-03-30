@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
@@ -14,6 +14,8 @@ const contactInfo = [
 export default function Contact() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const prefersReduced = useReducedMotion();
+
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -45,26 +47,33 @@ export default function Contact() {
     }
   };
 
-  const inputClass = `w-full px-4 py-3 rounded-xl border text-sm transition-all duration-200 outline-none ${
+  const inputClass = `w-full px-4 py-3 rounded-xl border text-sm transition-colors duration-150 outline-none ${
     isDark
       ? 'bg-[#050d1a] border-slate-800 text-white placeholder-slate-600 focus:border-sky-500/60 focus:shadow-[0_0_0_3px_rgba(56,189,248,0.1)]'
       : 'bg-white border-slate-200 text-slate-900 placeholder-slate-400 focus:border-indigo-400 focus:shadow-[0_0_0_3px_rgba(79,70,229,0.08)]'
   }`;
 
+  // GPU-safe fade+slide — no x-axis, respects prefers-reduced-motion
+  const fadeUp = prefersReduced
+    ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.01 } }
+    : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } };
+
   return (
     <section
       id="contact"
-      className={`py-28 relative overflow-hidden transition-colors duration-500 bg-transparent`}
+      className="py-28 relative overflow-hidden bg-transparent"
     >
       <div className={`absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent ${
         isDark ? 'via-sky-500/20' : 'via-indigo-200'} to-transparent`} />
 
       <div className="container mx-auto px-6 relative z-10">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          {...fadeUp}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: true }}
+          whileInView="animate"
+          initial="initial"
           className="text-center mb-20"
         >
           <p className={`text-sm font-semibold tracking-widest uppercase mb-3 ${
@@ -82,38 +91,30 @@ export default function Contact() {
               ? 'bg-gradient-to-r from-sky-500 to-indigo-500'
               : 'bg-gradient-to-r from-indigo-600 to-violet-600'
           }`} />
-          <p className={`mt-5 max-w-md mx-auto text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-            Open to Cloud Security Engineer opportunities. Let's connect!
-          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Contact info */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
             className="space-y-5"
           >
             <h3 className={`text-xl font-bold mb-8 ${isDark ? 'text-white' : 'text-slate-900'}`}>
               Contact Information
             </h3>
-            {contactInfo.map((item, i) => (
-              <motion.div
+            {contactInfo.map((item) => (
+              <div
                 key={item.label}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ x: 4, transition: { duration: 0.2 } }}
-                className={`flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 group ${
+                className={`flex items-center gap-4 p-4 rounded-xl border transition-all duration-200 group ${
                   isDark
                     ? 'card-dark hover:shadow-[0_0_20px_rgba(56,189,248,0.1)]'
                     : 'card-light hover:shadow-[0_4px_20px_rgba(79,70,229,0.08)]'
                 }`}
               >
-                <div className={`p-3 rounded-xl transition-all duration-300 ${
+                <div className={`p-3 rounded-xl transition-colors duration-200 ${
                   isDark
                     ? 'bg-sky-500/10 border border-sky-500/20 group-hover:bg-sky-500/20'
                     : 'bg-indigo-50 border border-indigo-200 group-hover:bg-indigo-100'
@@ -127,7 +128,7 @@ export default function Contact() {
                   {item.href ? (
                     <a
                       href={item.href}
-                      className={`text-sm font-medium transition-colors ${
+                      className={`text-sm font-medium transition-colors duration-150 ${
                         isDark
                           ? 'text-slate-300 hover:text-sky-300'
                           : 'text-slate-700 hover:text-indigo-700'
@@ -141,49 +142,25 @@ export default function Contact() {
                     </p>
                   )}
                 </div>
-              </motion.div>
-            ))}
-
-            {/* Availability card */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
-              className={`mt-6 p-5 rounded-xl border ${
-                isDark
-                  ? 'bg-gradient-to-br from-sky-500/5 to-indigo-500/5 border-sky-500/15'
-                  : 'bg-gradient-to-br from-indigo-50 to-violet-50 border-indigo-200'
-              }`}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <p className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                  Available for opportunities
-                </p>
               </div>
-              <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                Currently open to Cloud Security Engineer roles, security consulting, and research collaborations.
-              </p>
-            </motion.div>
+            ))}
           </motion.div>
 
           {/* Form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
-            className={`p-7 rounded-2xl border transition-all duration-300 ${
-              isDark
-                ? 'card-dark'
-                : 'card-light'
+            className={`p-7 rounded-2xl border ${
+              isDark ? 'card-dark' : 'card-light'
             }`}
           >
             {submitStatus === 'success' ? (
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 className="flex flex-col items-center justify-center py-16 text-center"
               >
                 <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
@@ -248,9 +225,9 @@ export default function Contact() {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`w-full py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${
+                  whileHover={prefersReduced ? undefined : { scale: 1.02 }}
+                  whileTap={prefersReduced ? undefined : { scale: 0.98 }}
+                  className={`w-full py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
                     isDark
                       ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-[0_0_20px_rgba(56,189,248,0.25)] hover:shadow-[0_0_30px_rgba(56,189,248,0.4)]'
                       : 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-[0_4px_15px_rgba(79,70,229,0.3)] hover:shadow-[0_8px_25px_rgba(79,70,229,0.4)]'

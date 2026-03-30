@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Mail, ArrowRight, ChevronDown } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import Link from 'next/link';
@@ -33,6 +33,12 @@ const fadeScale = {
     transition: { type: 'spring' as const, stiffness: 280, damping: 24 },
   },
 };
+
+// ── Floating background orbs (CSS-driven, no JS animation loop) ─
+const orbs = [
+  { size: 600, x: '-5%', y: '-10%', color: 'dark:bg-sky-500/8 bg-indigo-100/70',    blur: 'blur-[130px]' },
+  { size: 500, x: '65%', y: '50%',  color: 'dark:bg-indigo-600/8 bg-violet-100/60', blur: 'blur-[110px]' },
+];
 
 export default function Hero() {
   const { theme } = useTheme();
@@ -78,6 +84,9 @@ export default function Hero() {
     return () => clearTimeout(t);
   }, [charIdx, deleting, lineIdx]);
 
+  // Parallax on scroll
+  const { scrollY } = useScroll();
+  const yOrb1 = useTransform(scrollY, [0, 600], [0, -80]);
 
   const socials = [
     {
@@ -101,8 +110,28 @@ export default function Hero() {
     <section
       id="home"
       ref={sectionRef}
-      className={`min-h-screen flex items-center justify-center relative transition-colors duration-500 bg-transparent`}
+      className={`min-h-screen flex items-center justify-center relative overflow-hidden transition-colors duration-500 ${
+        isDark ? 'bg-[#030712]' : 'bg-white'
+      }`}
     >
+      {/* ── Backgrounds ────────────────────────────────────── */}
+      {isDark && <div className="aurora-bg absolute inset-0 opacity-55" />}
+      {isDark && <div className="grid-lines-dark absolute inset-0" />}
+      {!isDark && <div className="dot-grid-light absolute inset-0 opacity-35" />}
+
+      {/* Animated orbs with parallax */}
+      <motion.div style={{ y: yOrb1 }} className="absolute inset-0 pointer-events-none">
+        {orbs.map((orb, i) => (
+          <div
+            key={i}
+            className={`absolute rounded-full pointer-events-none ${orb.blur} ${
+              isDark ? orb.color.split(' ')[0] : orb.color.split(' ')[1]
+            }`}
+            style={{ width: orb.size, height: orb.size, left: orb.x, top: orb.y }}
+          />
+        ))}
+      </motion.div>
+
       {/* ── Main content ───────────────────────────────────── */}
       <div className="container mx-auto px-6 py-20 relative z-10">
         <motion.div
@@ -118,11 +147,7 @@ export default function Hero() {
                 ? 'bg-sky-500/8 border-sky-500/22 text-sky-300'
                 : 'bg-indigo-50 border-indigo-200 text-indigo-700'
             }`}>
-              <motion.span
-                className="inline-block w-2 h-2 rounded-full bg-green-400 mr-2"
-                animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
-                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-              />
+              <span className="inline-block w-2 h-2 rounded-full bg-green-400 mr-2 animate-pulse" />
               Available for opportunities
             </span>
           </motion.div>
@@ -185,11 +210,7 @@ export default function Hero() {
                   about.js
                 </span>
                 <div className="ml-auto flex items-center gap-1.5">
-                  <motion.div
-                    className="w-1.5 h-1.5 rounded-full bg-green-400"
-                    animate={{ opacity: [1, 0.3, 1] }}
-                    transition={{ duration: 2.2, repeat: Infinity }}
-                  />
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
                   <span className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>live</span>
                 </div>
               </div>
@@ -206,11 +227,7 @@ export default function Hero() {
                     <span className={isDark ? 'text-emerald-400' : 'text-emerald-700'}>
                       {displayed}
                       {mounted && (
-                        <motion.span
-                          className={isDark ? 'text-sky-300' : 'text-indigo-500'}
-                          animate={{ opacity: [1, 0, 1] }}
-                          transition={{ duration: 0.9, repeat: Infinity, ease: 'linear' }}
-                        >|</motion.span>
+                        <span className={`animate-[blink-cursor_0.9s_step-end_infinite] ${isDark ? 'text-sky-300' : 'text-indigo-500'}`}>|</span>
                       )}
                     </span>
                     {charIdx === codeLines[lineIdx].length && (
@@ -242,13 +259,7 @@ export default function Hero() {
               >
                 <span className="absolute inset-0 shimmer-btn" />
                 <span className="relative">View My Work</span>
-                <motion.div
-                  className="relative"
-                  animate={{ x: [0, 3, 0] }}
-                  transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  <ArrowRight className="w-4 h-4" />
-                </motion.div>
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </motion.div>
 
