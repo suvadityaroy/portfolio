@@ -122,7 +122,7 @@ export default function Contact() {
                   <item.icon className={`w-5 h-5 ${isDark ? 'text-sky-400' : 'text-indigo-600'}`} />
                 </div>
                 <div>
-                  <p className={`text-xs font-medium mb-0.5 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                  <p className={`text-xs font-medium mb-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                     {item.label}
                   </p>
                   {item.href ? (
@@ -237,7 +237,7 @@ export default function Contact() {
                   <Send className="w-4 h-4" />
                 </motion.button>
                 {submitStatus === 'error' && (
-                  <p className="text-red-400 text-xs text-center mt-2">
+                  <p className={`text-xs text-center mt-2 ${isDark ? 'text-red-400' : 'text-red-600'}`}>
                     Failed to send. Please try again or email directly.
                   </p>
                 )}

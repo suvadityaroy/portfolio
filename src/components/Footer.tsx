@@ -34,7 +34,7 @@ export default function Footer() {
               <span className={isDark ? 'text-sky-400' : 'text-indigo-600'}>Suvaditya</span>{' '}
               <span className={isDark ? 'text-white' : 'text-slate-900'}>Roy</span>
             </h3>
-            <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
               Security Engineer · Cloud Security Specialist
             </p>
           </motion.div>
@@ -79,7 +79,7 @@ export default function Footer() {
           transition={{ duration: 0.5, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <p className={`text-xs ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>
+          <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
             &copy; {new Date().getFullYear()} Suvaditya Roy. All rights reserved.
           </p>
         </motion.div>

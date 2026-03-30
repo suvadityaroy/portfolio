@@ -211,14 +211,14 @@ export default function Hero() {
                 </span>
                 <div className="ml-auto flex items-center gap-1.5">
                   <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                  <span className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>live</span>
+                  <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>live</span>
                 </div>
               </div>
 
               {/* Code line */}
               <div className="px-5 py-5 font-mono text-sm md:text-base text-left">
                 <div className="flex items-start gap-3">
-                  <span className={`select-none text-xs mt-0.5 w-4 ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>1</span>
+                  <span className={`select-none text-xs mt-0.5 w-4 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>1</span>
                   <div className="flex-1 flex flex-wrap items-center gap-1 min-h-[1.5em]">
                     <span className={isDark ? 'text-purple-400' : 'text-violet-600'}>const</span>
                     <span className={isDark ? 'text-sky-300' : 'text-indigo-600'}>about</span>

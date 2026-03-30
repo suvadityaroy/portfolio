@@ -197,7 +197,7 @@ export default function Experience() {
                           <Briefcase className={`w-3.5 h-3.5 ${accent}`} />
                           <p className={`text-sm font-semibold ${accent}`}>{exp.company}</p>
                         </div>
-                        <div className={`flex items-center gap-1 text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                        <div className={`flex items-center gap-1 text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                           <MapPin className="w-3 h-3" />
                           {exp.location}
                         </div>

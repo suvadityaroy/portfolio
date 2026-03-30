@@ -171,7 +171,7 @@ export default function Certifications() {
                 <div className={`flex items-center justify-between mt-4 pt-4 border-t ${
                   isDark ? 'border-slate-800' : 'border-slate-100'
                 }`}>
-                  <span className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                  <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                     {cert.date}
                   </span>
                   {/* Verified badge with shimmer */}
@@ -179,7 +179,7 @@ export default function Certifications() {
                     className={`px-2.5 py-1 rounded-lg text-xs font-medium border relative overflow-hidden ${
                       isDark
                         ? 'bg-[#050d1a] border-slate-800 text-slate-400'
-                        : 'bg-slate-50 border-slate-200 text-slate-500'
+                        : 'bg-slate-100 border-slate-200 text-slate-600'
                     }`}
                     whileHover={{ scale: 1.06 }}
                   >
