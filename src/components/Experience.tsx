@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Briefcase, Calendar } from 'lucide-react';
+import { useTheme } from '@/context/ThemeContext';
 import SectionBackground from './SectionBackground';
 
 const experiences = [
@@ -59,10 +60,13 @@ const experiences = [
 ];
 
 export default function Experience() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
-    <section id="experience" className="py-24 bg-dark-900 relative overflow-hidden">
+    <section id="experience" className={`py-24 relative overflow-hidden transition-colors duration-300 ${isDark ? 'bg-gray-900' : 'bg-gradient-to-b from-white to-blue-50/30'}`}>
       {/* Subtle background */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+      <div className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl ${isDark ? 'bg-blue-500/5' : 'bg-blue-300/10'}`}></div>
       
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
@@ -72,8 +76,8 @@ export default function Experience() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">Professional Experience</h2>
-          <div className="w-20 h-1 bg-primary-500 mx-auto rounded-full"></div>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-4 transition-colors ${isDark ? 'text-white' : 'text-blue-900'}`}>Professional Experience</h2>
+          <div className={`w-20 h-1 mx-auto rounded-full transition-colors ${isDark ? 'bg-blue-500' : 'bg-gradient-to-r from-blue-600 to-cyan-500'}`}></div>
         </motion.div>
 
         <div className="max-w-4xl mx-auto space-y-8">
@@ -87,24 +91,32 @@ export default function Experience() {
               whileHover={{ y: -4, transition: { duration: 0.3 } }}
               className="relative"
             >
-              <div className="bg-dark-850 border border-dark-800 p-6 md:p-8 rounded-xl hover:border-primary-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary-500/20 group">
+              <div className={`p-6 md:p-8 border rounded-xl transition-all duration-300 hover:shadow-2xl group ${
+                isDark
+                  ? 'bg-gray-800 border-gray-700 hover:border-blue-500/50 hover:shadow-blue-500/10'
+                  : 'bg-blue-50/50 border-blue-300 hover:border-blue-400/80 hover:shadow-blue-300/30'
+              }`}>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
                   <div className="flex-1">
                     <motion.h3 
-                      className="text-xl md:text-2xl font-heading font-bold text-white mb-1 group-hover:text-primary-400 transition-colors"
+                      className={`text-xl md:text-2xl font-bold mb-1 transition-colors ${isDark ? 'text-white' : 'text-blue-900'} group-hover:${isDark ? 'text-blue-400' : 'text-blue-700'} transition-colors`}
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       transition={{ delay: index * 0.08 + 0.2 }}
                     >
                       {exp.role}
                     </motion.h3>
-                    <h4 className="text-base md:text-lg text-primary-400 font-medium mb-2">{exp.company}</h4>
+                    <h4 className={`text-base md:text-lg font-medium mb-2 transition-colors ${isDark ? 'text-blue-400' : 'text-blue-700'}`}>{exp.company}</h4>
                     {exp.location && (
-                      <p className="text-sm text-gray-500">{exp.location}</p>
+                      <p className={`text-sm transition-colors ${isDark ? 'text-gray-500' : 'text-blue-600'}`}>{exp.location}</p>
                     )}
                   </div>
                   <motion.span 
-                    className="text-sm text-gray-400 bg-dark-900 border border-dark-700 px-4 py-2 rounded-lg mt-3 md:mt-0 w-fit group-hover:border-primary-500/30 transition-colors"
+                    className={`text-sm px-4 py-2 rounded-lg mt-3 md:mt-0 w-fit transition-all ${
+                      isDark
+                        ? 'bg-gray-900 border border-gray-700 text-gray-400 group-hover:border-blue-500/30'
+                        : 'bg-white border border-blue-200 text-blue-700 group-hover:border-blue-400/60'
+                    }`}
                     whileHover={{ scale: 1.05 }}
                   >
                     {exp.period}
@@ -114,13 +126,13 @@ export default function Experience() {
                   {exp.description.map((item, i) => (
                     <motion.li 
                       key={i} 
-                      className="flex items-start gap-3 text-sm md:text-base text-gray-300"
+                      className={`flex items-start gap-3 text-sm md:text-base transition-colors ${isDark ? 'text-gray-300' : 'text-blue-900'}`}
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.08 + i * 0.05 }}
                       viewport={{ once: true }}
                     >
-                      <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0 group-hover:scale-125 transition-transform"></span>
+                      <span className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 group-hover:scale-125 transition-transform ${isDark ? 'bg-blue-500' : 'bg-blue-600'}`}></span>
                       <span className="leading-relaxed">{item}</span>
                     </motion.li>
                   ))}

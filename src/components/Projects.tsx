@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Github, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
+import { useTheme } from '@/context/ThemeContext';
 import SectionBackground from './SectionBackground';
 
 const projects = [
@@ -65,10 +66,13 @@ const projects = [
 ];
 
 export default function Projects() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
-    <section id="projects" className="py-24 bg-dark-950 relative overflow-hidden">
+    <section id="projects" className={`py-24 relative overflow-hidden transition-colors duration-300 ${isDark ? 'bg-gray-950' : 'bg-gradient-to-b from-blue-50/40 to-white'}`}>
       {/* Subtle gradient */}
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-primary-500/5 via-transparent to-transparent"></div>
+      <div className={`absolute top-0 left-0 w-full h-full ${isDark ? 'bg-gradient-to-b from-blue-600/5 via-transparent to-transparent' : 'bg-gradient-to-b from-blue-50/60 via-transparent to-transparent'}`}></div>
       
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
@@ -78,9 +82,9 @@ export default function Projects() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">Featured Projects</h2>
-          <div className="w-20 h-1 bg-primary-500 mx-auto rounded-full"></div>
-          <p className="text-gray-400 mt-6 max-w-2xl mx-auto">
+          <h2 className={`text-4xl md:text-5xl font-bold mb-4 transition-colors ${isDark ? 'text-white' : 'text-blue-900'}`}>Featured Projects</h2>
+          <div className={`w-20 h-1 mx-auto rounded-full transition-colors ${isDark ? 'bg-blue-500' : 'bg-gradient-to-r from-blue-600 to-cyan-500'}`}></div>
+          <p className={`mt-6 max-w-2xl mx-auto transition-colors ${isDark ? 'text-gray-400' : 'text-blue-700'}`}>
             Cloud security tools, automation platforms, and research projects
           </p>
         </motion.div>
@@ -94,9 +98,13 @@ export default function Projects() {
               transition={{ duration: 0.6, delay: index * 0.06, ease: "easeOut" }}
               viewport={{ once: true, margin: "-50px" }}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="group bg-dark-900 border border-dark-800 rounded-xl overflow-hidden hover:border-primary-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary-500/20"
+              className={`group border rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl ${
+                isDark
+                  ? 'bg-gray-900 border-gray-800 hover:border-blue-500/50 hover:shadow-blue-500/20'
+                  : 'bg-blue-50/50 border-blue-300 hover:border-blue-400/80 hover:shadow-blue-400/30'
+              }`}
             >
-              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-dark-800 to-dark-850">
+              <div className={`relative h-48 overflow-hidden bg-gradient-to-br transition-colors ${isDark ? 'from-gray-800 to-gray-850' : 'from-blue-200 to-blue-150'}`}>
                 <motion.img 
                   src={project.image} 
                   alt={project.title} 
@@ -104,19 +112,19 @@ export default function Projects() {
                   whileHover={{ scale: 1.1, opacity: 0.9 }}
                   transition={{ duration: 0.5 }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/50 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
+                <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent' : 'bg-gradient-to-t from-blue-600/40 via-blue-600/20 to-transparent'} opacity-80 group-hover:opacity-60 transition-opacity duration-300`}></div>
                 <motion.div 
                   className="absolute top-3 right-3 flex gap-2"
                   initial={{ opacity: 0, y: -10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.06 + 0.2 }}
                 >
-                  <div className="px-2 py-1 bg-primary-500/90 backdrop-blur-sm rounded text-xs font-semibold text-white">Featured</div>
+                  <div className={`px-2 py-1 backdrop-blur-sm rounded text-xs font-semibold transition-colors ${isDark ? 'bg-blue-500/90 text-white' : 'bg-blue-600/90 text-white'}`}>Featured</div>
                 </motion.div>
               </div>
               <div className="p-6">
-                <h3 className="text-lg md:text-xl font-heading font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">{project.title}</h3>
-                <p className="text-sm md:text-base text-gray-400 mb-4 leading-relaxed line-clamp-3">{project.description}</p>
+                <h3 className={`text-lg md:text-xl font-heading font-bold mb-2 transition-colors ${isDark ? 'text-white group-hover:text-blue-400' : 'text-blue-900 group-hover:text-blue-700'}`}>{project.title}</h3>
+                <p className={`text-sm md:text-base mb-4 leading-relaxed line-clamp-3 transition-colors ${isDark ? 'text-gray-400' : 'text-gray-700'}`}>{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag, i) => (
                     <motion.span 
@@ -126,17 +134,17 @@ export default function Projects() {
                       transition={{ delay: index * 0.06 + i * 0.03 }}
                       viewport={{ once: true }}
                       whileHover={{ scale: 1.05 }}
-                      className="px-3 py-1 bg-dark-800 border border-dark-700 text-primary-400 rounded-md text-xs font-medium hover:border-primary-500/50 hover:bg-primary-500/5 transition-all cursor-default"
+                      className={`px-3 py-1 border rounded-md text-xs font-medium transition-all cursor-default ${isDark ? 'bg-gray-800 border-gray-700 text-blue-400 hover:border-blue-500/50 hover:bg-blue-500/5' : 'bg-blue-100/60 border-blue-300 text-blue-700 hover:border-blue-400/60 hover:bg-blue-200/40'}`}
                     >
                       {tag}
                     </motion.span>
                   ))}
                 </div>
-                <div className="flex gap-3 pt-4 border-t border-dark-800">
+                <div className={`flex gap-3 pt-4 border-t transition-colors ${isDark ? 'border-gray-800' : 'border-blue-200'}`}>
                   <Link 
                     href={project.github} 
                     target="_blank"
-                    className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium group/link"
+                    className={`flex items-center gap-2 transition-colors text-sm font-medium group/link ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-700 hover:text-blue-700'}`}
                   >
                     <Github className="w-4 h-4 group-hover/link:rotate-12 transition-transform" />
                     Code
@@ -145,7 +153,7 @@ export default function Projects() {
                     <Link 
                       href={project.demo} 
                       target="_blank"
-                      className="flex items-center gap-2 text-gray-400 hover:text-primary-400 transition-colors text-sm font-medium group/link"
+                      className={`flex items-center gap-2 transition-colors text-sm font-medium group/link ${isDark ? 'text-gray-400 hover:text-blue-400' : 'text-gray-700 hover:text-blue-700'}`}
                     >
                       <ExternalLink className="w-4 h-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
                       Live Demo
