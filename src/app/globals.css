@@ -23,10 +23,10 @@
 }
 
 html.light {
-  --bg-primary:    #ffffff;
-  --bg-secondary:  #f8fafc;
+  --bg-primary:    #f5f7ff;
+  --bg-secondary:  #eef1ff;
   --bg-card:       #ffffff;
-  --bg-card-hover: #f1f5f9;
+  --bg-card-hover: #f8f9ff;
   --border:        #e2e8f0;
   --border-hover:  #a5b4fc;
   --text-primary:  #0f172a;
@@ -36,7 +36,7 @@ html.light {
   --accent-2:      #7c3aed;
   --glow:          rgba(79, 70, 229, 0.08);
   --glow-hover:    rgba(79, 70, 229, 0.18);
-  --background:    #ffffff;
+  --background:    #f5f7ff;
   --foreground:    #0f172a;
 }
 
