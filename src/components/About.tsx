@@ -61,23 +61,20 @@ export default function About() {
       {/* Ambient blobs */}
       {isDark && (
         <>
-          <motion.div
-            className="absolute top-16 right-12 w-80 h-80 rounded-full bg-sky-500/5 blur-[100px] pointer-events-none"
-            animate={{ scale: [1, 1.12, 1], opacity: [0.4, 0.7, 0.4] }}
-            transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+          <div
+            className="absolute top-16 right-12 w-80 h-80 rounded-full bg-sky-500/5 blur-[100px] pointer-events-none animate-scale-pulse"
+            style={{ '--dur': '14s', '--scale-start': 1, '--scale-mid': 1.12, '--op-start': 0.4, '--op-mid': 0.7 } as React.CSSProperties}
           />
-          <motion.div
-            className="absolute bottom-16 left-8 w-72 h-72 rounded-full bg-indigo-600/5 blur-[90px] pointer-events-none"
-            animate={{ scale: [1.1, 1, 1.1] }}
-            transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+          <div
+            className="absolute bottom-16 left-8 w-72 h-72 rounded-full bg-indigo-600/5 blur-[90px] pointer-events-none animate-scale-pulse"
+            style={{ '--dur': '16s', '--delay': '3s', '--scale-start': 1.1, '--scale-mid': 1, '--op-start': 0.5, '--op-mid': 0.5 } as React.CSSProperties}
           />
         </>
       )}
       {!isDark && (
-        <motion.div
-          className="absolute top-10 right-16 w-72 h-72 rounded-full bg-indigo-100/70 blur-[90px] pointer-events-none"
-          animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        <div
+          className="absolute top-10 right-16 w-72 h-72 rounded-full bg-indigo-100/70 blur-[90px] pointer-events-none animate-scale-pulse"
+          style={{ '--dur': '12s', '--scale-start': 1, '--scale-mid': 1.1, '--op-start': 0.5, '--op-mid': 0.8 } as React.CSSProperties}
         />
       )}
 
@@ -114,14 +111,13 @@ export default function About() {
           >
             <div className="relative">
               {/* Outer glow ring */}
-              <motion.div
-                className={`absolute -inset-4 rounded-3xl blur-2xl ${
+              <div
+                className={`absolute -inset-4 rounded-3xl blur-2xl animate-scale-pulse ${
                   isDark
                     ? 'bg-gradient-to-br from-sky-500/20 to-indigo-500/20'
                     : 'bg-gradient-to-br from-indigo-200/60 to-violet-200/60'
                 }`}
-                animate={{ opacity: [0.4, 0.75, 0.4], scale: [0.98, 1.02, 0.98] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                style={{ '--dur': '5s', '--scale-start': 0.98, '--scale-mid': 1.02, '--op-start': 0.4, '--op-mid': 0.75 } as React.CSSProperties}
               />
               {/* Border ring */}
               <div className={`absolute -inset-px rounded-2xl ${
@@ -144,31 +140,29 @@ export default function About() {
               </motion.div>
 
               {/* Floating role badge */}
-              <motion.div
-                className={`absolute -bottom-5 -right-5 px-4 py-2.5 rounded-xl border z-20 shadow-xl ${
+              <div
+                className={`absolute -bottom-5 -right-5 px-4 py-2.5 rounded-xl border z-20 shadow-xl animate-float-y ${
                   isDark
                     ? 'bg-[#0a1628] border-sky-500/22 text-sky-300 shadow-sky-900/40'
                     : 'bg-white border-indigo-200 text-indigo-700 shadow-indigo-100/80'
                 }`}
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+                style={{ '--dur': '3.5s', '--dy': '-6px' } as React.CSSProperties}
               >
                 <p className="text-xs font-bold">Security Engineer</p>
                 <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>ITPeopleNetwork</p>
-              </motion.div>
+              </div>
 
               {/* Springer badge */}
-              <motion.div
-                className={`absolute -top-5 -left-5 px-3 py-2 rounded-xl border z-20 shadow-lg ${
+              <div
+                className={`absolute -top-5 -left-5 px-3 py-2 rounded-xl border z-20 shadow-lg animate-float-y ${
                   isDark
                     ? 'bg-[#0a1628] border-emerald-500/22 text-emerald-300'
                     : 'bg-white border-emerald-200 text-emerald-700'
                 }`}
-                animate={{ y: [0, 6, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+                style={{ '--dur': '4s', '--delay': '1s', '--dy': '6px' } as React.CSSProperties}
               >
                 <p className="text-xs font-bold">Springer Published</p>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
 

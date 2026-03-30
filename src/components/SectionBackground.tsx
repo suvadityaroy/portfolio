@@ -51,66 +51,57 @@ export default function SectionBackground({ variant = 'blue' }: SectionBackgroun
       />
 
       {/* Animated gradient overlays — opacity only (no rotate/scale) */}
-      <motion.div
-        className={`absolute inset-0 bg-gradient-to-br ${colors.gradient1} opacity-60`}
-        style={{ willChange: 'opacity' }}
-        animate={{ opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
+      <div
+        className={`absolute inset-0 bg-gradient-to-br ${colors.gradient1} opacity-60 animate-pulse-custom`}
+        style={{ '--dur': '25s', '--op-start': 0.4, '--op-mid': 0.7 } as React.CSSProperties}
       />
-      <motion.div
-        className={`absolute inset-0 bg-gradient-to-tr ${colors.gradient2}`}
-        style={{ willChange: 'opacity' }}
-        animate={{ opacity: [0.25, 0.5, 0.25] }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut' }}
+      <div
+        className={`absolute inset-0 bg-gradient-to-tr ${colors.gradient2} animate-pulse-custom`}
+        style={{ '--dur': '30s', '--op-start': 0.25, '--op-mid': 0.5 } as React.CSSProperties}
       />
 
       {/* Large blurred orbs — translate only */}
-      <motion.div
-        className={`absolute -top-32 -left-32 w-[600px] h-[600px] ${colors.orb1} rounded-full blur-[100px]`}
-        style={{ willChange: 'transform', transform: 'translateZ(0)' }}
-        animate={{ x: [0, 70, 0], y: [0, -35, 0] }}
-        transition={{ duration: 35, repeat: Infinity, ease: 'easeInOut' }}
+      <div
+        className={`absolute -top-32 -left-32 w-[600px] h-[600px] ${colors.orb1} rounded-full blur-[100px] animate-orb`}
+        style={{ '--dx': '70px', '--dy': '-35px', '--dur': '35s' } as React.CSSProperties}
       />
-      <motion.div
-        className={`absolute -bottom-32 -right-32 w-[700px] h-[700px] ${colors.orb2} rounded-full blur-[120px]`}
-        style={{ willChange: 'transform', transform: 'translateZ(0)' }}
-        animate={{ x: [0, -55, 0], y: [0, 55, 0] }}
-        transition={{ duration: 40, repeat: Infinity, ease: 'easeInOut' }}
+      <div
+        className={`absolute -bottom-32 -right-32 w-[700px] h-[700px] ${colors.orb2} rounded-full blur-[120px] animate-orb`}
+        style={{ '--dx': '-55px', '--dy': '55px', '--dur': '40s' } as React.CSSProperties}
       />
-      <motion.div
-        className={`absolute top-1/2 left-1/2 w-[500px] h-[500px] ${colors.orb3} rounded-full blur-[90px] -translate-x-1/2 -translate-y-1/2`}
-        style={{ willChange: 'transform', transform: 'translate(-50%, -50%) translateZ(0)' }}
-        animate={{ x: [0, 35, 0], y: [0, -45, 0] }}
-        transition={{ duration: 32, repeat: Infinity, ease: 'easeInOut' }}
-      />
+      <div className="absolute top-1/2 left-1/2 w-0 h-0">
+        <div
+          className={`absolute -left-[250px] -top-[250px] w-[500px] h-[500px] ${colors.orb3} rounded-full blur-[90px] animate-orb`}
+          style={{ '--dx': '35px', '--dy': '-45px', '--dur': '32s' } as React.CSSProperties}
+        />
+      </div>
 
       {/* Particles — pre-computed positions, translate + opacity only */}
       {PARTICLE_POSITIONS.map((pos, i) => (
-        <motion.div
+        <div
           key={i}
-          className={`absolute w-1 h-1 ${colors.particles} rounded-full blur-[2px]`}
-          style={{ left: pos.x, top: pos.y, willChange: 'transform, opacity', transform: 'translateZ(0)' }}
-          animate={{
-            y: [0, PARTICLE_ANIMATIONS[i].dy, 0],
-            x: [0, PARTICLE_ANIMATIONS[i].dx, 0],
-            opacity: [0.2, 0.5, 0.2],
-          }}
-          transition={{ duration: PARTICLE_ANIMATIONS[i].dur, repeat: Infinity, delay: PARTICLE_ANIMATIONS[i].delay, ease: 'easeInOut' }}
+          className={`absolute w-1 h-1 ${colors.particles} rounded-full blur-[2px] animate-particle`}
+          style={{ 
+            left: pos.x, 
+            top: pos.y, 
+            '--dx': `${PARTICLE_ANIMATIONS[i].dx}px`,
+            '--dy': `${PARTICLE_ANIMATIONS[i].dy}px`,
+            '--dur': `${PARTICLE_ANIMATIONS[i].dur}s`,
+            '--delay': `${PARTICLE_ANIMATIONS[i].delay}s`,
+            '--op-start': 0.2,
+            '--op-mid': 0.5
+          } as React.CSSProperties}
         />
       ))}
 
       {/* Accent lines — opacity only */}
-      <motion.div
-        className={`absolute top-1/4 right-1/3 w-px h-20 ${colors.orb1} blur-sm`}
-        style={{ willChange: 'opacity' }}
-        animate={{ opacity: [0, 0.3, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+      <div
+        className={`absolute top-1/4 right-1/3 w-px h-20 ${colors.orb1} blur-sm animate-pulse-custom`}
+        style={{ '--dur': '4s', '--op-start': 0, '--op-mid': 0.3 } as React.CSSProperties}
       />
-      <motion.div
-        className={`absolute bottom-1/3 left-1/4 w-20 h-px ${colors.orb2} blur-sm`}
-        style={{ willChange: 'opacity' }}
-        animate={{ opacity: [0, 0.3, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+      <div
+        className={`absolute bottom-1/3 left-1/4 w-20 h-px ${colors.orb2} blur-sm animate-pulse-custom`}
+        style={{ '--dur': '5s', '--delay': '1s', '--op-start': 0, '--op-mid': 0.3 } as React.CSSProperties}
       />
     </div>
   );

@@ -42,13 +42,41 @@ html.light {
 /* ─── Keyframe Animations ────────────────────────────────────── */
 @keyframes aurora {
   0%, 100% {
-    background-position: 0% 50%;
-    opacity: 0.5;
+    opacity: 0.4;
   }
   50% {
-    background-position: 100% 50%;
     opacity: 0.8;
   }
+}
+
+@keyframes float-particle-custom {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: var(--op-start, 0.2); }
+  50%      { transform: translate3d(var(--dx, 0px), var(--dy, -36px), 0); opacity: var(--op-mid, 0.6); }
+}
+
+@keyframes float-particle-scale-custom {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(var(--scale-start, 1)); opacity: var(--op-start, 0.1); }
+  50%      { transform: translate3d(var(--dx, 0px), var(--dy, -28px), 0) scale(var(--scale-mid, 1.8)); opacity: var(--op-mid, 0.5); }
+}
+
+@keyframes orb-float-custom {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(var(--dx, 0px), var(--dy, 0px), 0); }
+}
+
+@keyframes pulse-custom {
+  0%, 100% { opacity: var(--op-start, 0.15); }
+  50%      { opacity: var(--op-mid, 0.45); }
+}
+
+@keyframes scale-pulse-custom {
+  0%, 100% { transform: scale(var(--scale-start, 1)); opacity: var(--op-start, 0.4); }
+  50%      { transform: scale(var(--scale-mid, 1.12)); opacity: var(--op-mid, 0.7); }
+}
+
+@keyframes float-y-custom {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, var(--dy, -6px), 0); }
 }
 
 @keyframes gradient-flow {
@@ -101,8 +129,43 @@ html.light {
     #04101e 75%,
     #030712 100%
   );
-  background-size: 400% 400%;
-  animation: aurora 12s ease infinite;
+  animation: aurora 12s ease-in-out infinite;
+}
+
+.animate-particle {
+  animation: float-particle-custom var(--dur, 8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform, opacity;
+}
+
+.animate-particle-scale {
+  animation: float-particle-scale-custom var(--dur, 8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform, opacity;
+}
+
+.animate-orb {
+  animation: orb-float-custom var(--dur, 20s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+
+.animate-pulse-custom {
+  animation: pulse-custom var(--dur, 10s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: opacity;
+}
+
+.animate-scale-pulse {
+  animation: scale-pulse-custom var(--dur, 10s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform, opacity;
+}
+
+.animate-float-y {
+  animation: float-y-custom var(--dur, 3.5s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
 }
 
 .gradient-text-dark {

@@ -167,39 +167,33 @@ export default function Projects() {
       {/* Dark mode: floating ambient orbs */}
       {isDark && (
         <>
-          <motion.div
-            className="absolute top-16 left-8 w-[500px] h-[500px] rounded-full bg-sky-500/5 blur-[120px] pointer-events-none"
-            animate={{ scale: [1, 1.12, 1], opacity: [0.4, 0.7, 0.4] }}
-            transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+          <div
+            className="absolute top-16 left-8 w-[500px] h-[500px] rounded-full bg-sky-500/5 blur-[120px] pointer-events-none animate-scale-pulse"
+            style={{ '--dur': '14s', '--scale-start': 1, '--scale-mid': 1.12, '--op-start': 0.4, '--op-mid': 0.7 } as React.CSSProperties}
           />
-          <motion.div
-            className="absolute bottom-16 right-8 w-[400px] h-[400px] rounded-full bg-indigo-600/6 blur-[100px] pointer-events-none"
-            animate={{ scale: [1.1, 1, 1.1], opacity: [0.5, 0.3, 0.5] }}
-            transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+          <div
+            className="absolute bottom-16 right-8 w-[400px] h-[400px] rounded-full bg-indigo-600/6 blur-[100px] pointer-events-none animate-scale-pulse"
+            style={{ '--dur': '11s', '--delay': '3s', '--scale-start': 1.1, '--scale-mid': 1, '--op-start': 0.5, '--op-mid': 0.3 } as React.CSSProperties}
           />
           {/* Floating particles */}
           {floatingParticles.map(p => (
-            <motion.div
+            <div
               key={p.id}
-              className="absolute rounded-full bg-sky-400/25 pointer-events-none"
+              className="absolute rounded-full bg-sky-400/25 pointer-events-none animate-particle-scale"
               style={{
                 left: `${p.x}%`,
                 top: `${p.y}%`,
                 width: p.size,
                 height: p.size,
-              }}
-              animate={{
-                y: [0, -30, 0],
-                x: [0, Math.sin(p.id) * 12, 0],
-                opacity: [0.15, 0.55, 0.15],
-                scale: [1, 1.6, 1],
-              }}
-              transition={{
-                duration: p.duration,
-                repeat: Infinity,
-                delay: p.delay,
-                ease: 'easeInOut',
-              }}
+                '--dx': `${Math.sin(p.id) * 12}px`,
+                '--dy': '-30px',
+                '--scale-start': 1,
+                '--scale-mid': 1.6,
+                '--op-start': 0.15,
+                '--op-mid': 0.55,
+                '--dur': `${p.duration}s`,
+                '--delay': `${p.delay}s`
+              } as React.CSSProperties}
             />
           ))}
         </>
@@ -208,15 +202,13 @@ export default function Projects() {
       {/* Light mode: subtle blobs */}
       {!isDark && (
         <>
-          <motion.div
-            className="absolute top-20 right-20 w-80 h-80 rounded-full bg-indigo-100/70 blur-[90px] pointer-events-none"
-            animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+          <div
+            className="absolute top-20 right-20 w-80 h-80 rounded-full bg-indigo-100/70 blur-[90px] pointer-events-none animate-scale-pulse"
+            style={{ '--dur': '10s', '--scale-start': 1, '--scale-mid': 1.1, '--op-start': 0.5, '--op-mid': 0.8 } as React.CSSProperties}
           />
-          <motion.div
-            className="absolute bottom-10 left-10 w-64 h-64 rounded-full bg-violet-100/60 blur-[80px] pointer-events-none"
-            animate={{ scale: [1.1, 1, 1.1] }}
-            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+          <div
+            className="absolute bottom-10 left-10 w-64 h-64 rounded-full bg-violet-100/60 blur-[80px] pointer-events-none animate-scale-pulse"
+            style={{ '--dur': '12s', '--delay': '2s', '--scale-start': 1.1, '--scale-mid': 1, '--op-start': 0.6, '--op-mid': 0.6 } as React.CSSProperties}
           />
         </>
       )}

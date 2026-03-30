@@ -41,24 +41,18 @@ export default function AnimatedBackground() {
       {/* Background base */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-black" />
 
-      {/* Animated gradient overlays — opacity only, no scale/rotate → compositor-only */}
-      <motion.div
-        className="absolute inset-0"
-        style={{ background: 'radial-gradient(circle at 20% 30%, rgba(59,130,246,0.15) 0%, transparent 50%)', willChange: 'opacity' }}
-        animate={{ opacity: [0.5, 0.9, 0.5] }}
-        transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
+      {/* Animated gradient overlays — opacity only, pure CSS compositor driven */}
+      <div
+        className="absolute inset-0 animate-pulse-custom"
+        style={{ background: 'radial-gradient(circle at 20% 30%, rgba(59,130,246,0.15) 0%, transparent 50%)', '--dur': '15s', '--op-start': 0.5, '--op-mid': 0.9 } as React.CSSProperties}
       />
-      <motion.div
-        className="absolute inset-0"
-        style={{ background: 'radial-gradient(circle at 80% 70%, rgba(168,85,247,0.12) 0%, transparent 50%)', willChange: 'opacity' }}
-        animate={{ opacity: [0.4, 0.8, 0.4] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+      <div
+        className="absolute inset-0 animate-pulse-custom"
+        style={{ background: 'radial-gradient(circle at 80% 70%, rgba(168,85,247,0.12) 0%, transparent 50%)', '--dur': '20s', '--op-start': 0.4, '--op-mid': 0.8 } as React.CSSProperties}
       />
-      <motion.div
-        className="absolute inset-0"
-        style={{ background: 'radial-gradient(circle at 50% 50%, rgba(236,72,153,0.1) 0%, transparent 50%)', willChange: 'opacity' }}
-        animate={{ opacity: [0.3, 0.7, 0.3] }}
-        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+      <div
+        className="absolute inset-0 animate-pulse-custom"
+        style={{ background: 'radial-gradient(circle at 50% 50%, rgba(236,72,153,0.1) 0%, transparent 50%)', '--dur': '18s', '--op-start': 0.3, '--op-mid': 0.7 } as React.CSSProperties}
       />
 
       {/* Subtle grid pattern */}
@@ -72,9 +66,9 @@ export default function AnimatedBackground() {
 
       {/* Animated orbs — translate only (GPU composited) */}
       {ORBS.map((orb, i) => (
-        <motion.div
+        <div
           key={`orb-${i}`}
-          className={`absolute rounded-full ${orb.color} ${orb.blur}`}
+          className={`absolute rounded-full ${orb.color} ${orb.blur} animate-orb`}
           style={{
             width: orb.size,
             height: orb.size,
@@ -82,65 +76,62 @@ export default function AnimatedBackground() {
             ...(orb.bottom ? { bottom: orb.bottom }  : {}),
             ...(orb.left   ? { left: orb.left }      : {}),
             ...(orb.right  ? { right: orb.right }    : {}),
-            willChange: 'transform',
-            transform: 'translateZ(0)',
-          }}
-          animate={{ x: orb.dx, y: orb.dy }}
-          transition={{ duration: orb.dur, repeat: Infinity, ease: 'easeInOut' }}
+            '--dx': `${orb.dx[1]}px`,
+            '--dy': `${orb.dy[1]}px`,
+            '--dur': `${orb.dur}s`
+          } as React.CSSProperties}
         />
       ))}
 
       {/* Particles — translate + opacity only */}
       {PARTICLES.map((p, i) => (
-        <motion.div
+        <div
           key={`p-${i}`}
-          className={`absolute w-2 h-2 rounded-full ${p.color} blur-sm`}
-          style={{ left: p.x, top: p.y, willChange: 'transform, opacity', transform: 'translateZ(0)' }}
-          animate={{ y: [0, -36, 0], opacity: [0.2, 0.6, 0.2] }}
-          transition={{ duration: p.dur, repeat: Infinity, delay: p.delay, ease: 'easeInOut' }}
+          className={`absolute w-2 h-2 rounded-full ${p.color} blur-sm animate-particle`}
+          style={{ 
+            left: p.x, 
+            top: p.y,
+            '--dur': `${p.dur}s`,
+            '--delay': `${p.delay}s`,
+            '--dy': '-36px',
+            '--op-start': 0.2,
+            '--op-mid': 0.6
+          } as React.CSSProperties}
         />
       ))}
 
       {/* Accent lines */}
-      <motion.div
-        className="absolute top-1/4 right-1/4 w-px h-40 bg-gradient-to-b from-transparent via-blue-500/50 to-transparent"
-        style={{ willChange: 'opacity' }}
-        animate={{ opacity: [0, 1, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+      <div
+        className="absolute top-1/4 right-1/4 w-px h-40 bg-gradient-to-b from-transparent via-blue-500/50 to-transparent animate-pulse-custom"
+        style={{ '--dur': '3s', '--op-start': 0, '--op-mid': 1 } as React.CSSProperties}
       />
-      <motion.div
-        className="absolute bottom-1/3 left-1/4 w-40 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"
-        style={{ willChange: 'opacity' }}
-        animate={{ opacity: [0, 1, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+      <div
+        className="absolute bottom-1/3 left-1/4 w-40 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent animate-pulse-custom"
+        style={{ '--dur': '4s', '--delay': '1s', '--op-start': 0, '--op-mid': 1 } as React.CSSProperties}
       />
-      <motion.div
-        className="absolute top-1/2 left-1/3 w-px h-32 bg-gradient-to-b from-transparent via-pink-500/50 to-transparent"
-        style={{ willChange: 'opacity' }}
-        animate={{ opacity: [0, 1, 0] }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+      <div
+        className="absolute top-1/2 left-1/3 w-px h-32 bg-gradient-to-b from-transparent via-pink-500/50 to-transparent animate-pulse-custom"
+        style={{ '--dur': '3.5s', '--delay': '0.5s', '--op-start': 0, '--op-mid': 1 } as React.CSSProperties}
       />
-      <motion.div
-        className="absolute top-2/3 right-1/3 w-32 h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"
-        style={{ willChange: 'opacity' }}
-        animate={{ opacity: [0, 1, 0] }}
-        transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+      <div
+        className="absolute top-2/3 right-1/3 w-32 h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent animate-pulse-custom"
+        style={{ '--dur': '4.5s', '--delay': '1.5s', '--op-start': 0, '--op-mid': 1 } as React.CSSProperties}
       />
 
       {/* Animated rings — opacity only, no rotation */}
       {RINGS.map((ring, i) => (
-        <motion.div
+        <div
           key={`ring-${i}`}
-          className={`absolute rounded-full border ${ring.color}`}
+          className={`absolute rounded-full border ${ring.color} animate-pulse-custom`}
           style={{
             left: ring.left,
             top: ring.top,
             width: ring.size,
             height: ring.size,
-            willChange: 'opacity',
-          }}
-          animate={{ opacity: [0.15, 0.45, 0.15] }}
-          transition={{ duration: ring.dur, repeat: Infinity, ease: 'easeInOut' }}
+            '--dur': `${ring.dur}s`,
+            '--op-start': 0.15,
+            '--op-mid': 0.45,
+          } as React.CSSProperties}
         />
       ))}
     </div>

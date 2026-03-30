@@ -156,31 +156,25 @@ export default function Experience() {
                 >
                   {/* Timeline dot */}
                   <div className="absolute -left-9 top-6 flex items-center justify-center">
-                    <motion.div
+                    <div
                       className={`w-4 h-4 rounded-full border-2 z-10 ${
                         exp.current
                           ? isDark
-                            ? 'bg-sky-400 border-sky-300 shadow-[0_0_14px_rgba(56,189,248,0.7)]'
-                            : 'bg-indigo-600 border-indigo-400 shadow-[0_0_12px_rgba(79,70,229,0.5)]'
+                            ? 'bg-sky-400 border-sky-300 shadow-[0_0_14px_rgba(56,189,248,0.7)] animate-pulse-custom'
+                            : 'bg-indigo-600 border-indigo-400 shadow-[0_0_12px_rgba(79,70,229,0.5)] animate-pulse-custom'
                           : isDark
                             ? 'bg-[#030712] border-sky-600/60'
                             : 'bg-white border-indigo-300'
                       }`}
-                      animate={exp.current ? {
-                        boxShadow: isDark
-                          ? ['0 0 8px rgba(56,189,248,0.5)', '0 0 20px rgba(56,189,248,0.9)', '0 0 8px rgba(56,189,248,0.5)']
-                          : ['0 0 6px rgba(79,70,229,0.4)', '0 0 16px rgba(79,70,229,0.8)', '0 0 6px rgba(79,70,229,0.4)'],
-                      } : {}}
-                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                      style={exp.current ? { '--dur': '2s', '--op-start': 0.7, '--op-mid': 1 } as React.CSSProperties : undefined}
                     />
                     {/* Ping ring for current role */}
                     {exp.current && (
-                      <motion.div
-                        className={`absolute w-4 h-4 rounded-full border-2 ${
+                      <div
+                        className={`absolute w-4 h-4 rounded-full border-2 animate-ping ${
                           isDark ? 'border-sky-400' : 'border-indigo-500'
                         }`}
-                        animate={{ scale: [1, 2.2], opacity: [0.6, 0] }}
-                        transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut' }}
+                        style={{ animationDuration: '1.8s' }}
                       />
                     )}
                   </div>
@@ -203,17 +197,16 @@ export default function Experience() {
                         <div className="flex flex-wrap items-center gap-2 mb-1">
                           <h3 className={`text-lg font-bold ${strong}`}>{exp.role}</h3>
                           {exp.current && (
-                            <motion.span
-                              className={`px-2 py-0.5 rounded-full text-xs font-semibold border ${
+                            <span
+                              className={`px-2 py-0.5 rounded-full text-xs font-semibold border animate-pulse-custom ${
                                 isDark
                                   ? 'bg-sky-500/12 text-sky-300 border-sky-500/25'
                                   : 'bg-green-100 text-green-700 border-green-200'
                               }`}
-                              animate={{ opacity: [1, 0.7, 1] }}
-                              transition={{ duration: 2.5, repeat: Infinity }}
+                              style={{ '--dur': '2.5s', '--op-start': 0.7, '--op-mid': 1 } as React.CSSProperties}
                             >
                               Current
-                            </motion.span>
+                            </span>
                           )}
                         </div>
                         <div className="flex items-center gap-1.5 mb-1">

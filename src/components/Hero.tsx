@@ -130,14 +130,20 @@ export default function Hero() {
       {/* Animated orbs — translate only, GPU composited */}
       <div className="absolute inset-0 pointer-events-none">
         {orbs.map((orb, i) => (
-          <motion.div
+          <div
             key={i}
-            className={`absolute rounded-full pointer-events-none ${orb.blur} ${
+            className={`absolute rounded-full pointer-events-none ${orb.blur} animate-orb ${
               isDark ? orb.color.split(' ')[0] : orb.color.split(' ')[1]
             }`}
-            style={{ width: orb.size, height: orb.size, left: orb.x, top: orb.y, willChange: 'transform', transform: 'translateZ(0)' }}
-            animate={{ x: orb.dx, y: orb.dy }}
-            transition={{ duration: orb.duration, repeat: Infinity, ease: 'easeInOut' }}
+            style={{ 
+              width: orb.size, 
+              height: orb.size, 
+              left: orb.x, 
+              top: orb.y,
+              '--dx': `${orb.dx[1]}px`,
+              '--dy': `${orb.dy[1]}px`,
+              '--dur': `${orb.duration}s`
+            } as React.CSSProperties}
           />
         ))}
       </div>
@@ -146,12 +152,23 @@ export default function Hero() {
       {isDark && (
         <div className="absolute inset-0 pointer-events-none">
           {particles.map(p => (
-            <motion.div
+            <div
               key={p.id}
-              className="absolute rounded-full bg-sky-400/20"
-              style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
-              animate={{ y: [0, -28, 0], opacity: [0.1, 0.5, 0.1], scale: [1, 1.8, 1] }}
-              transition={{ duration: p.dur, repeat: Infinity, delay: p.delay, ease: 'easeInOut' }}
+              className="absolute rounded-full bg-sky-400/20 animate-particle-scale"
+              style={{ 
+                left: p.x, 
+                top: p.y, 
+                width: p.size, 
+                height: p.size,
+                '--dx': '0px',
+                '--dy': '-28px',
+                '--dur': `${p.dur}s`,
+                '--delay': `${p.delay}s`,
+                '--scale-start': 1,
+                '--scale-mid': 1.8,
+                '--op-start': 0.1,
+                '--op-mid': 0.5
+              } as React.CSSProperties}
             />
           ))}
         </div>
