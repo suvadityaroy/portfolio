@@ -232,9 +232,6 @@ html.light {
 }
 
 /* ─── Base Styles ────────────────────────────────────────────── */
-html {
-  scroll-behavior: smooth;
-}
 
 body {
   background: var(--background);
@@ -254,9 +251,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ─── Theme Transitions ──────────────────────────────────────── */
-html, body, main, section, div, p, span, a, button, input, textarea {
-  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
-}
+/* Removed global wildcard transitions (html, body, div, span, etc.) as they cause massive layout recalculations and scroll lag. Components use utility classes for transitions instead. */
+
 
 /* ─── Scrollbar ──────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
