@@ -36,8 +36,8 @@ const fadeScale = {
 
 // ── Floating background orbs (CSS-driven, no JS animation loop) ─
 const orbs = [
-  { size: 600, x: '-5%', y: '-10%', color: 'dark:bg-sky-500/8 bg-indigo-100/70',    blur: 'blur-[130px]' },
-  { size: 500, x: '65%', y: '50%',  color: 'dark:bg-indigo-600/8 bg-violet-100/60', blur: 'blur-[110px]' },
+  { size: 600, x: '-5%', y: '-10%', color: 'dark:bg-sky-500/8 bg-indigo-50/35',    blur: 'blur-[160px]' },
+  { size: 500, x: '65%', y: '50%',  color: 'dark:bg-indigo-600/8 bg-violet-50/25', blur: 'blur-[140px]' },
 ];
 
 export default function Hero() {

@@ -28,14 +28,22 @@ export default function Navbar() {
   useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
+    let rafId: number | null = null;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-      const winScroll = document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      setScrollProgress((winScroll / height) * 100);
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 20);
+        const winScroll = document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        setScrollProgress(height > 0 ? (winScroll / height) * 100 : 0);
+        rafId = null;
+      });
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   // Highlight active section

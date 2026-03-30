@@ -114,6 +114,11 @@ html.light {
   100% { background-position: 60px 60px; }
 }
 
+@keyframes grid-move {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(60px, 60px, 0); }
+}
+
 @keyframes orbit {
   0%   { transform: rotate(0deg) translateX(120px) rotate(0deg); }
   100% { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
@@ -224,14 +229,26 @@ html.light {
 }
 
 .grid-lines-dark {
+  overflow: hidden;
+}
+.grid-lines-dark::before {
+  content: '';
+  position: absolute;
+  inset: -60px;
   background-image:
     linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
   background-size: 60px 60px;
-  animation: grid-pan 20s linear infinite;
+  animation: grid-move 20s linear infinite;
+  will-change: transform;
 }
 
 /* ─── Base Styles ────────────────────────────────────────────── */
+
+html {
+  background: var(--background);
+  color: var(--foreground);
+}
 
 body {
   background: var(--background);
@@ -287,4 +304,15 @@ a, button, [role="button"] {
               background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
               border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
               box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Reduced Motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

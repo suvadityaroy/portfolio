@@ -29,17 +29,18 @@ export default function InteractiveBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d', { alpha: false }); // Optimize by making canvas opaque if we draw background manually, wait no, let's keep alpha true so we can layer it over the solid CSS background
+    // alpha: true (default) — canvas is transparent, body/html provides page background
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     let animationFrameId: number;
     let width = window.innerWidth;
     let height = window.innerHeight;
 
-    // Mouse coordinates (default to center)
     let mouseX = width / 2;
     let mouseY = height / 2;
     let isMouseIn = false;
+    let pendingMouseFrame: number | null = null;
 
     const setSize = () => {
       width = window.innerWidth;
@@ -48,109 +49,98 @@ export default function InteractiveBackground() {
       canvas.height = height;
     };
     setSize();
-    window.addEventListener('resize', setSize);
+    window.addEventListener('resize', setSize, { passive: true });
 
+    // Throttle mousemove with requestAnimationFrame
     const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      isMouseIn = true;
+      if (pendingMouseFrame !== null) return;
+      pendingMouseFrame = requestAnimationFrame(() => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        isMouseIn = true;
+        pendingMouseFrame = null;
+      });
     };
-    const handleMouseLeave = () => {
-      isMouseIn = false;
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseout', handleMouseLeave);
+    const handleMouseLeave = () => { isMouseIn = false; };
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('mouseout', handleMouseLeave, { passive: true });
 
-    // Initialize Particles
-    const numParticles = Math.min(Math.floor((width * height) / 15000), 80); // scale up with screen
+    // Fewer particles on mobile for performance
+    const isMobile = width < 768;
+    const numParticles = isMobile
+      ? Math.min(Math.floor((width * height) / 30000), 35)
+      : Math.min(Math.floor((width * height) / 15000), 70);
+
     const particles: Particle[] = [];
     for (let i = 0; i < numParticles; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: (Math.random() - 0.5) * 0.8,
-        size: Math.random() * 2 + 1,
+        vx: (Math.random() - 0.5) * 0.7,
+        vy: (Math.random() - 0.5) * 0.7,
+        size: Math.random() * 1.8 + 0.8,
       });
     }
 
-    // Initialize Orbs (fluid glowing blobs)
     const orbs: Orb[] = isDark ? [
-      { x: width * 0.2, y: height * 0.2, vx: 0.2, vy: -0.1, radius: 400, color: { r: 56, g: 189, b: 248 } }, // sky-400
-      { x: width * 0.8, y: height * 0.8, vx: -0.15, vy: 0.2, radius: 500, color: { r: 79, g: 70, b: 229 } }, // indigo-600
-      { x: width * 0.5, y: height * 0.5, vx: 0.1, vy: 0.1, radius: 350, color: { r: 99, g: 102, b: 241 } }  // indigo-500
+      { x: width * 0.2, y: height * 0.2, vx: 0.2, vy: -0.1, radius: 400, color: { r: 56, g: 189, b: 248 } },
+      { x: width * 0.8, y: height * 0.8, vx: -0.15, vy: 0.2, radius: 500, color: { r: 79, g: 70, b: 229 } },
+      { x: width * 0.5, y: height * 0.5, vx: 0.1, vy: 0.1, radius: 350, color: { r: 99, g: 102, b: 241 } },
     ] : [
-      { x: width * 0.2, y: height * 0.2, vx: 0.2, vy: -0.1, radius: 400, color: { r: 99, g: 102, b: 241 } }, // indigo-500
-      { x: width * 0.8, y: height * 0.8, vx: -0.15, vy: 0.2, radius: 500, color: { r: 167, g: 139, b: 250 } }, // violet-400
-      { x: width * 0.5, y: height * 0.5, vx: 0.1, vy: 0.1, radius: 350, color: { r: 124, g: 58, b: 237 } }  // violet-600
+      { x: width * 0.2, y: height * 0.2, vx: 0.2, vy: -0.1, radius: 350, color: { r: 99, g: 102, b: 241 } },
+      { x: width * 0.8, y: height * 0.8, vx: -0.15, vy: 0.2, radius: 420, color: { r: 139, g: 92, b: 246 } },
+      { x: width * 0.5, y: height * 0.5, vx: 0.1, vy: 0.1, radius: 300, color: { r: 124, g: 58, b: 237 } },
     ];
 
     const particleColor = isDark ? '100, 150, 250' : '99, 102, 241';
+    const orbAlpha     = isDark ? 0.08 : 0.035;
+    const particleAlpha = isDark ? 0.38 : 0.28;
+    const lineAlpha    = isDark ? 0.18 : 0.13;
 
     const render = () => {
+      // Clear to transparent — the html/body CSS background provides the page color
       ctx.clearRect(0, 0, width, height);
 
-      // 1. Draw Orbs
+      // Draw orbs
       orbs.forEach(orb => {
         orb.x += orb.vx;
         orb.y += orb.vy;
-
-        // Bounce off walls gently
         if (orb.x < -orb.radius || orb.x > width + orb.radius) orb.vx *= -1;
         if (orb.y < -orb.radius || orb.y > height + orb.radius) orb.vy *= -1;
 
-        const gradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.radius);
-        gradient.addColorStop(0, `rgba(${orb.color.r}, ${orb.color.g}, ${orb.color.b}, ${isDark ? 0.08 : 0.06})`);
-        gradient.addColorStop(1, `rgba(${orb.color.r}, ${orb.color.g}, ${orb.color.b}, 0)`);
-        
-        ctx.fillStyle = gradient;
+        const g = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.radius);
+        g.addColorStop(0, `rgba(${orb.color.r},${orb.color.g},${orb.color.b},${orbAlpha})`);
+        g.addColorStop(1, `rgba(${orb.color.r},${orb.color.g},${orb.color.b},0)`);
+        ctx.fillStyle = g;
         ctx.beginPath();
         ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
         ctx.fill();
       });
 
-      // 2. Draw Subtle Grid Pattern
-      ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.03)' : 'rgba(99, 102, 241, 0.04)';
-      ctx.lineWidth = 1;
-      const gridSize = 60;
-      ctx.beginPath();
-      for (let x = 0; x < width; x += gridSize) {
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
-      }
-      for (let y = 0; y < height; y += gridSize) {
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
-      }
-      ctx.stroke();
-
-      // 3. Update & Draw Particles
+      // Draw particles and connections
       particles.forEach((p, i) => {
         p.x += p.vx;
         p.y += p.vy;
-
-        // Wrap around edges
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
         if (p.y < 0) p.y = height;
         if (p.y > height) p.y = 0;
 
-        // Mouse interaction (repel)
-        if (isMouseIn) {
+        // Mouse repel (desktop only)
+        if (isMouseIn && !isMobile) {
           const dx = mouseX - p.x;
           const dy = mouseY - p.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          const maxDist = 180;
-          
-          if (distance < maxDist) {
-            const force = (maxDist - distance) / maxDist;
-            p.x -= (dx / distance) * force * 1.5;
-            p.y -= (dy / distance) * force * 1.5;
+          const distSq = dx * dx + dy * dy;
+          const maxDist = 160;
+          if (distSq < maxDist * maxDist) {
+            const dist = Math.sqrt(distSq);
+            const force = (maxDist - dist) / maxDist;
+            p.x -= (dx / dist) * force * 1.4;
+            p.y -= (dy / dist) * force * 1.4;
           }
         }
 
-        // Draw particle
-        ctx.fillStyle = `rgba(${particleColor}, ${isDark ? 0.4 : 0.6})`;
+        ctx.fillStyle = `rgba(${particleColor},${particleAlpha})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
@@ -160,10 +150,10 @@ export default function InteractiveBackground() {
           const p2 = particles[j];
           const dx = p.x - p2.x;
           const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 120) {
-            ctx.strokeStyle = `rgba(${particleColor}, ${(1 - dist / 120) * (isDark ? 0.2 : 0.3)})`;
+          const distSq = dx * dx + dy * dy;
+          if (distSq < 120 * 120) {
+            const dist = Math.sqrt(distSq);
+            ctx.strokeStyle = `rgba(${particleColor},${(1 - dist / 120) * lineAlpha})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
@@ -183,14 +173,15 @@ export default function InteractiveBackground() {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseout', handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
+      if (pendingMouseFrame !== null) cancelAnimationFrame(pendingMouseFrame);
     };
   }, [isDark]);
 
   return (
     <canvas
       ref={canvasRef}
-      className={`fixed inset-0 pointer-events-none transition-opacity duration-1000 ${isDark ? 'opacity-100' : 'opacity-80'}`}
-      style={{ zIndex: -1 }} // Place it in the background
+      className="fixed inset-0 pointer-events-none"
+      style={{ zIndex: -1 }}
     />
   );
 }
