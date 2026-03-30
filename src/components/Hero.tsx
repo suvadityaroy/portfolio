@@ -111,7 +111,7 @@ export default function Hero() {
       id="home"
       ref={sectionRef}
       className={`min-h-screen flex items-center justify-center relative overflow-hidden transition-colors duration-500 ${
-        isDark ? 'bg-[#030712]' : 'bg-[#f5f7ff]'
+        isDark ? 'bg-[#030712]' : 'bg-[#eaedff]'
       }`}
     >
       {/* ── Backgrounds ────────────────────────────────────── */}

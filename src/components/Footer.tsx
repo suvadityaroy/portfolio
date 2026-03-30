@@ -19,7 +19,7 @@ export default function Footer() {
     <footer className={`border-t py-12 transition-colors duration-500 ${
       isDark
         ? 'bg-[#050d1a] border-sky-500/10'
-        : 'bg-[#eef1ff] border-indigo-100'
+        : 'bg-[#dfe4ff] border-indigo-200'
     }`}>
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">

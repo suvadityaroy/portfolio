@@ -23,20 +23,20 @@
 }
 
 html.light {
-  --bg-primary:    #f5f7ff;
-  --bg-secondary:  #eef1ff;
+  --bg-primary:    #eaedff;
+  --bg-secondary:  #dfe4ff;
   --bg-card:       #ffffff;
-  --bg-card-hover: #f8f9ff;
-  --border:        #e2e8f0;
+  --bg-card-hover: #f5f7ff;
+  --border:        #d4d9f5;
   --border-hover:  #a5b4fc;
   --text-primary:  #0f172a;
   --text-secondary:#334155;
   --text-muted:    #64748b;
   --accent-1:      #4f46e5;
   --accent-2:      #7c3aed;
-  --glow:          rgba(79, 70, 229, 0.08);
-  --glow-hover:    rgba(79, 70, 229, 0.18);
-  --background:    #f5f7ff;
+  --glow:          rgba(79, 70, 229, 0.1);
+  --glow-hover:    rgba(79, 70, 229, 0.22);
+  --background:    #eaedff;
   --foreground:    #0f172a;
 }
 
