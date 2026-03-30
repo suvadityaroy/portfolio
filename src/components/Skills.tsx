@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
-import { Code, Shield, Brain, Cloud, Wifi, Terminal } from 'lucide-react';
+import { Code, Shield, Cloud, Wifi, Terminal } from 'lucide-react';
 import {
   SiPython, SiGo, SiPostgresql, SiTypescript,
   SiAmazon, SiGooglecloud, SiDocker,
@@ -20,19 +20,6 @@ const skills = [
       { name: 'Wireshark', icon: <Shield className="w-4 h-4 text-cyan-500" /> },
       { name: 'Kali Linux', icon: <Terminal className="w-4 h-4 text-purple-500" /> },
       { name: 'OWASP ZAP', icon: <Shield className="w-4 h-4 text-green-500" /> },
-    ],
-  },
-  {
-    category: 'Security Operations',
-    icon: Shield,
-    color: { dark: 'text-sky-400', light: 'text-sky-600' },
-    items: [
-      { name: 'SIEM (Splunk)', icon: <Shield className="w-4 h-4 text-green-500" /> },
-      { name: 'ELK Stack', icon: <Shield className="w-4 h-4 text-yellow-500" /> },
-      { name: 'EDR/XDR', icon: <Shield className="w-4 h-4 text-red-500" /> },
-      { name: 'Incident Response', icon: <Shield className="w-4 h-4 text-orange-500" /> },
-      { name: 'Threat Hunting', icon: <Shield className="w-4 h-4 text-purple-500" /> },
-      { name: 'Log Analysis', icon: <Shield className="w-4 h-4 text-blue-500" /> },
     ],
   },
   {
@@ -85,19 +72,6 @@ const skills = [
       { name: 'Go', icon: <SiGo className="w-4 h-4 text-[#00ADD8]" /> },
       { name: 'JavaScript', icon: <SiTypescript className="w-4 h-4 text-yellow-400" /> },
       { name: 'SQL', icon: <SiPostgresql className="w-4 h-4 text-[#4169E1]" /> },
-    ],
-  },
-  {
-    category: 'Cryptography & Forensics',
-    icon: Shield,
-    color: { dark: 'text-orange-400', light: 'text-orange-600' },
-    items: [
-      { name: 'Encryption', icon: <Shield className="w-4 h-4 text-yellow-500" /> },
-      { name: 'PKI', icon: <Shield className="w-4 h-4 text-green-500" /> },
-      { name: 'Digital Forensics', icon: <Shield className="w-4 h-4 text-red-500" /> },
-      { name: 'Malware Analysis', icon: <Brain className="w-4 h-4 text-purple-500" /> },
-      { name: 'Reverse Engineering', icon: <Code className="w-4 h-4 text-blue-500" /> },
-      { name: 'Hash Analysis', icon: <Shield className="w-4 h-4 text-cyan-500" /> },
     ],
   },
 ];
@@ -158,7 +132,7 @@ export default function Skills() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {skills.map((group, index) => {
             const IconComp = group.icon;
             return (
