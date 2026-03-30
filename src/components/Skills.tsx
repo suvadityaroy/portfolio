@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTheme } from '@/context/ThemeContext';
 import SectionBackground from './SectionBackground';
 import { Code, Server, Shield, Brain, Cloud, Wifi, Terminal } from 'lucide-react';
 import { 
@@ -100,10 +101,13 @@ const skills = [
 ];
 
 export default function Skills() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
-    <section id="skills" className="py-24 bg-dark-900 relative overflow-hidden">
-      {/* Subtle background elements */}
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl"></div>
+    <section id="skills" className={`py-24 relative overflow-hidden transition-colors duration-300 ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      {/* Background elements */}
+      <div className={`absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl ${isDark ? 'bg-blue-500/5' : 'bg-blue-300/10'}`}></div>
       
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
@@ -113,9 +117,9 @@ export default function Skills() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">Technical Skills</h2>
-          <div className="w-20 h-1 bg-primary-500 mx-auto rounded-full"></div>
-          <p className="text-gray-400 mt-6 max-w-2xl mx-auto">
+          <h2 className={`text-4xl md:text-5xl font-bold mb-4 transition-colors ${isDark ? 'text-white' : 'text-gray-900'}`}>Technical Skills</h2>
+          <div className={`w-20 h-1 mx-auto rounded-full transition-colors ${isDark ? 'bg-blue-500' : 'bg-blue-600'}`}></div>
+          <p className={`mt-6 max-w-2xl mx-auto transition-colors ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
             Comprehensive security expertise across cloud platforms, enterprise tools, and security frameworks
           </p>
         </motion.div>
@@ -129,17 +133,25 @@ export default function Skills() {
               transition={{ duration: 0.6, delay: index * 0.06, ease: "easeOut" }}
               viewport={{ once: true, margin: "-50px" }}
               whileHover={{ y: -6, transition: { duration: 0.3 } }}
-              className="bg-dark-850 border border-dark-800 p-6 rounded-xl hover:border-primary-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary-500/20 group cursor-pointer"
+              className={`border p-6 rounded-xl transition-all duration-300 hover:shadow-2xl cursor-pointer ${
+                isDark
+                  ? 'bg-gray-800 border-gray-700 hover:border-blue-500/50 hover:shadow-blue-500/20'
+                  : 'bg-white border-gray-200 hover:border-blue-400/50 hover:shadow-blue-300/20'
+              }`}
             >
               <div className="flex items-center gap-3 mb-5">
                 <motion.div 
-                  className="p-2.5 bg-dark-900 rounded-lg border border-dark-700 group-hover:border-primary-500/50 group-hover:bg-primary-500/10 transition-all duration-300"
+                  className={`p-2.5 rounded-lg border transition-all duration-300 ${
+                    isDark
+                      ? 'bg-gray-900 border-gray-700 group-hover:border-blue-500/50 group-hover:bg-blue-500/10'
+                      : 'bg-gray-50 border-gray-200 group-hover:border-blue-400/50 group-hover:bg-blue-50/50'
+                  }`}
                   whileHover={{ rotate: 360, scale: 1.1 }}
                   transition={{ duration: 0.6 }}
                 >
                   {skillGroup.icon}
                 </motion.div>
-                <h3 className="text-base md:text-lg font-heading font-semibold text-white group-hover:text-primary-400 transition-colors">{skillGroup.category}</h3>
+                <h3 className={`text-base md:text-lg font-semibold transition-colors ${isDark ? 'text-white' : 'text-gray-900'}`}>{skillGroup.category}</h3>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 {skillGroup.items.map((item, i) => (
@@ -150,12 +162,16 @@ export default function Skills() {
                     transition={{ duration: 0.4, delay: index * 0.06 + i * 0.03 }}
                     viewport={{ once: true }}
                     whileHover={{ scale: 1.05, y: -2 }}
-                    className="flex items-center gap-2 bg-dark-900 border border-dark-700 rounded-lg p-2.5 hover:border-primary-500/40 hover:bg-primary-500/5 transition-all duration-200 cursor-pointer"
+                    className={`flex items-center gap-2 border rounded-lg p-2.5 transition-all duration-200 cursor-pointer ${
+                      isDark
+                        ? 'bg-gray-900 border-gray-700 hover:border-blue-500/40 hover:bg-blue-500/5'
+                        : 'bg-gray-50 border-gray-200 hover:border-blue-400/40 hover:bg-blue-50/50'
+                    }`}
                   >
                     <div className="text-base flex-shrink-0">
                       {item.icon}
                     </div>
-                    <span className="text-xs text-gray-300 font-medium leading-tight">{item.name}</span>
+                    <span className={`text-xs font-medium leading-tight transition-colors ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{item.name}</span>
                   </motion.div>
                 ))}
               </div>
@@ -169,14 +185,22 @@ export default function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
-          className="mt-16 bg-gradient-to-br from-primary-500/10 to-blue-500/5 border border-primary-500/20 rounded-xl p-8"
+          className={`mt-16 border rounded-xl p-8 transition-colors ${
+            isDark
+              ? 'bg-gradient-to-br from-blue-500/10 to-blue-500/5 border-blue-500/20'
+              : 'bg-gradient-to-br from-blue-50/50 to-blue-50/30 border-blue-200/40'
+          }`}
         >
-          <h3 className="text-2xl font-heading font-bold text-white mb-6 text-center">Enterprise Security Tools</h3>
+          <h3 className={`text-2xl font-bold mb-6 text-center transition-colors ${isDark ? 'text-white' : 'text-gray-900'}`}>Enterprise Security Tools</h3>
           <div className="flex flex-wrap justify-center gap-4">
             {['Wiz CSPM', 'CyberArk PAM/EPM', 'Qualys VMDR', 'Veracode SAST', 'Proofpoint', 'DigiCert', 'Splunk SIEM', 'AWS Security Hub'].map((tool, idx) => (
               <span 
                 key={idx}
-                className="px-5 py-2.5 bg-dark-900/80 border border-primary-500/30 rounded-lg text-sm font-medium text-white hover:bg-dark-800 hover:border-primary-500/50 transition-all cursor-default"
+                className={`px-5 py-2.5 border rounded-lg text-sm font-medium transition-all cursor-default ${
+                  isDark
+                    ? 'bg-gray-900/80 border-blue-500/30 text-white hover:bg-gray-800 hover:border-blue-500/50'
+                    : 'bg-white/60 border-blue-300/40 text-gray-900 hover:bg-white hover:border-blue-400/60'
+                }`}
               >
                 {tool}
               </span>

@@ -2,10 +2,14 @@
 
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function Footer() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
-    <footer className="bg-dark-900 border-t border-dark-800 py-12">
+    <footer className={`border-t py-12 transition-colors duration-300 ${isDark ? 'bg-gray-900 border-gray-800' : 'bg-gray-50 border-gray-200'}`}>
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <motion.div 
@@ -15,10 +19,10 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-heading font-bold text-white mb-2">
-              <span className="text-primary-400">S</span>uvaditya <span className="text-primary-400">Roy</span>
+            <h3 className={`text-2xl font-bold mb-2 transition-colors ${isDark ? 'text-white' : 'text-gray-900'}`}>
+              <span className={isDark ? 'text-blue-400' : 'text-blue-600'}>S</span>uvaditya <span className={isDark ? 'text-blue-400' : 'text-blue-600'}>Roy</span>
             </h3>
-            <p className="text-gray-400 text-sm">Security Engineer | Cloud Security Specialist</p>
+            <p className={`text-sm transition-colors ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Security Engineer | Cloud Security Specialist</p>
           </motion.div>
           
           <motion.div 
@@ -38,7 +42,11 @@ export default function Footer() {
                 href={social.href}
                 target={social.label !== 'Email' ? '_blank' : undefined}
                 rel={social.label !== 'Email' ? 'noopener noreferrer' : undefined}
-                className="p-3 bg-dark-800 border border-dark-700 rounded-lg text-gray-400 hover:text-white hover:border-primary-500/50 hover:bg-primary-500/5 transition-all"
+                className={`p-3 border rounded-lg transition-all ${
+                  isDark
+                    ? 'bg-gray-800 border-gray-700 text-gray-400 hover:text-white hover:border-blue-500/50 hover:bg-blue-500/5'
+                    : 'bg-white border-gray-200 text-gray-600 hover:text-gray-900 hover:border-blue-400/50 hover:bg-blue-50/50'
+                }`}
                 whileHover={{ y: -4, scale: 1.05 }}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -52,13 +60,13 @@ export default function Footer() {
         </div>
         
         <motion.div 
-          className="mt-8 pt-8 border-t border-dark-800 text-center"
+          className={`mt-8 pt-8 border-t text-center transition-colors ${isDark ? 'border-gray-800' : 'border-gray-200'}`}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          <p className="text-gray-500 text-sm">
+          <p className={`text-sm transition-colors ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
             &copy; {new Date().getFullYear()} Suvaditya Roy. All rights reserved.
           </p>
         </motion.div>

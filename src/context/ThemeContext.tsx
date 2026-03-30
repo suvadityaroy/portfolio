@@ -35,7 +35,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (mounted) {
       localStorage.setItem('theme', theme);
-      document.documentElement.classList.toggle('dark', theme === 'dark');
+      const htmlElement = document.documentElement;
+      if (theme === 'light') {
+        htmlElement.classList.add('light');
+        htmlElement.classList.remove('dark');
+      } else {
+        htmlElement.classList.add('dark');
+        htmlElement.classList.remove('light');
+      }
     }
   }, [theme, mounted]);
 

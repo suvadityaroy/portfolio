@@ -3,14 +3,18 @@
 import { motion } from 'framer-motion';
 import { Shield, Brain, Cloud, Wifi, Code } from 'lucide-react';
 import Image from 'next/image';
+import { useTheme } from '@/context/ThemeContext';
 import SectionBackground from './SectionBackground';
 
 export default function About() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
-    <section id="about" className="py-24 bg-dark-950 relative overflow-hidden">
-      {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-dark-900/50 to-transparent"></div>
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl"></div>
+    <section id="about" className={`py-24 relative overflow-hidden transition-colors duration-300 ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
+      {/* Gradient background */}
+      <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-b from-gray-900/50 to-transparent' : 'bg-gradient-to-b from-blue-50/30 to-transparent'}`}></div>
+      <div className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl ${isDark ? 'bg-blue-500/5' : 'bg-blue-300/10'}`}></div>
       
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
@@ -20,8 +24,8 @@ export default function About() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">About Me</h2>
-          <div className="w-20 h-1 bg-primary-500 mx-auto rounded-full"></div>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-4 transition-colors ${isDark ? 'text-white' : 'text-gray-900'}`}>About Me</h2>
+          <div className={`w-20 h-1 mx-auto rounded-full transition-colors ${isDark ? 'bg-blue-500' : 'bg-blue-600'}`}></div>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start mb-16">
@@ -33,7 +37,7 @@ export default function About() {
             className="flex justify-center items-center"
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-blue-500 rounded-2xl blur-2xl opacity-20"></div>
+              <div className={`absolute inset-0 rounded-2xl blur-2xl opacity-20 ${isDark ? 'bg-gradient-to-br from-blue-500 to-blue-500' : 'bg-gradient-to-br from-blue-400 to-blue-300'}`}></div>
               <Image 
                 src="/profile.jpg"
                 alt="Suvaditya Roy - Profile"
@@ -53,31 +57,31 @@ export default function About() {
             className="space-y-5"
           >
             <motion.p 
-              className="text-base md:text-lg text-gray-300 leading-relaxed"
+              className={`text-base md:text-lg leading-relaxed transition-colors ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              I am a <span className="text-white font-semibold">Trainee Security Engineer</span> specializing in Cloud Security at <span className="text-primary-400 font-medium">IT People Network (Kolkata)</span>, with hands-on experience in <span className="text-white font-medium">Wiz (CSPM), CyberArk (PAM/EPM), Qualys (VMDR), Veracode, Proofpoint, and DigiCert</span>. Skilled in identifying cloud misconfigurations, supporting vulnerability remediation across 300+ assets, and assisting in access control and security operations.
+              I am a <span className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Trainee Security Engineer</span> specializing in Cloud Security at <span className={`font-medium ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>IT People Network (Kolkata)</span>, with hands-on experience in <span className={`font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>Wiz (CSPM), CyberArk (PAM/EPM), Qualys (VMDR), Veracode, Proofpoint, and DigiCert</span>. Skilled in identifying cloud misconfigurations, supporting vulnerability remediation across 300+ assets, and assisting in access control and security operations.
             </motion.p>
             <motion.p 
-              className="text-base md:text-lg text-gray-300 leading-relaxed"
+              className={`text-base md:text-lg leading-relaxed transition-colors ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              Experience includes <span className="text-primary-400 font-medium">CSPM using Wiz</span>, supporting <span className="text-white font-medium">CyberArk PAM</span>, and vulnerability assessment using <span className="text-white font-medium">Qualys VMDR</span>. I also develop <span className="text-primary-400 font-medium">Python-based automation</span> for log analysis and alert triage, and support monitoring using Splunk, along with working knowledge of <span className="text-white font-medium">AWS, Azure, Linux, and network security</span>.
+              Experience includes <span className={`font-medium ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>CSPM using Wiz</span>, supporting <span className={`font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>CyberArk PAM</span>, and vulnerability assessment using <span className={`font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>Qualys VMDR</span>. I also develop <span className={`font-medium ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>Python-based automation</span> for log analysis and alert triage, and support monitoring using Splunk, along with working knowledge of <span className={`font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>AWS, Azure, Linux, and network security</span>.
             </motion.p>
             <motion.p 
-              className="text-base md:text-lg text-gray-300 leading-relaxed"
+              className={`text-base md:text-lg leading-relaxed transition-colors ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              <span className="text-primary-400 font-semibold">Springer-published research author</span> in blockchain security, focused on building expertise in CSPM, IAM, vulnerability management, and security automation to secure cloud-native environments.
+              <span className={`font-semibold ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>Springer-published research author</span> in blockchain security, focused on building expertise in CSPM, IAM, vulnerability management, and security automation to secure cloud-native environments.
             </motion.p>
           </motion.div>
         </div>
