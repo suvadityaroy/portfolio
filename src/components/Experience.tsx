@@ -1,62 +1,69 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar } from 'lucide-react';
+import { Briefcase, MapPin, Calendar } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
-import SectionBackground from './SectionBackground';
 
 const experiences = [
   {
     company: 'ITPeopleNetwork',
     role: 'Trainee Security Engineer',
-    period: 'Feb 2026 – Present · 2 mos',
-    location: 'Kolkata, West Bengal, India · On-site',
+    period: 'Feb 2026 – Present',
+    duration: '2 mos',
+    location: 'Kolkata, West Bengal · On-site',
+    current: true,
     description: [
       'Contributed to enterprise security operations across Wiz (CSPM), CyberArk (PAM/EPM), Qualys (VMDR), Veracode (SAST), Proofpoint, and DigiCert in a production environment.',
-      'Monitored cloud infrastructure using Wiz, identifying misconfigurations and compliance gaps, and enabling remediation aligned with cloud security best practices.',
-      'Supported CyberArk PAM & EPM operations, assisting in privileged access management and enforcing least-privilege controls across 20+ endpoints.',
-      'Conducted vulnerability assessment and triage using Qualys VMDR across 300+ assets, prioritizing critical risks and coordinating remediation with internal teams.',
-      'Managed certificate lifecycle operations using DigiCert, including issuance, renewal, and validation of 100+ enterprise certificates.',
-      'Built Python-based automation for log analysis, vulnerability tracking, and alert triage, improving SOC efficiency and reducing manual workload in Splunk workflows.'
-    ]
+      'Monitored cloud infrastructure using Wiz, identifying misconfigurations and compliance gaps aligned with cloud security best practices.',
+      'Supported CyberArk PAM & EPM operations, enforcing least-privilege controls across 20+ endpoints.',
+      'Conducted vulnerability assessment and triage using Qualys VMDR across 300+ assets, prioritizing critical risks.',
+      'Managed certificate lifecycle using DigiCert — issuance, renewal, and validation of 100+ enterprise certificates.',
+      'Built Python automation for log analysis, vulnerability tracking, and alert triage, improving SOC efficiency in Splunk workflows.',
+    ],
   },
   {
     company: 'University of Engineering & Management (UEM)',
     role: 'Software & Systems Engineering Intern',
-    period: 'Jun 2024 – Jan 2026 · 1 yr 8 mos',
-    location: 'West Bengal, India · Hybrid',
+    period: 'Jun 2024 – Jan 2026',
+    duration: '1 yr 8 mos',
+    location: 'West Bengal · Hybrid',
+    current: false,
     description: [
-      'Developed backend components and automation tools for network scanning and monitoring workflows using Python and Golang, improving reliability across distributed environments.',
+      'Developed backend components and automation tools for network scanning and monitoring workflows using Python and Golang.',
       'Designed and implemented RESTful internal APIs for orchestration, task scheduling, and data ingestion pipelines.',
-      'Optimized system performance through efficient I/O handling, caching mechanisms, and structured logging, reducing re-scan latency and improving throughput.',
-      'Built backend services to support real-time diagnostics, observability, and system health tracking.',
-      'Collaborated with senior engineers on design reviews, documentation, and performance benchmarking of backend systems.'
-    ]
+      'Optimized system performance through efficient I/O handling, caching, and structured logging.',
+      'Built backend services for real-time diagnostics, observability, and system health tracking.',
+      'Collaborated on design reviews, documentation, and performance benchmarking of backend systems.',
+    ],
   },
   {
     company: 'CFSS Cyber & Forensics Security Solutions',
     role: 'Cyber Security Intern',
-    period: 'Dec 2023 – May 2024 · 6 mos',
+    period: 'Dec 2023 – May 2024',
+    duration: '6 mos',
     location: 'India · Remote',
+    current: false,
     description: [
-      'Conducted vulnerability assessments and configuration audits on Linux-based systems to identify security gaps and misconfigurations.',
-      'Developed Python automation scripts to streamline security testing, log analysis, and credential checks.',
-      'Performed network traffic analysis using TCP/IP tools to assist in incident investigation and system hardening.',
-      'Documented findings and supported implementation of security best practices to reduce risk exposure.'
-    ]
+      'Conducted vulnerability assessments and configuration audits on Linux-based systems.',
+      'Developed Python automation scripts for security testing, log analysis, and credential checks.',
+      'Performed network traffic analysis using TCP/IP tools for incident investigation.',
+      'Documented findings and supported implementation of security best practices.',
+    ],
   },
   {
     company: 'PwC Switzerland',
     role: 'Cyber Security Analyst Intern',
-    period: 'Oct 2023 – Nov 2023 · 2 mos',
+    period: 'Oct 2023 – Nov 2023',
+    duration: '2 mos',
     location: 'India · Remote',
+    current: false,
     description: [
-      'Assisted in application security reviews by analyzing authentication flows, access control mechanisms, and secure data-handling practices.',
+      'Assisted in application security reviews analyzing authentication flows and access control mechanisms.',
       'Executed vulnerability assessments and supported threat modeling for web applications.',
       'Analyzed datasets to identify anomalies and contributed to risk assessment reports.',
-      'Supported security review processes by documenting issues and recommending mitigation strategies.'
-    ]
-  }
+      'Documented issues and recommended mitigation strategies.',
+    ],
+  },
 ];
 
 export default function Experience() {
@@ -64,82 +71,161 @@ export default function Experience() {
   const isDark = theme === 'dark';
 
   return (
-    <section id="experience" className={`py-24 relative overflow-hidden transition-colors duration-300 ${isDark ? 'bg-gray-900' : 'bg-gradient-to-b from-white to-blue-50/30'}`}>
-      {/* Subtle background */}
-      <div className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl ${isDark ? 'bg-blue-500/5' : 'bg-blue-300/10'}`}></div>
-      
+    <section
+      id="experience"
+      className={`py-28 relative overflow-hidden transition-colors duration-500 ${
+        isDark ? 'bg-[#030712]' : 'bg-white'
+      }`}
+    >
+      {isDark && (
+        <>
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-sky-500/20 to-transparent" />
+          <div className="absolute top-1/3 right-0 w-80 h-80 rounded-full bg-sky-500/5 blur-[90px]" />
+        </>
+      )}
+      {!isDark && (
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-200 to-transparent" />
+      )}
+
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className={`text-4xl md:text-5xl font-bold mb-4 transition-colors ${isDark ? 'text-white' : 'text-blue-900'}`}>Professional Experience</h2>
-          <div className={`w-20 h-1 mx-auto rounded-full transition-colors ${isDark ? 'bg-blue-500' : 'bg-gradient-to-r from-blue-600 to-cyan-500'}`}></div>
+          <p className={`text-sm font-semibold tracking-widest uppercase mb-3 ${
+            isDark ? 'text-sky-400' : 'text-indigo-600'
+          }`}>
+            Experience
+          </p>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${
+            isDark ? 'text-white' : 'text-slate-900'
+          }`}>
+            Professional Journey
+          </h2>
+          <div className={`w-16 h-1 mx-auto rounded-full ${
+            isDark
+              ? 'bg-gradient-to-r from-sky-500 to-indigo-500'
+              : 'bg-gradient-to-r from-indigo-600 to-violet-600'
+          }`} />
         </motion.div>
 
-        <div className="max-w-4xl mx-auto space-y-8">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.08, ease: "easeOut" }}
-              viewport={{ once: true, margin: "-50px" }}
-              whileHover={{ y: -4, transition: { duration: 0.3 } }}
-              className="relative"
-            >
-              <div className={`p-6 md:p-8 border rounded-xl transition-all duration-300 hover:shadow-2xl group ${
-                isDark
-                  ? 'bg-gray-800 border-gray-700 hover:border-blue-500/50 hover:shadow-blue-500/10'
-                  : 'bg-blue-50/50 border-blue-300 hover:border-blue-400/80 hover:shadow-blue-300/30'
-              }`}>
-                <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                  <div className="flex-1">
-                    <motion.h3 
-                      className={`text-xl md:text-2xl font-bold mb-1 transition-colors ${isDark ? 'text-white' : 'text-blue-900'} group-hover:${isDark ? 'text-blue-400' : 'text-blue-700'} transition-colors`}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      transition={{ delay: index * 0.08 + 0.2 }}
-                    >
-                      {exp.role}
-                    </motion.h3>
-                    <h4 className={`text-base md:text-lg font-medium mb-2 transition-colors ${isDark ? 'text-blue-400' : 'text-blue-700'}`}>{exp.company}</h4>
-                    {exp.location && (
-                      <p className={`text-sm transition-colors ${isDark ? 'text-gray-500' : 'text-blue-600'}`}>{exp.location}</p>
-                    )}
+        <div className="max-w-4xl mx-auto">
+          {/* Timeline */}
+          <div className="relative">
+            {/* Vertical line */}
+            <div className={`absolute left-6 top-0 bottom-0 w-px ${
+              isDark
+                ? 'bg-gradient-to-b from-sky-500/40 via-indigo-500/20 to-transparent'
+                : 'bg-gradient-to-b from-indigo-300/60 via-violet-200/40 to-transparent'
+            }`} />
+
+            <div className="space-y-8">
+              {experiences.map((exp, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -24 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1, ease: 'easeOut' }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  className="relative pl-16"
+                >
+                  {/* Timeline dot */}
+                  <div className={`absolute left-0 top-6 w-12 flex items-center justify-center`}>
+                    <motion.div
+                      className={`w-4 h-4 rounded-full border-2 z-10 ${
+                        exp.current
+                          ? isDark
+                            ? 'bg-sky-400 border-sky-400 shadow-[0_0_12px_rgba(56,189,248,0.6)]'
+                            : 'bg-indigo-600 border-indigo-600 shadow-[0_0_10px_rgba(79,70,229,0.4)]'
+                          : isDark
+                            ? 'bg-[#030712] border-sky-500/50'
+                            : 'bg-white border-indigo-300'
+                      }`}
+                      animate={exp.current ? { scale: [1, 1.2, 1], opacity: [1, 0.8, 1] } : {}}
+                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                    />
                   </div>
-                  <motion.span 
-                    className={`text-sm px-4 py-2 rounded-lg mt-3 md:mt-0 w-fit transition-all ${
+
+                  {/* Card */}
+                  <motion.div
+                    whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                    className={`p-6 rounded-2xl border transition-all duration-300 group ${
                       isDark
-                        ? 'bg-gray-900 border border-gray-700 text-gray-400 group-hover:border-blue-500/30'
-                        : 'bg-white border border-blue-200 text-blue-700 group-hover:border-blue-400/60'
+                        ? 'card-dark hover:shadow-[0_0_30px_rgba(56,189,248,0.1)]'
+                        : 'card-light hover:shadow-[0_8px_30px_rgba(79,70,229,0.1)]'
                     }`}
-                    whileHover={{ scale: 1.05 }}
                   >
-                    {exp.period}
-                  </motion.span>
-                </div>
-                <ul className="space-y-3 mt-6">
-                  {exp.description.map((item, i) => (
-                    <motion.li 
-                      key={i} 
-                      className={`flex items-start gap-3 text-sm md:text-base transition-colors ${isDark ? 'text-gray-300' : 'text-blue-900'}`}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.08 + i * 0.05 }}
-                      viewport={{ once: true }}
-                    >
-                      <span className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 group-hover:scale-125 transition-transform ${isDark ? 'bg-blue-500' : 'bg-blue-600'}`}></span>
-                      <span className="leading-relaxed">{item}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          ))}
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-5">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                            {exp.role}
+                          </h3>
+                          {exp.current && (
+                            <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
+                              isDark
+                                ? 'bg-sky-500/15 text-sky-300 border border-sky-500/25'
+                                : 'bg-green-100 text-green-700 border border-green-200'
+                            }`}>
+                              Current
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Briefcase className={`w-3.5 h-3.5 ${isDark ? 'text-sky-400' : 'text-indigo-500'}`} />
+                          <p className={`text-sm font-semibold ${isDark ? 'text-sky-400' : 'text-indigo-600'}`}>
+                            {exp.company}
+                          </p>
+                        </div>
+                        <div className={`flex items-center gap-1 mt-1 text-xs ${
+                          isDark ? 'text-slate-500' : 'text-slate-400'
+                        }`}>
+                          <MapPin className="w-3 h-3" />
+                          {exp.location}
+                        </div>
+                      </div>
+                      <div className={`flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border flex-shrink-0 ${
+                        isDark
+                          ? 'bg-[#050d1a] border-slate-800 text-slate-400'
+                          : 'bg-slate-50 border-slate-200 text-slate-500'
+                      }`}>
+                        <Calendar className="w-3 h-3" />
+                        <span>{exp.period}</span>
+                        <span className={`ml-1 px-1.5 py-0.5 rounded ${
+                          isDark ? 'bg-slate-800 text-slate-500' : 'bg-slate-200 text-slate-500'
+                        }`}>
+                          {exp.duration}
+                        </span>
+                      </div>
+                    </div>
+
+                    <ul className="space-y-2.5">
+                      {exp.description.map((item, i) => (
+                        <motion.li
+                          key={i}
+                          initial={{ opacity: 0, x: -8 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 + i * 0.04 }}
+                          viewport={{ once: true }}
+                          className={`flex items-start gap-2.5 text-sm leading-relaxed ${
+                            isDark ? 'text-slate-300' : 'text-slate-600'
+                          }`}
+                        >
+                          <span className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${
+                            isDark ? 'bg-sky-500' : 'bg-indigo-400'
+                          }`} />
+                          {item}
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

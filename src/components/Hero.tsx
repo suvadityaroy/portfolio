@@ -1,276 +1,253 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
-import AnimatedBackground from './AnimatedBackground';
+import { Mail, ArrowRight, ChevronDown } from 'lucide-react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 
 export default function Hero() {
   const { theme } = useTheme();
-  const phrases = [
-    'Trainee Security Engineer'
-  ];
+  const isDark = theme === 'dark';
 
   const codeLines = [
-    "Securing 300+ cloud assets with enterprise security tools",
-    "Springer-published researcher in blockchain security",
-    "Enterprise security: Wiz CSPM, CyberArk PAM, Qualys VMDR",
-    "Python automation for log analysis and vulnerability tracking",
-    "Cloud security expert in AWS and Azure environments",
-    "SOC operations with Splunk and incident response",
-    "Currently Security Engineer at ITPeopleNetwork Kolkata"
+    'Securing 300+ cloud assets with enterprise security tools',
+    'Springer-published researcher in blockchain security',
+    'Enterprise security: Wiz CSPM, CyberArk PAM, Qualys VMDR',
+    'Python automation for log analysis and vulnerability tracking',
+    'Cloud security expert in AWS and Azure environments',
+    'SOC operations with Splunk and incident response',
+    'Currently Security Engineer at ITPeopleNetwork Kolkata',
   ];
 
-  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [currentCodeLineIndex, setCurrentCodeLineIndex] = useState(0);
   const [codeLineDisplayed, setCodeLineDisplayed] = useState('');
   const [codeLineCharIndex, setCodeLineCharIndex] = useState(0);
   const [isCodeLineDeleting, setIsCodeLineDeleting] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [phrases.length]);
+  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     const currentCodeLine = codeLines[currentCodeLineIndex];
-    const typingSpeed = isCodeLineDeleting ? 20 : 50;
-    const pauseAtEnd = 3000;
-    const pauseBeforeDelete = 500;
+    const typingSpeed = isCodeLineDeleting ? 18 : 45;
 
     if (!isCodeLineDeleting && codeLineCharIndex === currentCodeLine.length) {
-      setTimeout(() => setIsCodeLineDeleting(true), pauseAtEnd);
-      return;
+      const t = setTimeout(() => setIsCodeLineDeleting(true), 2800);
+      return () => clearTimeout(t);
     }
-
     if (isCodeLineDeleting && codeLineCharIndex === 0) {
-      setTimeout(() => {
+      const t = setTimeout(() => {
         setIsCodeLineDeleting(false);
-        setCurrentCodeLineIndex((prev) => (prev + 1) % codeLines.length);
-      }, pauseBeforeDelete);
-      return;
+        setCurrentCodeLineIndex(p => (p + 1) % codeLines.length);
+      }, 400);
+      return () => clearTimeout(t);
     }
-
     const timeout = setTimeout(() => {
       setCodeLineDisplayed(currentCodeLine.substring(0, codeLineCharIndex + (isCodeLineDeleting ? -1 : 1)));
-      setCodeLineCharIndex((prev) => prev + (isCodeLineDeleting ? -1 : 1));
+      setCodeLineCharIndex(p => p + (isCodeLineDeleting ? -1 : 1));
     }, typingSpeed);
-
     return () => clearTimeout(timeout);
-  }, [codeLineCharIndex, isCodeLineDeleting, currentCodeLineIndex, codeLines]);
-
-  const isDark = theme === 'dark';
+  }, [codeLineCharIndex, isCodeLineDeleting, currentCodeLineIndex]);
 
   return (
-    <section id="home" className={`min-h-screen flex items-center justify-center relative overflow-hidden transition-colors duration-300 ${
-      isDark ? 'bg-gray-950' : 'bg-white'
-    }`}>
-      {/* Subtle grid background */}
-      <div className={`absolute inset-0 bg-[linear-gradient(to_right,${isDark ? '#1f1f1f' : '#dbeafe'}_1px,transparent_1px),linear-gradient(to_bottom,${isDark ? '#1f1f1f' : '#dbeafe'}_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20`}></div>
-      
-      {/* Gradient overlay */}
-      <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-br from-blue-600/5 via-transparent to-blue-400/5' : 'bg-gradient-to-br from-blue-50/60 via-cyan-50/40 to-sky-100/50 animate-pulse'}`}></div>
-      
-      {/* Floating orbs */}
-      <motion.div
-        className={`absolute top-20 left-20 w-96 h-96 rounded-full blur-3xl ${isDark ? 'bg-blue-500/10' : 'bg-blue-400/15'}`}
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: isDark ? [0.3, 0.5, 0.3] : [0.4, 0.7, 0.4],
-          x: isDark ? 0 : [0, 20, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className={`absolute bottom-20 right-20 w-96 h-96 rounded-full blur-3xl ${isDark ? 'bg-blue-400/10' : 'bg-cyan-400/15'}`}
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: isDark ? [0.5, 0.3, 0.5] : [0.5, 0.3, 0.5],
-          x: isDark ? 0 : [0, -20, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1
-        }}
-      />
-      
+    <section
+      id="home"
+      className={`min-h-screen flex items-center justify-center relative overflow-hidden transition-colors duration-500 ${
+        isDark ? 'bg-[#030712]' : 'bg-white'
+      }`}
+    >
+      {/* ── Dark: aurora animated background ── */}
+      {isDark && (
+        <>
+          <div className="aurora-bg absolute inset-0 opacity-60" />
+          <div className="grid-lines-dark absolute inset-0 opacity-100" />
+          {/* Glowing orbs */}
+          <motion.div
+            className="absolute top-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full bg-sky-500/10 blur-[120px]"
+            animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.7, 0.4] }}
+            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.div
+            className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-indigo-600/10 blur-[100px]"
+            animate={{ scale: [1.1, 1, 1.1], opacity: [0.5, 0.3, 0.5] }}
+            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+          />
+          <motion.div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full bg-blue-600/5 blur-[140px]"
+            animate={{ rotate: [0, 360] }}
+            transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+          />
+        </>
+      )}
+
+      {/* ── Light: dot grid + soft blobs ── */}
+      {!isDark && (
+        <>
+          <div className="dot-grid-light absolute inset-0 opacity-40" />
+          <motion.div
+            className="absolute top-[-8%] right-[5%] w-[500px] h-[500px] rounded-full bg-indigo-100 blur-[100px]"
+            animate={{ scale: [1, 1.1, 1], opacity: [0.6, 0.9, 0.6] }}
+            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.div
+            className="absolute bottom-[-5%] left-[0%] w-[400px] h-[400px] rounded-full bg-violet-100 blur-[100px]"
+            animate={{ scale: [1.1, 1, 1.1], opacity: [0.5, 0.8, 0.5] }}
+            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+          />
+        </>
+      )}
+
       <div className="container mx-auto px-6 py-20 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.9, ease: 'easeOut' }}
           className="max-w-5xl mx-auto text-center"
         >
-          {/* Greeting */}
-          <motion.p
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
+          {/* Greeting badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className={`text-lg md:text-xl mb-4 font-light tracking-wide ${isDark ? 'text-gray-400' : 'text-sky-600'}`}
+            className="inline-flex items-center gap-2 mb-8"
           >
-            Hi, I'm
-          </motion.p>
+            <span className={`px-4 py-1.5 rounded-full text-sm font-medium border backdrop-blur-sm ${
+              isDark
+                ? 'bg-sky-500/10 border-sky-500/25 text-sky-300'
+                : 'bg-indigo-50 border-indigo-200 text-indigo-700'
+            }`}>
+              <span className="inline-block w-2 h-2 rounded-full bg-green-400 mr-2 animate-pulse" />
+              Available for opportunities
+            </span>
+          </motion.div>
 
           {/* Name */}
-          <motion.h1 
-            className="text-6xl md:text-8xl lg:text-9xl font-bold mb-6 leading-none drop-shadow-lg"
-            initial={{ opacity: 0, scale: 0.95 }}
+          <motion.h1
+            className="text-6xl md:text-8xl lg:text-9xl font-bold mb-4 leading-none"
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span 
-              className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400"
-              style={{
-                textShadow: isDark 
-                  ? '0 0 40px rgba(59, 130, 246, 0.8), 0 0 80px rgba(34, 197, 231, 0.4)'
-                  : '0 0 25px rgba(37, 99, 235, 0.5), 0 0 50px rgba(34, 197, 231, 0.3)',
-                WebkitTextStroke: isDark ? '1px rgba(59, 130, 246, 0.3)' : '0.5px rgba(37, 99, 235, 0.2)'
-              }}
-            >
-              Suvaditya Roy
-            </span>
+            {isDark ? (
+              <span className="gradient-text-dark drop-shadow-[0_0_60px_rgba(56,189,248,0.4)]">
+                Suvaditya Roy
+              </span>
+            ) : (
+              <span className="gradient-text-light">
+                Suvaditya Roy
+              </span>
+            )}
           </motion.h1>
 
-          {/* Role with animation */}
-          <div className="mb-12 h-16 md:h-20 flex items-center justify-center overflow-hidden">
-            {mounted && (
-              <motion.p
-                key={currentPhraseIndex}
-                initial={{ opacity: 0, y: 50, rotateX: 90, scale: 0.8 }}
-                animate={{ 
-                  opacity: 1, 
-                  y: 0, 
-                  rotateX: 0, 
-                  scale: [1, 1.05, 1]
-                }}
-                exit={{ opacity: 0, y: -50, rotateX: -90, scale: 0.8 }}
-                transition={{ 
-                  duration: 0.6,
-                  ease: [0.34, 1.56, 0.64, 1],
-                  scale: {
-                    duration: 2,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    ease: "easeInOut"
-                  }
-                }}
-                className={`text-2xl md:text-4xl font-bold ${isDark ? 'text-yellow-400' : 'text-blue-600'}`}
-                style={{
-                  textShadow: isDark 
-                    ? '0 0 40px rgba(250, 204, 21, 0.9), 0 0 80px rgba(250, 204, 21, 0.6)'
-                    : '0 0 20px rgba(37, 99, 235, 0.5)'
-                }}
-              >
-                {phrases[currentPhraseIndex]}
-              </motion.p>
-            )}
-          </div>
-
-          {/* Code block */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mb-12 max-w-4xl mx-auto"
+          {/* Role */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className={`text-2xl md:text-3xl font-bold mb-12 tracking-wide ${
+              isDark ? 'text-sky-300' : 'text-indigo-600'
+            }`}
           >
-            <motion.div 
-              className={`bg-gradient-to-br backdrop-blur-md border-2 rounded-2xl p-6 md:p-8 shadow-xl transition-all duration-500 ${
-                isDark 
-                  ? 'from-gray-900/80 to-gray-800/80 border-blue-500/20 hover:border-blue-500/40 shadow-blue-500/10' 
-                  : 'from-blue-50/90 to-cyan-50/90 border-blue-300/50 hover:border-blue-400/80 shadow-blue-200/40'
+            Trainee Security Engineer
+          </motion.p>
+
+          {/* Code block typewriter */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mb-12 max-w-3xl mx-auto"
+          >
+            <motion.div
+              className={`rounded-2xl overflow-hidden border backdrop-blur-md transition-all duration-500 ${
+                isDark
+                  ? 'bg-[#0a1628]/90 border-sky-500/20 shadow-[0_0_40px_rgba(56,189,248,0.08)]'
+                  : 'bg-white border-slate-200 shadow-[0_4px_24px_rgba(79,70,229,0.08)]'
               }`}
-              whileHover={{ 
-                scale: 1.02,
-                transition: { duration: 0.3 }
+              whileHover={{
+                scale: 1.015,
+                boxShadow: isDark
+                  ? '0 0 50px rgba(56,189,248,0.18)'
+                  : '0 8px 40px rgba(79,70,229,0.14)',
               }}
+              transition={{ duration: 0.3 }}
             >
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <div className="flex gap-2">
-                    <motion.div className="w-3 h-3 rounded-full bg-red-500 cursor-pointer hover:bg-red-400" whileHover={{ scale: 1.2 }}></motion.div>
-                    <motion.div className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer hover:bg-yellow-400" whileHover={{ scale: 1.2 }}></motion.div>
-                    <motion.div className="w-3 h-3 rounded-full bg-green-500 cursor-pointer hover:bg-green-400" whileHover={{ scale: 1.2 }}></motion.div>
-                  </div>
-                  <span className={`text-xs md:text-sm ml-2 font-mono ${isDark ? 'text-gray-400' : 'text-blue-700'}`}>about.js</span>
+              {/* Window chrome */}
+              <div className={`flex items-center gap-3 px-5 py-3.5 border-b ${
+                isDark ? 'bg-[#050d1a]/80 border-sky-500/10' : 'bg-slate-50 border-slate-200'
+              }`}>
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-400 transition-colors cursor-pointer" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-400 transition-colors cursor-pointer" />
+                  <div className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-400 transition-colors cursor-pointer" />
+                </div>
+                <span className={`text-xs font-mono ml-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                  about.js
+                </span>
+                <div className="ml-auto flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                  <span className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>live</span>
                 </div>
               </div>
-              <div className={`font-mono text-sm md:text-base text-left overflow-x-auto ${isDark ? 'text-gray-300' : 'text-blue-900'}`}>
-                <div className="flex items-start gap-2">
-                  <span className={`select-none ${isDark ? 'text-gray-600' : 'text-blue-500'}`}>1</span>
-                  <div className="flex-1">
-                    <span className={isDark ? 'text-purple-400' : 'text-purple-600'}>const</span>{' '}
-                    <span className={isDark ? 'text-blue-400' : 'text-blue-700'}>about</span>{' '}
-                    <span className={isDark ? 'text-white' : 'text-blue-900'}>=</span>{' '}
-                    <span className={isDark ? 'text-yellow-400' : 'text-yellow-600'}>"</span>
-                    <span className={isDark ? 'text-green-600 dark:text-green-400' : 'text-green-700'}>
+
+              {/* Code content */}
+              <div className="px-5 py-5 font-mono text-sm md:text-base text-left">
+                <div className="flex items-start gap-3">
+                  <span className={`select-none text-xs mt-0.5 w-4 ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>1</span>
+                  <div className="flex-1 flex flex-wrap items-center gap-1">
+                    <span className={isDark ? 'text-purple-400' : 'text-violet-600'}>const</span>
+                    <span className={isDark ? 'text-sky-300' : 'text-indigo-600'}>about</span>
+                    <span className={isDark ? 'text-slate-300' : 'text-slate-700'}>=</span>
+                    <span className={isDark ? 'text-amber-400' : 'text-amber-600'}>"</span>
+                    <span className={isDark ? 'text-emerald-400' : 'text-emerald-700'}>
                       {codeLineDisplayed}
-                      <motion.span
-                        animate={{ opacity: [1, 0, 1] }}
-                        transition={{ duration: 0.5, repeat: Infinity }}
-                        className={`px-0.5 ${isDark ? 'text-white bg-white/20' : 'text-blue-900 bg-blue-200/50'}`}
-                      >
-                        {!isCodeLineDeleting ? '█' : ''}
-                      </motion.span>
+                      {mounted && (
+                        <span className={`ml-0.5 ${isDark ? 'text-sky-300' : 'text-indigo-500'}`}
+                          style={{ animation: 'blink-cursor 1s step-end infinite' }}>|</span>
+                      )}
                     </span>
-                    <span className={isDark ? 'text-yellow-400' : 'text-yellow-600'}>{codeLineCharIndex === codeLines[currentCodeLineIndex].length ? '"' : ''}</span>
-                    <span className={isDark ? 'text-white' : 'text-blue-900'}>{codeLineCharIndex === codeLines[currentCodeLineIndex].length ? ';' : ''}</span>
+                    {codeLineCharIndex === codeLines[currentCodeLineIndex].length && (
+                      <>
+                        <span className={isDark ? 'text-amber-400' : 'text-amber-600'}>"</span>
+                        <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>;</span>
+                      </>
+                    )}
                   </div>
                 </div>
-              </div>
-              <div className={`mt-4 flex items-center gap-2 text-xs ${isDark ? 'text-gray-500' : 'text-blue-600'}`}>
-                <motion.div 
-                  className="w-2 h-2 rounded-full bg-green-500"
-                  animate={{ scale: [1, 1.3, 1], opacity: [1, 0.5, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                ></motion.div>
-                <span>Live Preview</span>
               </div>
             </motion.div>
           </motion.div>
-          
-          {/* CTA Buttons */}
-          <motion.div 
-            className="flex flex-wrap justify-center gap-4 mb-12"
+
+          {/* CTA buttons */}
+          <motion.div
+            className="flex flex-wrap justify-center gap-4 mb-14"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
           >
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-              <Link 
-                href="#projects" 
-                className={`group relative px-8 py-4 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 overflow-hidden inline-block ${
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                href="#projects"
+                className={`relative group px-8 py-3.5 rounded-full font-semibold overflow-hidden inline-flex items-center gap-2 transition-all duration-300 ${
                   isDark
-                    ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white hover:shadow-blue-500/50 hover:shadow-2xl'
-                    : 'bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:shadow-blue-400/50 hover:shadow-2xl'
+                    ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-[0_0_30px_rgba(56,189,248,0.3)] hover:shadow-[0_0_45px_rgba(56,189,248,0.5)]'
+                    : 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-[0_4px_20px_rgba(79,70,229,0.3)] hover:shadow-[0_8px_30px_rgba(79,70,229,0.45)]'
                 }`}
               >
-                <span className={`absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700`}></span>
+                <span className="absolute inset-0 shimmer-btn" />
                 <span className="relative">View My Work</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform relative" />
               </Link>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-              <Link 
-                href="#contact" 
-                className={`group px-8 py-4 rounded-full font-semibold transition-all duration-300 inline-block ${
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                href="#contact"
+                className={`px-8 py-3.5 rounded-full font-semibold inline-flex items-center gap-2 border-2 transition-all duration-300 ${
                   isDark
-                    ? 'bg-transparent border-2 border-white/20 text-white hover:bg-white/10 hover:border-white/40 backdrop-blur-sm'
-                    : 'bg-transparent border-2 border-blue-500 text-blue-600 hover:bg-blue-50 hover:border-blue-600 hover:text-blue-700'
+                    ? 'border-sky-500/40 text-sky-300 hover:bg-sky-500/10 hover:border-sky-400 backdrop-blur-sm'
+                    : 'border-indigo-300 text-indigo-700 hover:bg-indigo-50 hover:border-indigo-500'
                 }`}
               >
                 Let's Connect
@@ -278,54 +255,61 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Social Links */}
-          <motion.div 
-            className="flex items-center justify-center gap-6"
+          {/* Social links */}
+          <motion.div
+            className="flex items-center justify-center gap-5"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
           >
-            <motion.div whileHover={{ y: -5, rotate: 5 }} whileTap={{ scale: 0.95 }}>
-              <Link 
-                href="https://github.com/suvadityaroy" 
-                target="_blank" 
-                className={`group p-4 rounded-full border transition-all duration-300 hover:scale-125 shadow-lg hover:shadow-xl inline-block ${
-                  isDark
-                    ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 text-gray-400 hover:text-white hover:border-white hover:from-gray-700 hover:to-gray-800'
-                    : 'bg-gradient-to-br from-gray-100 to-white border-gray-400 text-gray-700 hover:text-gray-900 hover:border-gray-600 hover:from-gray-200 hover:to-white hover:bg-gradient-to-br hover:shadow-lg'
-                }`}
+            {[
+              {
+                href: 'https://github.com/suvadityaroy',
+                icon: FaGithub,
+                darkClass: 'bg-[#0a1628] border-slate-700 text-slate-300 hover:text-white hover:border-sky-500/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.2)]',
+                lightClass: 'bg-white border-slate-200 text-slate-600 hover:text-slate-900 hover:border-indigo-300 hover:shadow-[0_4px_16px_rgba(79,70,229,0.12)]',
+              },
+              {
+                href: 'https://linkedin.com/in/suvadityaroy',
+                icon: FaLinkedin,
+                darkClass: 'bg-blue-600 border-blue-500 text-white hover:bg-blue-500 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]',
+                lightClass: 'bg-blue-600 border-blue-500 text-white hover:bg-blue-700 hover:shadow-[0_4px_16px_rgba(59,130,246,0.35)]',
+              },
+              {
+                href: 'mailto:suvadityaroy.dev@gmail.com',
+                icon: Mail,
+                darkClass: 'bg-emerald-600 border-emerald-500 text-white hover:bg-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)]',
+                lightClass: 'bg-emerald-600 border-emerald-500 text-white hover:bg-emerald-700 hover:shadow-[0_4px_16px_rgba(16,185,129,0.35)]',
+              },
+            ].map(({ href, icon: Icon, darkClass, lightClass }, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -4, scale: 1.1 }}
+                whileTap={{ scale: 0.94 }}
               >
-                <Github className="w-6 h-6" />
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ y: -5, rotate: -5 }} whileTap={{ scale: 0.95 }}>
-              <Link 
-                href="https://linkedin.com/in/suvadityaroy" 
-                target="_blank" 
-                className={`group p-4 rounded-full text-white border transition-all duration-300 hover:scale-125 shadow-lg inline-block ${
-                  isDark
-                    ? 'bg-gradient-to-br from-blue-600 to-blue-700 border-blue-500 hover:shadow-blue-500/50 hover:from-blue-500 hover:to-blue-600'
-                    : 'bg-gradient-to-br from-blue-600 to-blue-500 border-blue-400 hover:shadow-blue-400/60 hover:from-blue-500 hover:to-blue-600'
-                }`}
-              >
-                <Linkedin className="w-6 h-6" />
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ y: -5, rotate: 5 }} whileTap={{ scale: 0.95 }}>
-              <Link 
-                href="mailto:suvadityaroy.dev@gmail.com" 
-                className={`group p-4 rounded-full text-white border transition-all duration-300 hover:scale-125 shadow-lg inline-block ${
-                  isDark
-                    ? 'bg-gradient-to-br from-green-600 to-green-700 border-green-500 hover:shadow-green-500/50 hover:from-green-500 hover:to-green-600'
-                    : 'bg-gradient-to-br from-green-500 to-green-600 border-green-400 hover:shadow-green-400/60 hover:from-green-400 hover:to-green-500'
-                }`}
-              >
-                <Mail className="w-6 h-6" />
-              </Link>
-            </motion.div>
+                <Link
+                  href={href}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  className={`p-3.5 rounded-xl border transition-all duration-300 inline-flex shadow-sm ${
+                    isDark ? darkClass : lightClass
+                  }`}
+                >
+                  <Icon className="w-5 h-5" />
+                </Link>
+              </motion.div>
+            ))}
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <ChevronDown className={`w-5 h-5 ${isDark ? 'text-slate-600' : 'text-slate-400'}`} />
+      </motion.div>
     </section>
   );
 }
