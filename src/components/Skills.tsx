@@ -3,6 +3,26 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 import { Code, Shield, Cloud, Wifi, Terminal } from 'lucide-react';
+
+// Stagger variants
+const gridVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+};
+const cardVariants = {
+  hidden: { opacity: 0, y: 28, scale: 0.94 },
+  show: {
+    opacity: 1, y: 0, scale: 1,
+    transition: { type: 'spring' as const, stiffness: 240, damping: 22 },
+  },
+};
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.85 },
+  show: {
+    opacity: 1, scale: 1,
+    transition: { type: 'spring' as const, stiffness: 300, damping: 20 },
+  },
+};
 import {
   SiPython, SiGo, SiPostgresql, SiTypescript,
   SiAmazon, SiGooglecloud, SiDocker,
@@ -112,7 +132,7 @@ export default function Skills() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <p className={`text-sm font-semibold tracking-widest uppercase mb-3 ${
+          <p className={`text-xs font-bold tracking-[0.3em] uppercase mb-3 ${
             isDark ? 'text-sky-400' : 'text-indigo-600'
           }`}>
             Technical Skills
@@ -122,71 +142,89 @@ export default function Skills() {
           }`}>
             What I Work With
           </h2>
-          <div className={`w-16 h-1 mx-auto rounded-full ${
-            isDark
-              ? 'bg-gradient-to-r from-sky-500 to-indigo-500'
-              : 'bg-gradient-to-r from-indigo-600 to-violet-600'
-          }`} />
+          <motion.div
+            className={`h-1 mx-auto rounded-full ${
+              isDark
+                ? 'bg-gradient-to-r from-sky-500 to-indigo-500'
+                : 'bg-gradient-to-r from-indigo-600 to-violet-600'
+            }`}
+            initial={{ width: 0 }}
+            whileInView={{ width: 64 }}
+            transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true }}
+          />
           <p className={`mt-5 max-w-xl mx-auto text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
             Comprehensive security expertise across cloud platforms, enterprise tools, and frameworks
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <motion.div
+          variants={gridVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-50px' }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+        >
           {skills.map((group, index) => {
             const IconComp = group.icon;
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 24, scale: 0.97 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.05, ease: 'easeOut' }}
-                viewport={{ once: true, margin: '-40px' }}
-                whileHover={{ y: -5, transition: { duration: 0.25 } }}
+                variants={cardVariants}
+                whileHover={{
+                  y: -6, scale: 1.02,
+                  transition: { type: 'spring' as const, stiffness: 320, damping: 20 },
+                }}
                 className={`p-5 rounded-2xl border transition-all duration-300 group ${
                   isDark
-                    ? 'card-dark hover:shadow-[0_0_30px_rgba(56,189,248,0.12)]'
-                    : 'card-light hover:shadow-[0_8px_30px_rgba(79,70,229,0.1)]'
+                    ? 'card-dark hover:shadow-[0_0_30px_rgba(56,189,248,0.14)]'
+                    : 'card-light hover:shadow-[0_8px_32px_rgba(79,70,229,0.11)]'
                 }`}
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className={`p-2 rounded-lg border transition-all duration-300 ${
-                    isDark
-                      ? 'bg-[#050d1a] border-sky-500/15 group-hover:border-sky-500/35 group-hover:bg-sky-500/10'
-                      : 'bg-slate-50 border-slate-200 group-hover:border-indigo-300 group-hover:bg-indigo-50'
-                  }`}>
+                  <motion.div
+                    className={`p-2 rounded-lg border transition-all duration-300 ${
+                      isDark
+                        ? 'bg-[#050d1a] border-sky-500/15 group-hover:border-sky-500/40 group-hover:bg-sky-500/10'
+                        : 'bg-slate-50 border-slate-200 group-hover:border-indigo-300 group-hover:bg-indigo-50'
+                    }`}
+                    whileHover={{ rotate: 360, scale: 1.1 }}
+                    transition={{ duration: 0.55, ease: 'easeInOut' }}
+                  >
                     <IconComp className={`w-5 h-5 ${isDark ? group.color.dark : group.color.light}`} />
-                  </div>
-                  <h3 className={`text-sm font-semibold leading-tight ${
-                    isDark ? 'text-white' : 'text-slate-900'
-                  }`}>
+                  </motion.div>
+                  <h3 className={`text-sm font-semibold leading-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
                     {group.category}
                   </h3>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
+
+                <motion.div
+                  variants={gridVariants}
+                  className="grid grid-cols-2 gap-2"
+                >
                   {group.items.map((item, i) => (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.3, delay: index * 0.05 + i * 0.03 }}
-                      viewport={{ once: true }}
-                      whileHover={{ scale: 1.04 }}
-                      className={`flex items-center gap-1.5 px-2 py-2 rounded-lg border text-xs font-medium transition-all duration-200 cursor-default ${
+                      variants={itemVariants}
+                      whileHover={{
+                        scale: 1.06, y: -2,
+                        transition: { type: 'spring' as const, stiffness: 400, damping: 18 },
+                      }}
+                      className={`flex items-center gap-1.5 px-2 py-2 rounded-lg border text-xs font-medium cursor-default transition-colors duration-200 ${
                         isDark
-                          ? 'bg-[#050d1a] border-slate-800 text-slate-300 hover:border-sky-500/30 hover:bg-sky-500/5'
-                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-indigo-300 hover:bg-indigo-50/60'
+                          ? 'bg-[#050d1a] border-slate-800 text-slate-300 hover:border-sky-500/35 hover:bg-sky-500/6'
+                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-indigo-300 hover:bg-indigo-50/70'
                       }`}
                     >
                       <span className="flex-shrink-0">{item.icon}</span>
                       <span className="leading-tight truncate">{item.name}</span>
                     </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Enterprise tools banner */}
         <motion.div

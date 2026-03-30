@@ -1,16 +1,63 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Mail, ArrowRight, ChevronDown } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTheme } from '@/context/ThemeContext';
+
+// ── Animation variants ────────────────────────────────────────
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.11, delayChildren: 0.15 },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 32 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring' as const, stiffness: 260, damping: 22 },
+  },
+};
+
+const fadeScale = {
+  hidden: { opacity: 0, scale: 0.88 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: { type: 'spring' as const, stiffness: 280, damping: 24 },
+  },
+};
+
+// ── Floating background orbs ─────────────────────────────────
+const orbs = [
+  { size: 600, x: '-5%', y: '-10%', color: 'dark:bg-sky-500/8 bg-indigo-100/70',  blur: 'blur-[130px]', duration: 18, dx: [0, 40, -20, 0], dy: [0, -25, 18, 0] },
+  { size: 500, x: '65%', y: '50%',  color: 'dark:bg-indigo-600/8 bg-violet-100/60', blur: 'blur-[110px]', duration: 22, dx: [0, -30, 15, 0], dy: [0, 20, -30, 0] },
+  { size: 350, x: '30%', y: '70%',  color: 'dark:bg-blue-600/6 bg-sky-100/50',   blur: 'blur-[90px]',  duration: 16, dx: [0, 15, -10, 0], dy: [0, -15, 10, 0] },
+];
+
+// ── Tiny floating particles (dark only) ──────────────────────
+const particles = Array.from({ length: 22 }, (_, i) => ({
+  id: i,
+  x: `${5 + Math.random() * 90}%`,
+  y: `${5 + Math.random() * 90}%`,
+  size: Math.random() * 2 + 1,
+  dur: 8 + Math.random() * 10,
+  delay: Math.random() * 6,
+}));
 
 export default function Hero() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const sectionRef = useRef<HTMLElement>(null);
+  const [mounted, setMounted] = useState(false);
 
+  // Typewriter
   const codeLines = [
     'Securing 300+ cloud assets with enterprise security tools',
     'Springer-published researcher in blockchain security',
@@ -20,195 +67,210 @@ export default function Hero() {
     'SOC operations with Splunk and incident response',
     'Currently Security Engineer at ITPeopleNetwork Kolkata',
   ];
-
-  const [currentCodeLineIndex, setCurrentCodeLineIndex] = useState(0);
-  const [codeLineDisplayed, setCodeLineDisplayed] = useState('');
-  const [codeLineCharIndex, setCodeLineCharIndex] = useState(0);
-  const [isCodeLineDeleting, setIsCodeLineDeleting] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [lineIdx, setLineIdx]   = useState(0);
+  const [displayed, setDisplayed] = useState('');
+  const [charIdx, setCharIdx]   = useState(0);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
-    const currentCodeLine = codeLines[currentCodeLineIndex];
-    const typingSpeed = isCodeLineDeleting ? 18 : 45;
-
-    if (!isCodeLineDeleting && codeLineCharIndex === currentCodeLine.length) {
-      const t = setTimeout(() => setIsCodeLineDeleting(true), 2800);
+    const line = codeLines[lineIdx];
+    if (!deleting && charIdx === line.length) {
+      const t = setTimeout(() => setDeleting(true), 2600);
       return () => clearTimeout(t);
     }
-    if (isCodeLineDeleting && codeLineCharIndex === 0) {
+    if (deleting && charIdx === 0) {
       const t = setTimeout(() => {
-        setIsCodeLineDeleting(false);
-        setCurrentCodeLineIndex(p => (p + 1) % codeLines.length);
-      }, 400);
+        setDeleting(false);
+        setLineIdx(p => (p + 1) % codeLines.length);
+      }, 380);
       return () => clearTimeout(t);
     }
-    const timeout = setTimeout(() => {
-      setCodeLineDisplayed(currentCodeLine.substring(0, codeLineCharIndex + (isCodeLineDeleting ? -1 : 1)));
-      setCodeLineCharIndex(p => p + (isCodeLineDeleting ? -1 : 1));
-    }, typingSpeed);
-    return () => clearTimeout(timeout);
-  }, [codeLineCharIndex, isCodeLineDeleting, currentCodeLineIndex]);
+    const speed = deleting ? 16 : 42;
+    const t = setTimeout(() => {
+      setDisplayed(line.substring(0, charIdx + (deleting ? -1 : 1)));
+      setCharIdx(p => p + (deleting ? -1 : 1));
+    }, speed);
+    return () => clearTimeout(t);
+  }, [charIdx, deleting, lineIdx]);
+
+  // Parallax on scroll
+  const { scrollY } = useScroll();
+  const yOrb1 = useTransform(scrollY, [0, 600], [0, -80]);
+
+  const socials = [
+    {
+      href: 'https://github.com/suvadityaroy', icon: FaGithub,
+      dark: 'bg-[#0a1628] border-slate-700 text-slate-300 hover:text-white hover:border-sky-500/50 hover:shadow-[0_0_18px_rgba(56,189,248,0.2)]',
+      light: 'bg-white border-slate-200 text-slate-600 hover:text-slate-900 hover:border-indigo-300 hover:shadow-[0_4px_14px_rgba(79,70,229,0.12)]',
+    },
+    {
+      href: 'https://linkedin.com/in/suvadityaroy', icon: FaLinkedin,
+      dark: 'bg-blue-600 border-blue-500 text-white hover:bg-blue-500 hover:shadow-[0_0_18px_rgba(59,130,246,0.45)]',
+      light: 'bg-blue-600 border-blue-500 text-white hover:bg-blue-700 hover:shadow-[0_4px_14px_rgba(59,130,246,0.35)]',
+    },
+    {
+      href: 'mailto:suvadityaroy.dev@gmail.com', icon: Mail,
+      dark: 'bg-emerald-600 border-emerald-500 text-white hover:bg-emerald-500 hover:shadow-[0_0_18px_rgba(16,185,129,0.45)]',
+      light: 'bg-emerald-600 border-emerald-500 text-white hover:bg-emerald-700 hover:shadow-[0_4px_14px_rgba(16,185,129,0.35)]',
+    },
+  ];
 
   return (
     <section
       id="home"
+      ref={sectionRef}
       className={`min-h-screen flex items-center justify-center relative overflow-hidden transition-colors duration-500 ${
         isDark ? 'bg-[#030712]' : 'bg-white'
       }`}
     >
-      {/* ── Dark: aurora animated background ── */}
+      {/* ── Backgrounds ────────────────────────────────────── */}
+      {isDark && <div className="aurora-bg absolute inset-0 opacity-55" />}
+      {isDark && <div className="grid-lines-dark absolute inset-0" />}
+      {!isDark && <div className="dot-grid-light absolute inset-0 opacity-35" />}
+
+      {/* Animated orbs with parallax */}
+      <motion.div style={{ y: yOrb1 }} className="absolute inset-0 pointer-events-none">
+        {orbs.map((orb, i) => (
+          <motion.div
+            key={i}
+            className={`absolute rounded-full pointer-events-none ${orb.blur} ${
+              isDark ? orb.color.split(' ')[0] : orb.color.split(' ')[1]
+            }`}
+            style={{ width: orb.size, height: orb.size, left: orb.x, top: orb.y }}
+            animate={{ x: orb.dx, y: orb.dy, scale: [1, 1.08, 0.96, 1] }}
+            transition={{ duration: orb.duration, repeat: Infinity, ease: 'easeInOut', times: [0, 0.35, 0.65, 1] }}
+          />
+        ))}
+      </motion.div>
+
+      {/* Dark-only floating particles */}
       {isDark && (
-        <>
-          <div className="aurora-bg absolute inset-0 opacity-60" />
-          <div className="grid-lines-dark absolute inset-0 opacity-100" />
-          {/* Glowing orbs */}
-          <motion.div
-            className="absolute top-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full bg-sky-500/10 blur-[120px]"
-            animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.7, 0.4] }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          <motion.div
-            className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-indigo-600/10 blur-[100px]"
-            animate={{ scale: [1.1, 1, 1.1], opacity: [0.5, 0.3, 0.5] }}
-            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          />
-          <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full bg-blue-600/5 blur-[140px]"
-            animate={{ rotate: [0, 360] }}
-            transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-          />
-        </>
+        <div className="absolute inset-0 pointer-events-none">
+          {particles.map(p => (
+            <motion.div
+              key={p.id}
+              className="absolute rounded-full bg-sky-400/20"
+              style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
+              animate={{ y: [0, -28, 0], opacity: [0.1, 0.5, 0.1], scale: [1, 1.8, 1] }}
+              transition={{ duration: p.dur, repeat: Infinity, delay: p.delay, ease: 'easeInOut' }}
+            />
+          ))}
+        </div>
       )}
 
-      {/* ── Light: dot grid + soft blobs ── */}
-      {!isDark && (
-        <>
-          <div className="dot-grid-light absolute inset-0 opacity-40" />
-          <motion.div
-            className="absolute top-[-8%] right-[5%] w-[500px] h-[500px] rounded-full bg-indigo-100 blur-[100px]"
-            animate={{ scale: [1, 1.1, 1], opacity: [0.6, 0.9, 0.6] }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          <motion.div
-            className="absolute bottom-[-5%] left-[0%] w-[400px] h-[400px] rounded-full bg-violet-100 blur-[100px]"
-            animate={{ scale: [1.1, 1, 1.1], opacity: [0.5, 0.8, 0.5] }}
-            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-          />
-        </>
-      )}
-
+      {/* ── Main content ───────────────────────────────────── */}
       <div className="container mx-auto px-6 py-20 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: 'easeOut' }}
+          variants={container}
+          initial="hidden"
+          animate="show"
           className="max-w-5xl mx-auto text-center"
         >
-          {/* Greeting badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="inline-flex items-center gap-2 mb-8"
-          >
+          {/* Availability badge */}
+          <motion.div variants={fadeScale} className="inline-flex items-center gap-2 mb-8">
             <span className={`px-4 py-1.5 rounded-full text-sm font-medium border backdrop-blur-sm ${
               isDark
-                ? 'bg-sky-500/10 border-sky-500/25 text-sky-300'
+                ? 'bg-sky-500/8 border-sky-500/22 text-sky-300'
                 : 'bg-indigo-50 border-indigo-200 text-indigo-700'
             }`}>
-              <span className="inline-block w-2 h-2 rounded-full bg-green-400 mr-2 animate-pulse" />
+              <motion.span
+                className="inline-block w-2 h-2 rounded-full bg-green-400 mr-2"
+                animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+              />
               Available for opportunities
             </span>
           </motion.div>
 
           {/* Name */}
           <motion.h1
+            variants={fadeUp}
             className="text-6xl md:text-8xl lg:text-9xl font-bold mb-4 leading-none"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
           >
             {isDark ? (
-              <span className="gradient-text-dark drop-shadow-[0_0_60px_rgba(56,189,248,0.4)]">
+              <span className="gradient-text-dark drop-shadow-[0_0_70px_rgba(56,189,248,0.35)]">
                 Suvaditya Roy
               </span>
             ) : (
-              <span className="gradient-text-light">
-                Suvaditya Roy
-              </span>
+              <span className="gradient-text-light">Suvaditya Roy</span>
             )}
           </motion.h1>
 
           {/* Role */}
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
-            className={`text-2xl md:text-3xl font-bold mb-12 tracking-wide ${
+            variants={fadeUp}
+            className={`text-2xl md:text-3xl font-bold mb-12 ${
               isDark ? 'text-sky-300' : 'text-indigo-600'
             }`}
           >
             Trainee Security Engineer
           </motion.p>
 
-          {/* Code block typewriter */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="mb-12 max-w-3xl mx-auto"
-          >
+          {/* Code block */}
+          <motion.div variants={fadeUp} className="mb-12 max-w-3xl mx-auto">
             <motion.div
-              className={`rounded-2xl overflow-hidden border backdrop-blur-md transition-all duration-500 ${
+              className={`rounded-2xl overflow-hidden border backdrop-blur-md ${
                 isDark
-                  ? 'bg-[#0a1628]/90 border-sky-500/20 shadow-[0_0_40px_rgba(56,189,248,0.08)]'
-                  : 'bg-white border-slate-200 shadow-[0_4px_24px_rgba(79,70,229,0.08)]'
+                  ? 'bg-[#0a1628]/90 border-sky-500/18 shadow-[0_0_50px_rgba(56,189,248,0.07)]'
+                  : 'bg-white border-slate-200 shadow-[0_6px_30px_rgba(79,70,229,0.07)]'
               }`}
               whileHover={{
-                scale: 1.015,
+                scale: 1.012,
                 boxShadow: isDark
-                  ? '0 0 50px rgba(56,189,248,0.18)'
-                  : '0 8px 40px rgba(79,70,229,0.14)',
+                  ? '0 0 60px rgba(56,189,248,0.16)'
+                  : '0 12px_50px_rgba(79,70,229,0.12)',
               }}
-              transition={{ duration: 0.3 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 22 }}
             >
-              {/* Window chrome */}
+              {/* Chrome bar */}
               <div className={`flex items-center gap-3 px-5 py-3.5 border-b ${
                 isDark ? 'bg-[#050d1a]/80 border-sky-500/10' : 'bg-slate-50 border-slate-200'
               }`}>
                 <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-400 transition-colors cursor-pointer" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-400 transition-colors cursor-pointer" />
-                  <div className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-400 transition-colors cursor-pointer" />
+                  {['bg-red-500', 'bg-yellow-500', 'bg-green-500'].map((c, i) => (
+                    <motion.div
+                      key={i}
+                      className={`w-3 h-3 rounded-full ${c}`}
+                      whileHover={{ scale: 1.3 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+                    />
+                  ))}
                 </div>
                 <span className={`text-xs font-mono ml-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                   about.js
                 </span>
                 <div className="ml-auto flex items-center gap-1.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                  <motion.div
+                    className="w-1.5 h-1.5 rounded-full bg-green-400"
+                    animate={{ opacity: [1, 0.3, 1] }}
+                    transition={{ duration: 2.2, repeat: Infinity }}
+                  />
                   <span className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>live</span>
                 </div>
               </div>
 
-              {/* Code content */}
+              {/* Code line */}
               <div className="px-5 py-5 font-mono text-sm md:text-base text-left">
                 <div className="flex items-start gap-3">
                   <span className={`select-none text-xs mt-0.5 w-4 ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>1</span>
-                  <div className="flex-1 flex flex-wrap items-center gap-1">
+                  <div className="flex-1 flex flex-wrap items-center gap-1 min-h-[1.5em]">
                     <span className={isDark ? 'text-purple-400' : 'text-violet-600'}>const</span>
                     <span className={isDark ? 'text-sky-300' : 'text-indigo-600'}>about</span>
                     <span className={isDark ? 'text-slate-300' : 'text-slate-700'}>=</span>
                     <span className={isDark ? 'text-amber-400' : 'text-amber-600'}>"</span>
                     <span className={isDark ? 'text-emerald-400' : 'text-emerald-700'}>
-                      {codeLineDisplayed}
+                      {displayed}
                       {mounted && (
-                        <span className={`ml-0.5 ${isDark ? 'text-sky-300' : 'text-indigo-500'}`}
-                          style={{ animation: 'blink-cursor 1s step-end infinite' }}>|</span>
+                        <motion.span
+                          className={isDark ? 'text-sky-300' : 'text-indigo-500'}
+                          animate={{ opacity: [1, 0, 1] }}
+                          transition={{ duration: 0.9, repeat: Infinity, ease: 'linear' }}
+                        >|</motion.span>
                       )}
                     </span>
-                    {codeLineCharIndex === codeLines[currentCodeLineIndex].length && (
+                    {charIdx === codeLines[lineIdx].length && (
                       <>
                         <span className={isDark ? 'text-amber-400' : 'text-amber-600'}>"</span>
                         <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>;</span>
@@ -221,32 +283,42 @@ export default function Hero() {
           </motion.div>
 
           {/* CTA buttons */}
-          <motion.div
-            className="flex flex-wrap justify-center gap-4 mb-14"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-          >
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+          <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-4 mb-14">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <Link
                 href="#projects"
-                className={`relative group px-8 py-3.5 rounded-full font-semibold overflow-hidden inline-flex items-center gap-2 transition-all duration-300 ${
+                className={`relative group px-8 py-3.5 rounded-full font-semibold overflow-hidden inline-flex items-center gap-2 ${
                   isDark
-                    ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-[0_0_30px_rgba(56,189,248,0.3)] hover:shadow-[0_0_45px_rgba(56,189,248,0.5)]'
-                    : 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-[0_4px_20px_rgba(79,70,229,0.3)] hover:shadow-[0_8px_30px_rgba(79,70,229,0.45)]'
-                }`}
+                    ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-[0_0_28px_rgba(56,189,248,0.3)] hover:shadow-[0_0_45px_rgba(56,189,248,0.55)]'
+                    : 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-[0_4px_20px_rgba(79,70,229,0.3)] hover:shadow-[0_8px_35px_rgba(79,70,229,0.45)]'
+                } transition-shadow duration-300`}
               >
                 <span className="absolute inset-0 shimmer-btn" />
                 <span className="relative">View My Work</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform relative" />
+                <motion.div
+                  className="relative"
+                  animate={{ x: [0, 3, 0] }}
+                  transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </motion.div>
               </Link>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <Link
                 href="#contact"
                 className={`px-8 py-3.5 rounded-full font-semibold inline-flex items-center gap-2 border-2 transition-all duration-300 ${
                   isDark
-                    ? 'border-sky-500/40 text-sky-300 hover:bg-sky-500/10 hover:border-sky-400 backdrop-blur-sm'
+                    ? 'border-sky-500/38 text-sky-300 hover:bg-sky-500/10 hover:border-sky-400'
                     : 'border-indigo-300 text-indigo-700 hover:bg-indigo-50 hover:border-indigo-500'
                 }`}
               >
@@ -255,43 +327,26 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Social links */}
-          <motion.div
-            className="flex items-center justify-center gap-5"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-          >
-            {[
-              {
-                href: 'https://github.com/suvadityaroy',
-                icon: FaGithub,
-                darkClass: 'bg-[#0a1628] border-slate-700 text-slate-300 hover:text-white hover:border-sky-500/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.2)]',
-                lightClass: 'bg-white border-slate-200 text-slate-600 hover:text-slate-900 hover:border-indigo-300 hover:shadow-[0_4px_16px_rgba(79,70,229,0.12)]',
-              },
-              {
-                href: 'https://linkedin.com/in/suvadityaroy',
-                icon: FaLinkedin,
-                darkClass: 'bg-blue-600 border-blue-500 text-white hover:bg-blue-500 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]',
-                lightClass: 'bg-blue-600 border-blue-500 text-white hover:bg-blue-700 hover:shadow-[0_4px_16px_rgba(59,130,246,0.35)]',
-              },
-              {
-                href: 'mailto:suvadityaroy.dev@gmail.com',
-                icon: Mail,
-                darkClass: 'bg-emerald-600 border-emerald-500 text-white hover:bg-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)]',
-                lightClass: 'bg-emerald-600 border-emerald-500 text-white hover:bg-emerald-700 hover:shadow-[0_4px_16px_rgba(16,185,129,0.35)]',
-              },
-            ].map(({ href, icon: Icon, darkClass, lightClass }, i) => (
+          {/* Social icons */}
+          <motion.div variants={container} className="flex items-center justify-center gap-5">
+            {socials.map(({ href, icon: Icon, dark, light }, i) => (
               <motion.div
                 key={i}
-                whileHover={{ y: -4, scale: 1.1 }}
-                whileTap={{ scale: 0.94 }}
+                variants={{
+                  hidden: { opacity: 0, y: 20, scale: 0.7 },
+                  show: {
+                    opacity: 1, y: 0, scale: 1,
+                    transition: { type: 'spring' as const, stiffness: 320, damping: 20, delay: i * 0.08 },
+                  },
+                }}
+                whileHover={{ y: -5, scale: 1.12, transition: { type: 'spring', stiffness: 400, damping: 16 } }}
+                whileTap={{ scale: 0.93 }}
               >
                 <Link
                   href={href}
                   target={href.startsWith('http') ? '_blank' : undefined}
-                  className={`p-3.5 rounded-xl border transition-all duration-300 inline-flex shadow-sm ${
-                    isDark ? darkClass : lightClass
+                  className={`p-3.5 rounded-xl border transition-all duration-250 inline-flex shadow-sm ${
+                    isDark ? dark : light
                   }`}
                 >
                   <Icon className="w-5 h-5" />
@@ -304,11 +359,21 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8, duration: 0.8 }}
       >
-        <ChevronDown className={`w-5 h-5 ${isDark ? 'text-slate-600' : 'text-slate-400'}`} />
+        <motion.div
+          className={`w-px h-10 origin-top ${
+            isDark
+              ? 'bg-gradient-to-b from-sky-500/60 to-transparent'
+              : 'bg-gradient-to-b from-indigo-400/60 to-transparent'
+          }`}
+          animate={{ scaleY: [0, 1, 0], opacity: [0, 1, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <ChevronDown className={`w-4 h-4 ${isDark ? 'text-slate-600' : 'text-slate-400'}`} />
       </motion.div>
     </section>
   );

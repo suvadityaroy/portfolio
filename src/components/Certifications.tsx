@@ -1,8 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Award, ShieldCheck, Cloud, Terminal, Brain } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
+import { useRef } from 'react';
 
 const certifications = [
   {
@@ -11,7 +12,8 @@ const certifications = [
     date: 'Jun 2025',
     icon: Brain,
     iconColor: 'text-yellow-500',
-    badgeColor: { dark: 'bg-yellow-500/10 border-yellow-500/20', light: 'bg-yellow-50 border-yellow-200' },
+    badge: { dark: 'bg-yellow-500/10 border-yellow-500/22', light: 'bg-yellow-50 border-yellow-200' },
+    glow:  { dark: 'hover:shadow-[0_0_30px_rgba(234,179,8,0.12)]', light: 'hover:shadow-[0_8px_30px_rgba(234,179,8,0.1)]' },
   },
   {
     name: 'Certified Ethical Hacking (v12)',
@@ -19,7 +21,8 @@ const certifications = [
     date: 'Jan 2025',
     icon: ShieldCheck,
     iconColor: 'text-emerald-500',
-    badgeColor: { dark: 'bg-emerald-500/10 border-emerald-500/20', light: 'bg-emerald-50 border-emerald-200' },
+    badge: { dark: 'bg-emerald-500/10 border-emerald-500/22', light: 'bg-emerald-50 border-emerald-200' },
+    glow:  { dark: 'hover:shadow-[0_0_30px_rgba(16,185,129,0.12)]', light: 'hover:shadow-[0_8px_30px_rgba(16,185,129,0.1)]' },
   },
   {
     name: 'IBM Cybersecurity Analyst',
@@ -27,7 +30,8 @@ const certifications = [
     date: 'May 2024',
     icon: ShieldCheck,
     iconColor: 'text-blue-500',
-    badgeColor: { dark: 'bg-blue-500/10 border-blue-500/20', light: 'bg-blue-50 border-blue-200' },
+    badge: { dark: 'bg-blue-500/10 border-blue-500/22', light: 'bg-blue-50 border-blue-200' },
+    glow:  { dark: 'hover:shadow-[0_0_30px_rgba(59,130,246,0.12)]', light: 'hover:shadow-[0_8px_30px_rgba(59,130,246,0.1)]' },
   },
   {
     name: 'AWS Cloud Practitioner Essentials',
@@ -35,7 +39,8 @@ const certifications = [
     date: 'Mar 2024',
     icon: Cloud,
     iconColor: 'text-orange-500',
-    badgeColor: { dark: 'bg-orange-500/10 border-orange-500/20', light: 'bg-orange-50 border-orange-200' },
+    badge: { dark: 'bg-orange-500/10 border-orange-500/22', light: 'bg-orange-50 border-orange-200' },
+    glow:  { dark: 'hover:shadow-[0_0_30px_rgba(249,115,22,0.12)]', light: 'hover:shadow-[0_8px_30px_rgba(249,115,22,0.1)]' },
   },
   {
     name: 'Certified Information Systems Security Professional (CISSP)',
@@ -43,7 +48,8 @@ const certifications = [
     date: 'Nov 2023',
     icon: Award,
     iconColor: 'text-purple-500',
-    badgeColor: { dark: 'bg-purple-500/10 border-purple-500/20', light: 'bg-purple-50 border-purple-200' },
+    badge: { dark: 'bg-purple-500/10 border-purple-500/22', light: 'bg-purple-50 border-purple-200' },
+    glow:  { dark: 'hover:shadow-[0_0_30px_rgba(168,85,247,0.12)]', light: 'hover:shadow-[0_8px_30px_rgba(168,85,247,0.1)]' },
   },
   {
     name: 'Certified in Cybersecurity Specialization (CC)',
@@ -51,82 +57,119 @@ const certifications = [
     date: 'Nov 2023',
     icon: Terminal,
     iconColor: 'text-cyan-500',
-    badgeColor: { dark: 'bg-cyan-500/10 border-cyan-500/20', light: 'bg-cyan-50 border-cyan-200' },
+    badge: { dark: 'bg-cyan-500/10 border-cyan-500/22', light: 'bg-cyan-50 border-cyan-200' },
+    glow:  { dark: 'hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]', light: 'hover:shadow-[0_8px_30px_rgba(6,182,212,0.1)]' },
   },
 ];
+
+// stagger container
+const grid = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.15 } },
+};
+
+const card = {
+  hidden: { opacity: 0, y: 36, scale: 0.93 },
+  show: {
+    opacity: 1, y: 0, scale: 1,
+    transition: { type: 'spring' as const, stiffness: 240, damping: 22 },
+  },
+};
 
 export default function Certifications() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
+  const blobY = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
+
+  const accent  = isDark ? 'text-sky-400'  : 'text-indigo-600';
+  const strong  = isDark ? 'text-white'    : 'text-slate-900';
+  const divider = isDark
+    ? 'bg-gradient-to-r from-sky-500 to-indigo-500'
+    : 'bg-gradient-to-r from-indigo-600 to-violet-600';
 
   return (
     <section
       id="certifications"
+      ref={sectionRef}
       className={`py-28 relative overflow-hidden transition-colors duration-500 ${
         isDark ? 'bg-[#050d1a]' : 'bg-slate-50'
       }`}
     >
-      {isDark && (
-        <>
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-sky-500/20 to-transparent" />
-          <div className="absolute bottom-10 left-10 w-80 h-80 rounded-full bg-indigo-600/5 blur-[90px]" />
-          <div className="absolute top-20 right-20 w-72 h-72 rounded-full bg-sky-500/5 blur-[80px]" />
-        </>
-      )}
-      {!isDark && (
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-200 to-transparent" />
-      )}
+      <div className={`absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent ${
+        isDark ? 'via-sky-500/20' : 'via-indigo-200/60'} to-transparent`} />
+
+      {/* Parallax blob */}
+      <motion.div
+        style={{ y: blobY }}
+        className={`absolute bottom-10 left-10 w-96 h-96 rounded-full blur-[110px] pointer-events-none ${
+          isDark ? 'bg-indigo-600/5' : 'bg-indigo-100/50'
+        }`}
+      />
+      <motion.div
+        style={{ y: blobY }}
+        className={`absolute top-16 right-16 w-72 h-72 rounded-full blur-[90px] pointer-events-none ${
+          isDark ? 'bg-sky-500/5' : 'bg-violet-100/50'
+        }`}
+      />
 
       <div className="container mx-auto px-6 relative z-10">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <p className={`text-sm font-semibold tracking-widest uppercase mb-3 ${
-            isDark ? 'text-sky-400' : 'text-indigo-600'
-          }`}>
-            Certifications
-          </p>
-          <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${
-            isDark ? 'text-white' : 'text-slate-900'
-          }`}>
-            Credentials & Badges
-          </h2>
-          <div className={`w-16 h-1 mx-auto rounded-full ${
-            isDark
-              ? 'bg-gradient-to-r from-sky-500 to-indigo-500'
-              : 'bg-gradient-to-r from-indigo-600 to-violet-600'
-          }`} />
+          <p className={`text-xs font-bold tracking-[0.3em] uppercase mb-3 ${accent}`}>Certifications</p>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${strong}`}>Credentials & Badges</h2>
+          <motion.div
+            className={`h-1 mx-auto rounded-full ${divider}`}
+            initial={{ width: 0 }}
+            whileInView={{ width: 64 }}
+            transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true }}
+          />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+        {/* Stagger grid */}
+        <motion.div
+          variants={grid}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-60px' }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto"
+        >
           {certifications.map((cert, index) => {
             const IconComp = cert.icon;
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 24, scale: 0.97 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.07, ease: 'easeOut' }}
-                viewport={{ once: true, margin: '-40px' }}
-                whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.25 } }}
-                className={`p-5 rounded-2xl border flex flex-col transition-all duration-300 group cursor-default ${
+                variants={card}
+                whileHover={{
+                  y: -7, scale: 1.025,
+                  transition: { type: 'spring' as const, stiffness: 300, damping: 18 },
+                }}
+                className={`p-5 rounded-2xl border flex flex-col cursor-default group transition-all duration-300 ${
                   isDark
-                    ? 'card-dark hover:shadow-[0_8px_30px_rgba(56,189,248,0.12)]'
-                    : 'card-light hover:shadow-[0_8px_30px_rgba(79,70,229,0.1)]'
+                    ? `card-dark ${cert.glow.dark}`
+                    : `card-light ${cert.glow.light}`
                 }`}
               >
                 <div className="flex items-start gap-4 mb-auto">
-                  {/* Icon badge */}
+                  {/* Icon badge with wobble on hover */}
                   <motion.div
                     className={`p-3 rounded-xl border flex-shrink-0 transition-all duration-300 ${
-                      isDark ? cert.badgeColor.dark : cert.badgeColor.light
-                    } group-hover:scale-110`}
-                    whileHover={{ rotate: [0, -8, 8, -8, 0] }}
-                    transition={{ duration: 0.5 }}
+                      isDark ? cert.badge.dark : cert.badge.light
+                    }`}
+                    whileHover={{
+                      rotate: [0, -10, 10, -6, 0],
+                      scale: 1.12,
+                      transition: { duration: 0.5 },
+                    }}
                   >
                     <IconComp className={`w-8 h-8 ${cert.iconColor}`} />
                   </motion.div>
@@ -139,30 +182,33 @@ export default function Certifications() {
                     }`}>
                       {cert.name}
                     </h3>
-                    <p className={`text-xs font-medium ${isDark ? 'text-sky-400' : 'text-indigo-600'}`}>
-                      {cert.issuer}
-                    </p>
+                    <p className={`text-xs font-semibold ${accent}`}>{cert.issuer}</p>
                   </div>
                 </div>
 
+                {/* Footer */}
                 <div className={`flex items-center justify-between mt-4 pt-4 border-t ${
                   isDark ? 'border-slate-800' : 'border-slate-100'
                 }`}>
                   <span className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                     {cert.date}
                   </span>
-                  <span className={`px-2.5 py-1 rounded-lg text-xs font-medium border ${
-                    isDark
-                      ? 'bg-[#050d1a] border-slate-800 text-slate-400'
-                      : 'bg-slate-50 border-slate-200 text-slate-500'
-                  }`}>
-                    Verified ✓
-                  </span>
+                  {/* Verified badge with shimmer */}
+                  <motion.span
+                    className={`px-2.5 py-1 rounded-lg text-xs font-medium border relative overflow-hidden ${
+                      isDark
+                        ? 'bg-[#050d1a] border-slate-800 text-slate-400'
+                        : 'bg-slate-50 border-slate-200 text-slate-500'
+                    }`}
+                    whileHover={{ scale: 1.06 }}
+                  >
+                    <span className="relative z-10">Verified ✓</span>
+                  </motion.span>
                 </div>
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

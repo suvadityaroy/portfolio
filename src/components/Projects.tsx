@@ -86,7 +86,7 @@ const floatingParticles = Array.from({ length: 18 }, (_, i) => ({
 // 3D tilt card wrapper
 function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const springCfg = { stiffness: 200, damping: 22, mass: 0.5 };
+  const springCfg = { stiffness: 130, damping: 16, mass: 0.7 };
 
   const rotateX = useMotionValue(0);
   const rotateY = useMotionValue(0);
@@ -265,12 +265,13 @@ export default function Projects() {
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              initial={{ opacity: 0, y: 44, scale: 0.93 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               transition={{
-                duration: 0.6,
+                type: 'spring' as const,
+                stiffness: 220,
+                damping: 22,
                 delay: index * 0.08,
-                ease: [0.22, 1, 0.36, 1],
               }}
               viewport={{ once: true, margin: '-50px' }}
               className="relative"
