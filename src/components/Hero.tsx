@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Mail, ArrowRight, ChevronDown } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import Link from 'next/link';
@@ -95,9 +95,6 @@ export default function Hero() {
     return () => clearTimeout(t);
   }, [charIdx, deleting, lineIdx]);
 
-  // Parallax on scroll
-  const { scrollY } = useScroll();
-  const yOrb1 = useTransform(scrollY, [0, 600], [0, -80]);
 
   const socials = [
     {
@@ -130,20 +127,20 @@ export default function Hero() {
       {isDark && <div className="grid-lines-dark absolute inset-0" />}
       {!isDark && <div className="dot-grid-light absolute inset-0 opacity-35" />}
 
-      {/* Animated orbs with parallax */}
-      <motion.div style={{ y: yOrb1 }} className="absolute inset-0 pointer-events-none">
+      {/* Animated orbs — translate only, GPU composited */}
+      <div className="absolute inset-0 pointer-events-none">
         {orbs.map((orb, i) => (
           <motion.div
             key={i}
             className={`absolute rounded-full pointer-events-none ${orb.blur} ${
               isDark ? orb.color.split(' ')[0] : orb.color.split(' ')[1]
             }`}
-            style={{ width: orb.size, height: orb.size, left: orb.x, top: orb.y }}
-            animate={{ x: orb.dx, y: orb.dy, scale: [1, 1.08, 0.96, 1] }}
-            transition={{ duration: orb.duration, repeat: Infinity, ease: 'easeInOut', times: [0, 0.35, 0.65, 1] }}
+            style={{ width: orb.size, height: orb.size, left: orb.x, top: orb.y, willChange: 'transform', transform: 'translateZ(0)' }}
+            animate={{ x: orb.dx, y: orb.dy }}
+            transition={{ duration: orb.duration, repeat: Infinity, ease: 'easeInOut' }}
           />
         ))}
-      </motion.div>
+      </div>
 
       {/* Dark-only floating particles */}
       {isDark && (
