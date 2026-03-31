@@ -93,9 +93,9 @@ export default function InteractiveBackground() {
     ];
 
     const particleColor = isDark ? '100, 150, 250' : '99, 102, 241';
-    const orbAlpha     = isDark ? 0.08 : 0.035;
-    const particleAlpha = isDark ? 0.38 : 0.28;
-    const lineAlpha    = isDark ? 0.18 : 0.13;
+    const orbAlpha     = isDark ? 0.05 : 0.035;
+    const particleAlpha = isDark ? 0.30 : 0.28;
+    const lineAlpha    = isDark ? 0.14 : 0.13;
 
     const render = () => {
       // Clear to transparent — the html/body CSS background provides the page color

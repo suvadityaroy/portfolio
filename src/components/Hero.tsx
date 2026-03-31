@@ -111,12 +111,11 @@ export default function Hero() {
       id="home"
       ref={sectionRef}
       className={`min-h-screen flex items-center justify-center relative overflow-hidden transition-colors duration-500 ${
-        isDark ? 'bg-[#030712]' : 'bg-[#eaedff]'
+        isDark ? 'bg-[#04091e]' : 'bg-[#eaedff]'
       }`}
     >
       {/* ── Backgrounds ────────────────────────────────────── */}
-      {isDark && <div className="aurora-bg absolute inset-0 opacity-55" />}
-      {isDark && <div className="grid-lines-dark absolute inset-0" />}
+      {isDark && <div className="dot-grid-dark absolute inset-0 opacity-40" />}
       {!isDark && <div className="dot-grid-light absolute inset-0 opacity-35" />}
 
       {/* Animated orbs with parallax */}

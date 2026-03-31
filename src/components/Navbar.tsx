@@ -67,7 +67,7 @@ export default function Navbar() {
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
       scrolled
         ? isDark
-          ? 'bg-[#030712]/80 backdrop-blur-xl border-b border-sky-500/10 shadow-[0_1px_30px_rgba(0,0,0,0.5)]'
+          ? 'bg-[#04091e]/80 backdrop-blur-xl border-b border-sky-500/10 shadow-[0_1px_30px_rgba(0,0,0,0.5)]'
           : 'bg-white/80 backdrop-blur-xl border-b border-slate-200 shadow-sm'
         : 'bg-transparent'
     }`}>
@@ -83,10 +83,43 @@ export default function Navbar() {
 
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
-        <Link href="#home" className="text-2xl font-bold tracking-tight">
-          <span className={isDark ? 'text-sky-400' : 'text-indigo-600'}>S</span>
-          <span className={isDark ? 'text-white' : 'text-slate-900'}>R</span>
-          <span className={`text-sm font-normal ml-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>oy</span>
+        <Link href="#home">
+          <motion.div
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.94 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            className={`flex items-center justify-center w-10 h-10 rounded-xl border transition-all duration-300 ${
+              isDark
+                ? 'bg-gradient-to-br from-sky-500/10 to-indigo-500/10 border-sky-500/20 hover:border-sky-400/50 hover:shadow-[0_0_22px_rgba(56,189,248,0.28)]'
+                : 'bg-gradient-to-br from-indigo-50 to-violet-50 border-indigo-200 hover:border-indigo-400 hover:shadow-[0_4px_16px_rgba(79,70,229,0.18)]'
+            }`}
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              {/* Shield */}
+              <path
+                d="M12 3L4.5 6.75V12C4.5 16.57 7.8 20.82 12 22C16.2 20.82 19.5 16.57 19.5 12V6.75L12 3Z"
+                fill={isDark ? 'rgba(56,189,248,0.12)' : 'rgba(79,70,229,0.08)'}
+                stroke={isDark ? '#38bdf8' : '#4f46e5'}
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+              {/* Lock body */}
+              <rect x="9" y="11.5" width="6" height="4.5" rx="0.8"
+                fill={isDark ? '#38bdf8' : '#4f46e5'}
+              />
+              {/* Lock shackle */}
+              <path
+                d="M10.25 11.5V10a1.75 1.75 0 013.5 0v1.5"
+                stroke={isDark ? '#38bdf8' : '#4f46e5'}
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              {/* Keyhole */}
+              <circle cx="12" cy="13.75" r="0.65"
+                fill={isDark ? '#04091e' : 'white'}
+              />
+            </svg>
+          </motion.div>
         </Link>
 
         {/* Desktop nav */}
@@ -127,7 +160,7 @@ export default function Navbar() {
               onClick={toggleTheme}
               className={`ml-3 p-2.5 rounded-xl border transition-all duration-300 ${
                 isDark
-                  ? 'bg-[#0a1628] border-sky-500/20 text-amber-400 hover:bg-sky-500/10 hover:border-sky-500/40'
+                  ? 'bg-[#0c1830] border-sky-500/20 text-amber-400 hover:bg-sky-500/10 hover:border-sky-500/40'
                   : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300'
               }`}
               whileHover={{ scale: 1.08 }}
@@ -185,7 +218,7 @@ export default function Navbar() {
             transition={{ duration: 0.25 }}
             className={`md:hidden overflow-hidden border-t ${
               isDark
-                ? 'bg-[#030712]/95 backdrop-blur-xl border-sky-500/10'
+                ? 'bg-[#04091e]/95 backdrop-blur-xl border-sky-500/10'
                 : 'bg-white/95 backdrop-blur-xl border-slate-200'
             }`}
           >
