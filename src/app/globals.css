@@ -1,0 +1,324 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─── Design Tokens ──────────────────────────────────────────── */
+:root {
+  /* Dark mode defaults */
+  --bg-primary:    #04091e;
+  --bg-secondary:  #060e26;
+  --bg-card:       #0c1830;
+  --bg-card-hover: #0e2040;
+  --border:        rgba(56, 189, 248, 0.12);
+  --border-hover:  rgba(56, 189, 248, 0.35);
+  --text-primary:  #f8fafc;
+  --text-secondary:#cbd5e1;
+  --text-muted:    #64748b;
+  --accent-1:      #38bdf8;
+  --accent-2:      #6366f1;
+  --glow:          rgba(56, 189, 248, 0.18);
+  --glow-hover:    rgba(56, 189, 248, 0.35);
+  --background:    #04091e;
+  --foreground:    #f8fafc;
+}
+
+html.light {
+  --bg-primary:    #eaedff;
+  --bg-secondary:  #dfe4ff;
+  --bg-card:       #ffffff;
+  --bg-card-hover: #f5f7ff;
+  --border:        #d4d9f5;
+  --border-hover:  #a5b4fc;
+  --text-primary:  #0f172a;
+  --text-secondary:#334155;
+  --text-muted:    #64748b;
+  --accent-1:      #4f46e5;
+  --accent-2:      #7c3aed;
+  --glow:          rgba(79, 70, 229, 0.1);
+  --glow-hover:    rgba(79, 70, 229, 0.22);
+  --background:    #eaedff;
+  --foreground:    #0f172a;
+}
+
+/* ─── Keyframe Animations ────────────────────────────────────── */
+@keyframes aurora {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes float-particle-custom {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: var(--op-start, 0.2); }
+  50%      { transform: translate3d(var(--dx, 0px), var(--dy, -36px), 0); opacity: var(--op-mid, 0.6); }
+}
+
+@keyframes float-particle-scale-custom {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(var(--scale-start, 1)); opacity: var(--op-start, 0.1); }
+  50%      { transform: translate3d(var(--dx, 0px), var(--dy, -28px), 0) scale(var(--scale-mid, 1.8)); opacity: var(--op-mid, 0.5); }
+}
+
+@keyframes orb-float-custom {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(var(--dx, 0px), var(--dy, 0px), 0); }
+}
+
+@keyframes pulse-custom {
+  0%, 100% { opacity: var(--op-start, 0.15); }
+  50%      { opacity: var(--op-mid, 0.45); }
+}
+
+@keyframes scale-pulse-custom {
+  0%, 100% { transform: scale(var(--scale-start, 1)); opacity: var(--op-start, 0.4); }
+  50%      { transform: scale(var(--scale-mid, 1.12)); opacity: var(--op-mid, 0.7); }
+}
+
+@keyframes float-y-custom {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, var(--dy, -6px), 0); }
+}
+
+@keyframes gradient-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) translateZ(0); }
+  50%       { transform: translateY(-12px) translateZ(0); }
+}
+
+@keyframes shimmer {
+  0%   { transform: translateX(-100%) skewX(-12deg); }
+  100% { transform: translateX(200%) skewX(-12deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.9; }
+}
+
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes grid-pan {
+  0%   { background-position: 0 0; }
+  100% { background-position: 60px 60px; }
+}
+
+@keyframes grid-move {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(60px, 60px, 0); }
+}
+
+@keyframes orbit {
+  0%   { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+}
+
+/* ─── Utility Classes ────────────────────────────────────────── */
+.aurora-bg {
+  background: linear-gradient(
+    135deg,
+    #030712 0%,
+    #051229 25%,
+    #030c1f 50%,
+    #04101e 75%,
+    #030712 100%
+  );
+  animation: aurora 12s ease-in-out infinite;
+}
+
+.animate-particle {
+  animation: float-particle-custom var(--dur, 8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform, opacity;
+}
+
+.animate-particle-scale {
+  animation: float-particle-scale-custom var(--dur, 8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform, opacity;
+}
+
+.animate-orb {
+  animation: orb-float-custom var(--dur, 20s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+
+.animate-pulse-custom {
+  animation: pulse-custom var(--dur, 10s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: opacity;
+}
+
+.animate-scale-pulse {
+  animation: scale-pulse-custom var(--dur, 10s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform, opacity;
+}
+
+.animate-float-y {
+  animation: float-y-custom var(--dur, 3.5s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+
+.gradient-text-dark {
+  background: linear-gradient(135deg, #38bdf8 0%, #6366f1 50%, #a78bfa 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-flow 4s ease infinite;
+}
+
+.gradient-text-light {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #6d28d9 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-flow 4s ease infinite;
+}
+
+.card-dark {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: 0 0 0 0 transparent, inset 0 1px 0 rgba(255,255,255,0.03);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card-dark:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 30px var(--glow-hover), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.card-light {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card-light:hover {
+  border-color: #a5b4fc;
+  box-shadow: 0 8px 30px rgba(79, 70, 229, 0.12), 0 2px 8px rgba(79, 70, 229, 0.06);
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: shimmer 2.5s infinite;
+}
+
+.dot-grid-light {
+  background-image: radial-gradient(circle, #c7d2fe 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.dot-grid-dark {
+  background-image: radial-gradient(circle, rgba(56, 189, 248, 0.1) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.grid-lines-dark {
+  overflow: hidden;
+}
+.grid-lines-dark::before {
+  content: '';
+  position: absolute;
+  inset: -60px;
+  background-image:
+    linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: grid-move 20s linear infinite;
+  will-change: transform;
+}
+
+/* ─── Base Styles ────────────────────────────────────────────── */
+
+html {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Theme Transitions ──────────────────────────────────────── */
+/* Removed global wildcard transitions (html, body, div, span, etc.) as they cause massive layout recalculations and scroll lag. Components use utility classes for transitions instead. */
+
+
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+html.dark ::-webkit-scrollbar-thumb,
+:root ::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.25);
+  border-radius: 3px;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 3px;
+}
+
+/* ─── Performance ────────────────────────────────────────────── */
+/* will-change is NOT applied globally — only set per-element via inline styles
+   to avoid excessive GPU memory consumption                                    */
+section {
+  /* Use contain to isolate paint/layout per section */
+  contain: layout style;
+}
+[class*="blur"] {
+  transform: translateZ(0);
+}
+img {
+  content-visibility: auto;
+  transform: translateZ(0);
+}
+/* Avoid transition:all — it conflicts with framer-motion composited animations */
+a, button, [role="button"] {
+  transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Reduced Motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
