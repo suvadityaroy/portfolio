@@ -285,7 +285,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Social icons */}
-          <motion.div variants={container} className="flex items-center justify-center gap-5">
+          <motion.div variants={container} className="flex items-center justify-center gap-5 mt-6">
             {socials.map(({ href, icon: Icon, dark, light }, i) => (
               <motion.div
                 key={i}
