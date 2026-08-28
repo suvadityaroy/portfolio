@@ -8,6 +8,7 @@ import { useState, useEffect, useRef, Suspense } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import dynamic from 'next/dynamic';
 
+import HeroAnimation from './HeroAnimation';
 const Hero3D = dynamic(() => import('./Hero3D'), { ssr: false, loading: () => <div className="w-full h-[320px] flex items-center justify-center">3D</div> });
 
 // ── Animation variants ────────────────────────────────────────
@@ -267,20 +268,20 @@ export default function Hero() {
 
           {/* Small metric cards: important at-a-glance facts */}
           <motion.div variants={fadeUp} className="mt-6 flex flex-wrap justify-center gap-4">
-            <div className="px-4 py-3 rounded-xl border backdrop-blur-sm bg-white/6 text-center min-w-[140px]">
-              <div className="text-2xl font-bold">300+</div>
-              <div className="text-xs mt-1 text-slate-300">Cloud Assets</div>
-            </div>
-
-            <div className="px-4 py-3 rounded-xl border backdrop-blur-sm bg-white/6 text-center min-w-[140px]">
-              <div className="text-sm font-semibold">AWS + Azure</div>
-              <div className="text-xs mt-1 text-slate-300">Enterprise Security</div>
-            </div>
-
-            <div className="px-4 py-3 rounded-xl border backdrop-blur-sm bg-white/6 text-center min-w-[140px]">
-              <div className="text-sm font-semibold">CyberArk</div>
-              <div className="text-xs mt-1 text-slate-300">PAM / EPM</div>
-            </div>
+            {[{
+              title: '300+', subtitle: 'Cloud Assets'
+            },{
+              title: 'AWS + Azure', subtitle: 'Enterprise Security'
+            },{
+              title: 'CyberArk', subtitle: 'PAM / EPM'
+            }].map((m, i) => (
+              <motion.div key={i} whileHover={{ y: -8, scale: 1.03 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
+                <div className="px-4 py-3 rounded-xl border backdrop-blur-sm bg-white/6 text-center min-w-[140px] card-dark">
+                  <div className="text-2xl font-bold">{m.title}</div>
+                  <div className="text-xs mt-1 text-slate-300">{m.subtitle}</div>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
 
           {/* Social icons */}
@@ -315,7 +316,7 @@ export default function Hero() {
 
       {/* Right 3D visual */}
       <div className="absolute right-8 top-24 hidden lg:block w-[420px]">
-        <Hero3D />
+        <HeroAnimation />
       </div>
 
       {/* Scroll indicator */}

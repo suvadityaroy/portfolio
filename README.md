@@ -1,6 +1,6 @@
 # Cybersecurity Portfolio
 
-A modern, interactive cybersecurity portfolio showcasing my experience, projects, technical skills, certifications, and achievements as a Security Engineer.
+A modern, interactive cybersecurity portfolio showcasing my experience, projects, technical skills, certifications, and achievements as a Cyber Security Engineer.
 
 ## 🚀 Tech Stack
 

@@ -132,7 +132,7 @@ export default function About() {
                     : 'bg-white border-indigo-200 text-indigo-700 shadow-indigo-100/80'
                 }`}
               >
-                <p className="text-xs font-bold">Security Engineer</p>
+                <p className="text-xs font-bold">Cyber Security Engineer</p>
                 <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>ITPeopleNetwork</p>
               </motion.div>
 
@@ -167,7 +167,7 @@ export default function About() {
                 {/* Re-render with theme-aware spans */}
                 {i === 0 && (
                   <>
-                    Security Engineer with hands-on experience securing enterprise cloud environments across AWS and Azure.
+                    Cyber Security Engineer with hands-on experience securing enterprise cloud environments across AWS and Azure.
                     Experienced in IAM controls, vulnerability management, cloud posture management, SIEM monitoring, and security operations.
                   </>
                 )}
