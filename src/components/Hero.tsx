@@ -253,14 +253,14 @@ export default function Hero() {
           {/* CTA buttons */}
           <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-4 mb-14">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} transition={{ type: 'spring', stiffness: 400, damping: 18 }}>
-              <Link href="#projects" className={`btn-primary`}>
+              <Link href="#projects" className={`btn-primary`} data-cursor="hover">
                 <span className="relative">View My Work</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </motion.div>
 
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} transition={{ type: 'spring', stiffness: 400, damping: 18 }}>
-              <Link href="#contact" className={`btn-outline`}>
+              <Link href="#contact" className={`btn-outline`} data-cursor="hover">
                 Let's Connect
               </Link>
             </motion.div>
@@ -305,6 +305,7 @@ export default function Hero() {
                   className={`p-3.5 rounded-xl border transition-all duration-250 inline-flex shadow-sm ${
                     isDark ? dark : light
                   }`}
+                  data-cursor="hover"
                 >
                   <Icon className="w-5 h-5" />
                 </Link>
