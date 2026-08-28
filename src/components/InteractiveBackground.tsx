@@ -98,13 +98,15 @@ export default function InteractiveBackground() {
     const lineAlpha    = isDark ? 0.14 : 0.13;
 
     const render = () => {
+      const t = performance.now() / 1000;
       // Clear to transparent — the html/body CSS background provides the page color
       ctx.clearRect(0, 0, width, height);
 
       // Draw orbs
       orbs.forEach(orb => {
-        orb.x += orb.vx;
-        orb.y += orb.vy;
+        // gentle time-based drift for more organic motion
+        orb.x += orb.vx + Math.sin(t * 0.2 + orb.radius) * 0.12;
+        orb.y += orb.vy + Math.cos(t * 0.18 + orb.radius) * 0.08;
         if (orb.x < -orb.radius || orb.x > width + orb.radius) orb.vx *= -1;
         if (orb.y < -orb.radius || orb.y > height + orb.radius) orb.vy *= -1;
 
@@ -119,8 +121,12 @@ export default function InteractiveBackground() {
 
       // Draw particles and connections
       particles.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
+        // base velocity
+        p.x += p.vx * 0.9;
+        p.y += p.vy * 0.9;
+        // subtle noise/drift using a time function for realism
+        p.x += Math.sin(t * 0.6 + i) * 0.18;
+        p.y += Math.cos(t * 0.5 + i * 1.3) * 0.14;
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
         if (p.y < 0) p.y = height;
@@ -162,6 +168,13 @@ export default function InteractiveBackground() {
           }
         }
       });
+
+      // subtle vignette overlay to add depth
+      const grad = ctx.createRadialGradient(width / 2, height / 2, Math.min(width, height) * 0.2, width / 2, height / 2, Math.max(width, height) * 0.8);
+      grad.addColorStop(0, 'rgba(0,0,0,0)');
+      grad.addColorStop(1, 'rgba(0,0,0,0.18)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
 
       animationFrameId = requestAnimationFrame(render);
     };

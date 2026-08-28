@@ -4,8 +4,11 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Mail, ArrowRight, ChevronDown } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useTheme } from '@/context/ThemeContext';
+import dynamic from 'next/dynamic';
+
+const Hero3D = dynamic(() => import('./Hero3D'), { ssr: false, loading: () => <div className="w-full h-[320px] flex items-center justify-center">3D</div> });
 
 // ── Animation variants ────────────────────────────────────────
 const container = {
@@ -149,7 +152,7 @@ export default function Hero() {
                 : 'bg-indigo-50 border-indigo-200 text-indigo-700'
             }`}>
               <span className="inline-block w-2 h-2 rounded-full bg-green-400 mr-2 animate-pulse" />
-              Available for opportunities
+              OPEN TO SECURITY ENGINEERING OPPORTUNITIES
             </span>
           </motion.div>
 
@@ -223,7 +226,7 @@ export default function Hero() {
               <div className="px-5 py-5 font-mono text-sm md:text-base text-left">
                 <div className="flex items-start gap-3">
                   <span className={`select-none text-xs mt-0.5 w-4 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>1</span>
-                  <div className="flex-1 flex flex-wrap items-center gap-1 min-h-[1.5em]">
+                  <div className="flex-1 flex flex-wrap items-center gap-1 min-h-[1.5em] break-words whitespace-pre-wrap">
                     <span className={isDark ? 'text-purple-400' : 'text-violet-600'}>const</span>
                     <span className={isDark ? 'text-sky-300' : 'text-indigo-600'}>about</span>
                     <span className={isDark ? 'text-slate-300' : 'text-slate-700'}>=</span>
@@ -248,41 +251,36 @@ export default function Hero() {
 
           {/* CTA buttons */}
           <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-4 mb-14">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.96 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
-            >
-              <Link
-                href="#projects"
-                className={`relative group px-8 py-3.5 rounded-full font-semibold overflow-hidden inline-flex items-center gap-2 ${
-                  isDark
-                    ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-[0_0_28px_rgba(56,189,248,0.3)] hover:shadow-[0_0_45px_rgba(56,189,248,0.55)]'
-                    : 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-[0_4px_20px_rgba(79,70,229,0.3)] hover:shadow-[0_8px_35px_rgba(79,70,229,0.45)]'
-                } transition-shadow duration-300`}
-              >
-                <span className="absolute inset-0 shimmer-btn" />
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} transition={{ type: 'spring', stiffness: 400, damping: 18 }}>
+              <Link href="#projects" className={`btn-primary`}>
                 <span className="relative">View My Work</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </motion.div>
 
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.96 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
-            >
-              <Link
-                href="#contact"
-                className={`px-8 py-3.5 rounded-full font-semibold inline-flex items-center gap-2 border-2 transition-all duration-300 ${
-                  isDark
-                    ? 'border-sky-500/38 text-sky-300 hover:bg-sky-500/10 hover:border-sky-400'
-                    : 'border-indigo-300 text-indigo-700 hover:bg-indigo-50 hover:border-indigo-500'
-                }`}
-              >
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} transition={{ type: 'spring', stiffness: 400, damping: 18 }}>
+              <Link href="#contact" className={`btn-outline`}>
                 Let's Connect
               </Link>
             </motion.div>
+          </motion.div>
+
+          {/* Small metric cards: important at-a-glance facts */}
+          <motion.div variants={fadeUp} className="mt-6 flex flex-wrap justify-center gap-4">
+            <div className="px-4 py-3 rounded-xl border backdrop-blur-sm bg-white/6 text-center min-w-[140px]">
+              <div className="text-2xl font-bold">300+</div>
+              <div className="text-xs mt-1 text-slate-300">Cloud Assets</div>
+            </div>
+
+            <div className="px-4 py-3 rounded-xl border backdrop-blur-sm bg-white/6 text-center min-w-[140px]">
+              <div className="text-sm font-semibold">AWS + Azure</div>
+              <div className="text-xs mt-1 text-slate-300">Enterprise Security</div>
+            </div>
+
+            <div className="px-4 py-3 rounded-xl border backdrop-blur-sm bg-white/6 text-center min-w-[140px]">
+              <div className="text-sm font-semibold">CyberArk</div>
+              <div className="text-xs mt-1 text-slate-300">PAM / EPM</div>
+            </div>
           </motion.div>
 
           {/* Social icons */}
@@ -313,6 +311,11 @@ export default function Hero() {
             ))}
           </motion.div>
         </motion.div>
+      </div>
+
+      {/* Right 3D visual */}
+      <div className="absolute right-8 top-24 hidden lg:block w-[420px]">
+        <Hero3D />
       </div>
 
       {/* Scroll indicator */}
