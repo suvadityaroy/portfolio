@@ -14,10 +14,10 @@
   --text-primary:  #F8FAFC;
   --text-secondary:#94A3B8;
   --text-muted:    #94A3B8;
-  --accent-1:      #3B82F6;
-  --accent-2:      #22D3EE;
-  --glow:          rgba(59,130,246,0.08);
-  --glow-hover:    rgba(34,211,238,0.12);
+  --accent-1:      #7C3AED; /* violet */
+  --accent-2:      #06B6D4; /* teal */
+  --glow:          rgba(124,58,237,0.08);
+  --glow-hover:    rgba(6,182,212,0.12);
   --background:    #07111F;
   --foreground:    #F8FAFC;
 }
@@ -41,10 +41,10 @@ html.light {
   --text-primary:  #07111F;
   --text-secondary:#475569;
   --text-muted:    #64748b;
-  --accent-1:      #3B82F6;
-  --accent-2:      #22D3EE;
-  --glow:          rgba(59,130,246,0.06);
-  --glow-hover:    rgba(59,130,246,0.12);
+  --accent-1:      #7C3AED;
+  --accent-2:      #06B6D4;
+  --glow:          rgba(124,58,237,0.06);
+  --glow-hover:    rgba(6,182,212,0.12);
   --background:    #F8FAFC;
   --foreground:    #07111F;
 }
@@ -218,7 +218,8 @@ html.light {
 }
 .card-dark:hover {
   border-color: var(--border-hover);
-  box-shadow: 0 0 30px var(--glow-hover), inset 0 1px 0 rgba(255,255,255,0.05);
+  box-shadow: 0 20px 50px rgba(12,18,30,0.6), 0 6px 24px var(--glow-hover), inset 0 1px 0 rgba(255,255,255,0.03);
+  transform: translateY(-6px) translateZ(0);
 }
 
 .card-light {
@@ -238,10 +239,11 @@ html.light {
   background: var(--btn-bg);
   color: var(--btn-text);
   font-weight: 600;
-  box-shadow: 0 8px 30px rgba(59,130,246,0.12);
+  box-shadow: 0 8px 30px rgba(124,58,237,0.10);
   border: 1px solid var(--btn-border);
+  transform: translateZ(0);
 }
-.btn-primary:hover { box-shadow: 0 12px 40px rgba(59,130,246,0.18); }
+.btn-primary:hover { box-shadow: 0 18px 48px var(--glow-hover); transform: translateY(-3px) scale(1.02); }
 
 /* Outline button */
 .btn-outline {
@@ -256,6 +258,25 @@ html.light {
   font-weight: 600;
 }
 .btn-outline:hover { background: rgba(59,130,246,0.04); }
+
+/* Underline animation for textual links */
+.link-underline {
+  position: relative;
+  color: var(--link-color);
+  text-decoration: none;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  transition: width 220ms cubic-bezier(0.2,0,0.2,1);
+}
+.link-underline:hover::after,
+.link-underline:focus::after { width: 100%; }
 
 .metric-card { min-width: 120px; }
 .card-light:hover {
