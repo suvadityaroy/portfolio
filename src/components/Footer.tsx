@@ -35,7 +35,7 @@ export default function Footer() {
               <span className={isDark ? 'text-white' : 'text-slate-900'}>Roy</span>
             </h3>
             <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-              Security Engineer
+              IT Engineer
             </p>
           </motion.div>
 

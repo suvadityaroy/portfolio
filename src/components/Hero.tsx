@@ -51,13 +51,13 @@ export default function Hero() {
 
   // Typewriter
   const codeLines = [
-    'Security Engineer with hands-on AWS and Azure cloud security experience',
+    'IT Engineer with hands-on AWS and Azure cloud experience',
     'IAM controls, vulnerability management, and cloud posture governance',
     'Supporting Wiz, CyberArk PAM/EPM, Qualys, and Splunk in production',
     'Monitoring SIEM alerts and assisting incident response workflows',
     'Automating cloud security operations with Python and scripts',
     'Focused on scalable cloud risk management and identity security',
-    'Currently Security Engineer at ITPeopleNetwork, Kolkata',
+    'Currently IT Engineer at ITPeopleNetwork, Kolkata',
   ];
   const [lineIdx, setLineIdx]   = useState(0);
   const [displayed, setDisplayed] = useState('');
@@ -152,7 +152,7 @@ export default function Hero() {
                 : 'bg-indigo-50 border-indigo-200 text-indigo-700'
             }`}>
               <span className="inline-block w-2 h-2 rounded-full bg-green-400 mr-2 animate-pulse" />
-              OPEN TO SECURITY ENGINEERING OPPORTUNITIES
+              OPEN TO IT ENGINEERING OPPORTUNITIES
             </span>
           </motion.div>
 
@@ -180,7 +180,7 @@ export default function Hero() {
             transition={{ type: 'spring', stiffness: 200, damping: 25, ease: 'easeOut' }}
             style={{ transformStyle: 'preserve-3d' }}
           >
-            Security Engineer
+            IT Engineer
           </motion.p>
 
           {/* Code block */}

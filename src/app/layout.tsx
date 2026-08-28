@@ -14,13 +14,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Suvaditya Roy | Cyber Security Engineer',
+  title: 'Suvaditya Roy | IT Engineer',
   description:
-    'Cyber Security Engineer specializing in AWS and Azure cloud security, IAM and privileged access management, CyberArk PAM/EPM, vulnerability management, security monitoring, and security automation.',
+    'IT Engineer specializing in AWS and Azure cloud operations, IAM and privileged access management, CyberArk PAM/EPM exposure, vulnerability assessment support, security monitoring, and automation with Python and AWS tooling.',
   openGraph: {
-    title: 'Suvaditya Roy | Cyber Security Engineer',
+    title: 'Suvaditya Roy | IT Engineer',
     description:
-      'Cyber Security Engineer specializing in AWS and Azure cloud security, IAM and privileged access management, CyberArk PAM/EPM, vulnerability management, security monitoring, and security automation.',
+      'IT Engineer specializing in AWS and Azure cloud operations, IAM and privileged access management, CyberArk PAM/EPM exposure, vulnerability assessment support, security monitoring, and automation with Python and AWS tooling.',
     url: 'https://suvadityaroy.tech',
     siteName: 'Suvaditya Roy',
     images: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Suvaditya Roy — Cyber Security Engineer',
+        alt: 'Suvaditya Roy — IT Engineer',
       },
     ],
     locale: 'en_US',
@@ -36,9 +36,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Suvaditya Roy | Cyber Security Engineer',
+    title: 'Suvaditya Roy | IT Engineer',
     description:
-      'Cyber Security Engineer specializing in AWS and Azure cloud security, IAM and privileged access management, CyberArk PAM/EPM, vulnerability management, security monitoring, and security automation.',
+      'IT Engineer specializing in AWS and Azure cloud operations, IAM and privileged access management, CyberArk PAM/EPM exposure, vulnerability assessment support, security monitoring, and automation with Python and AWS tooling.',
     creator: '@suvadityaroy',
   },
   metadataBase: new URL('https://suvadityaroy.tech'),
