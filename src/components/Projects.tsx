@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useCallback } from 'react';
+import Image from 'next/image';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
@@ -63,6 +64,15 @@ const projects = [
     tagColor: { dark: 'bg-red-500/15 text-red-300 border-red-500/25', light: 'bg-red-100 text-red-700 border-red-200' },
   },
 ];
+
+function getPreviewSrc(url: string) {
+  try {
+    if (url.includes('w=')) return url.replace(/w=\d+/, 'w=320');
+    return url + (url.includes('?') ? '&' : '?') + 'w=320';
+  } catch {
+    return url;
+  }
+}
 
 // Floating particles removed in favor of global canvas background
 function TiltCard({ children, className, ...props }: { children: React.ReactNode; className?: string } & React.HTMLAttributes<HTMLDivElement>) {
@@ -204,14 +214,9 @@ export default function Projects() {
               >
                 {/* ── Image area ── */}
                 <div className="relative h-52 overflow-hidden flex-shrink-0">
-                  <motion.img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                    style={{ opacity: 0.9 }}
-                    whileHover={{ scale: 1.08 }}
-                    transition={{ duration: 0.55, ease: 'easeOut' }}
-                  />
+                  <motion.div whileHover={{ scale: 1.06 }} transition={{ duration: 0.55 }} className="w-full h-full">
+                    <Image src={project.image} alt={project.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+                  </motion.div>
                   {/* Subtle bottom fade only — no whitish overlay */}
                   <div className={`absolute inset-0 bg-gradient-to-t ${
                     isDark
@@ -251,6 +256,8 @@ export default function Projects() {
                           : 'bg-white/70 border-slate-200/80 text-slate-700 hover:bg-indigo-50 hover:border-indigo-300'
                       }`}
                       onClick={e => e.stopPropagation()}
+                      data-cursor="hover"
+                      data-preview={getPreviewSrc(project.image)}
                     >
                       <FaGithub className="w-4 h-4" />
                     </Link>

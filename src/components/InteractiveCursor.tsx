@@ -10,6 +10,9 @@ export default function InteractiveCursor() {
   const pos = useRef({ x: 0, y: 0 });
   const [hovering, setHovering] = useState(false);
   const [active, setActive] = useState(false);
+  const previewRef = useRef<HTMLImageElement | null>(null);
+  const previewSrc = useRef<string | null>(null);
+  const [showPreview, setShowPreview] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -41,11 +44,23 @@ export default function InteractiveCursor() {
       const el = e.target as HTMLElement;
       const cursor = el?.dataset?.cursor;
       if (cursor) setHovering(true);
+      const preview = el?.dataset?.preview;
+      if (preview) {
+        previewSrc.current = preview;
+        setShowPreview(true);
+        if (previewRef.current) previewRef.current.src = preview;
+      }
     }
     function onLeave(e: Event) {
       const el = e.target as HTMLElement;
       const cursor = el?.dataset?.cursor;
       if (cursor) setHovering(false);
+      const preview = el?.dataset?.preview;
+      if (preview) {
+        previewSrc.current = null;
+        setShowPreview(false);
+        if (previewRef.current) previewRef.current.src = '';
+      }
     }
 
     document.addEventListener('mousemove', onMove);
@@ -67,6 +82,13 @@ export default function InteractiveCursor() {
         ringRef.current.style.transform = `translate3d(${x - 22}px, ${y - 22}px, 0) scale(${scale})`;
         ringRef.current.style.opacity = hovering ? '1' : '0.85';
       }
+      if (previewRef.current) {
+        // follow at an offset to the right-bottom
+        const px = x + 32;
+        const py = y + 18;
+        previewRef.current.style.transform = `translate3d(${px}px, ${py}px, 0)`;
+        previewRef.current.style.opacity = showPreview ? '1' : '0';
+      }
       rafRef.current = requestAnimationFrame(loop);
     };
     rafRef.current = requestAnimationFrame(loop);
@@ -87,6 +109,7 @@ export default function InteractiveCursor() {
     <>
       <div ref={ringRef} className={`cursor-ring ${hovering ? 'cursor--hover' : ''} ${active ? 'cursor--active' : ''}`} aria-hidden />
       <div ref={dotRef} className="cursor-dot" aria-hidden />
+      <img ref={previewRef} className="cursor-preview" src="" alt="preview" aria-hidden />
     </>
   );
 }

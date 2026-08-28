@@ -420,3 +420,23 @@ a, button, [role="button"] {
   [data-cursor="hover"] { cursor: none; }
 }
 
+/* Preview thumbnail that follows the cursor */
+.cursor-preview {
+  position: fixed;
+  z-index: 9998;
+  width: 200px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 12px 40px rgba(7,10,25,0.6), 0 6px 20px rgba(124,58,237,0.08);
+  transform: translate3d(-9999px, -9999px, 0);
+  transition: opacity 180ms ease, transform 120ms cubic-bezier(.2,.9,.2,1);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+@media (max-width: 900px) {
+  .cursor-preview { display: none; }
+}
+
