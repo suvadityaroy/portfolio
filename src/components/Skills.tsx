@@ -23,32 +23,6 @@ import {
 
 const skills = [
   {
-    category: 'Penetration Testing',
-    icon: Shield,
-    color: { dark: 'text-red-400', light: 'text-red-500' },
-    items: [
-      { name: 'Metasploit', icon: <Shield className="w-4 h-4 text-red-500" /> },
-      { name: 'Burp Suite', icon: <Shield className="w-4 h-4 text-orange-500" /> },
-      { name: 'Nmap', icon: <Shield className="w-4 h-4 text-blue-500" /> },
-      { name: 'Wireshark', icon: <Shield className="w-4 h-4 text-cyan-500" /> },
-      { name: 'Kali Linux', icon: <Terminal className="w-4 h-4 text-purple-500" /> },
-      { name: 'OWASP ZAP', icon: <Shield className="w-4 h-4 text-green-500" /> },
-    ],
-  },
-  {
-    category: 'Network Security',
-    icon: Wifi,
-    color: { dark: 'text-emerald-400', light: 'text-emerald-600' },
-    items: [
-      { name: 'Firewalls', icon: <Shield className="w-4 h-4 text-red-500" /> },
-      { name: 'IDS/IPS', icon: <Shield className="w-4 h-4 text-blue-500" /> },
-      { name: 'VPN', icon: <Shield className="w-4 h-4 text-green-500" /> },
-      { name: 'Network Monitoring', icon: <Wifi className="w-4 h-4 text-cyan-500" /> },
-      { name: 'Packet Analysis', icon: <Wifi className="w-4 h-4 text-purple-500" /> },
-      { name: 'Zero Trust', icon: <Shield className="w-4 h-4 text-yellow-500" /> },
-    ],
-  },
-  {
     category: 'Cloud Security',
     icon: Cloud,
     color: { dark: 'text-blue-400', light: 'text-blue-600' },
@@ -72,6 +46,32 @@ const skills = [
       { name: 'OWASP Top 10', icon: <Shield className="w-4 h-4 text-purple-500" /> },
       { name: 'CIS Controls', icon: <Shield className="w-4 h-4 text-yellow-500" /> },
       { name: 'PCI DSS', icon: <Shield className="w-4 h-4 text-orange-500" /> },
+    ],
+  },
+  {
+    category: 'Penetration Testing',
+    icon: Shield,
+    color: { dark: 'text-red-400', light: 'text-red-500' },
+    items: [
+      { name: 'Metasploit', icon: <Shield className="w-4 h-4 text-red-500" /> },
+      { name: 'Burp Suite', icon: <Shield className="w-4 h-4 text-orange-500" /> },
+      { name: 'Nmap', icon: <Shield className="w-4 h-4 text-blue-500" /> },
+      { name: 'Wireshark', icon: <Shield className="w-4 h-4 text-cyan-500" /> },
+      { name: 'Kali Linux', icon: <Terminal className="w-4 h-4 text-purple-500" /> },
+      { name: 'OWASP ZAP', icon: <Shield className="w-4 h-4 text-green-500" /> },
+    ],
+  },
+  {
+    category: 'Network Security',
+    icon: Wifi,
+    color: { dark: 'text-emerald-400', light: 'text-emerald-600' },
+    items: [
+      { name: 'Firewalls', icon: <Shield className="w-4 h-4 text-red-500" /> },
+      { name: 'IDS/IPS', icon: <Shield className="w-4 h-4 text-blue-500" /> },
+      { name: 'VPN', icon: <Shield className="w-4 h-4 text-green-500" /> },
+      { name: 'Network Monitoring', icon: <Wifi className="w-4 h-4 text-cyan-500" /> },
+      { name: 'Packet Analysis', icon: <Wifi className="w-4 h-4 text-purple-500" /> },
+      { name: 'Zero Trust', icon: <Shield className="w-4 h-4 text-yellow-500" /> },
     ],
   },
   {
