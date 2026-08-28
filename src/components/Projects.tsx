@@ -65,7 +65,7 @@ const projects = [
 ];
 
 // Floating particles removed in favor of global canvas background
-function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
+function TiltCard({ children, className, ...props }: { children: React.ReactNode; className?: string } & React.HTMLAttributes<HTMLDivElement>) {
   const ref = useRef<HTMLDivElement>(null);
   const springCfg = { stiffness: 130, damping: 16, mass: 0.7 };
 
@@ -105,6 +105,7 @@ function TiltCard({ children, className }: { children: React.ReactNode; classNam
   return (
     <motion.div
       ref={ref}
+      {...(props as any)}
       style={{
         rotateX: rotateXSpring,
         rotateY: rotateYSpring,
@@ -194,6 +195,7 @@ export default function Projects() {
               className="relative"
             >
               <TiltCard
+                data-cursor="hover"
                 className={`relative flex flex-col rounded-2xl border overflow-hidden h-full transition-all duration-300 cursor-default ${
                   isDark
                     ? 'bg-[#0a1628] border-sky-500/12 hover:border-sky-400/35 shadow-lg shadow-black/20 hover:shadow-[0_8px_50px_rgba(56,189,248,0.18)]'
@@ -277,6 +279,7 @@ export default function Projects() {
                         className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${
                           isDark ? project.tagColor.dark : project.tagColor.light
                         }`}
+                        data-cursor="hover"
                       >
                         {tag}
                       </motion.span>
@@ -295,6 +298,7 @@ export default function Projects() {
                           ? 'text-slate-400 hover:text-sky-300'
                           : 'text-slate-500 hover:text-indigo-700'
                       }`}
+                      data-cursor="hover"
                     >
                       <FaGithub className="w-3.5 h-3.5 group-hover/lnk:scale-110 transition-transform" />
                       View Code
@@ -308,6 +312,7 @@ export default function Projects() {
                             ? 'text-slate-400 hover:text-emerald-300'
                             : 'text-slate-500 hover:text-emerald-700'
                         }`}
+                        data-cursor="hover"
                       >
                         <ExternalLink className="w-3 h-3 group-hover/lnk:-translate-y-0.5 group-hover/lnk:translate-x-0.5 transition-transform" />
                         Live Demo

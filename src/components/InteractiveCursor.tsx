@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 export default function InteractiveCursor() {
+  const [enabled, setEnabled] = useState(false);
   const dotRef = useRef<HTMLDivElement | null>(null);
   const ringRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
@@ -11,6 +12,21 @@ export default function InteractiveCursor() {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const mq = window.matchMedia('(pointer: fine)');
+      const set = () => setEnabled(mq.matches);
+      set();
+      if (mq.addEventListener) mq.addEventListener('change', set);
+      else mq.addListener(set);
+      return () => {
+        if (mq.removeEventListener) mq.removeEventListener('change', set);
+        else mq.removeListener(set);
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
     function onMove(e: MouseEvent) {
       mouse.current.x = e.clientX;
       mouse.current.y = e.clientY;
@@ -63,7 +79,9 @@ export default function InteractiveCursor() {
       document.removeEventListener('mouseout', onLeave);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [hovering, active]);
+  }, [hovering, active, enabled]);
+
+  if (!enabled) return null;
 
   return (
     <>

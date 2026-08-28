@@ -176,6 +176,7 @@ export default function Skills() {
                     }`}
                     whileHover={{ rotate: 360, scale: 1.1 }}
                     transition={{ duration: 0.55, ease: 'easeInOut' }}
+                    data-cursor="hover"
                   >
                     <IconComp className={`w-5 h-5 ${isDark ? group.color.dark : group.color.light}`} />
                   </motion.div>
@@ -193,6 +194,7 @@ export default function Skills() {
                           ? 'bg-[#050d1a] border-slate-800 text-slate-300 hover:border-sky-500/35 hover:bg-sky-500/6'
                           : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-indigo-300 hover:bg-indigo-50/70'
                       }`}
+                      data-cursor="hover"
                     >
                       <span className="flex-shrink-0">{item.icon}</span>
                       <span className="leading-tight truncate">{item.name}</span>
@@ -230,6 +232,7 @@ export default function Skills() {
                     ? 'bg-[#0a1628] border-sky-500/20 text-sky-300 hover:border-sky-400/50 hover:bg-sky-500/10'
                     : 'bg-white border-indigo-200 text-indigo-700 hover:border-indigo-400 hover:shadow-sm shadow-indigo-100'
                 }`}
+                data-cursor="hover"
               >
                 {tool}
               </span>
