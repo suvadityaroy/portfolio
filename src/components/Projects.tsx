@@ -206,6 +206,7 @@ export default function Projects() {
             >
               <TiltCard
                 data-cursor="hover"
+                data-preview={getPreviewSrc(project.image)}
                 className={`relative flex flex-col rounded-2xl border overflow-hidden h-full transition-all duration-300 cursor-default ${
                   isDark
                     ? 'bg-[#0a1628] border-sky-500/12 hover:border-sky-400/35 shadow-lg shadow-black/20 hover:shadow-[0_8px_50px_rgba(56,189,248,0.18)]'
