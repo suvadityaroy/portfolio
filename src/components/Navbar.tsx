@@ -83,7 +83,7 @@ export default function Navbar() {
 
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
-        <Link href="#home">
+        <Link href="#home" aria-label="Suvaditya Roy — Home">
           <motion.div
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.94 }}
@@ -158,6 +158,7 @@ export default function Navbar() {
           {mounted && (
             <motion.button
               onClick={toggleTheme}
+              aria-label="Toggle theme"
               className={`ml-3 p-2.5 rounded-xl border transition-all duration-300 ${
                 isDark
                   ? 'bg-[#0c1830] border-sky-500/20 text-amber-400 hover:bg-sky-500/10 hover:border-sky-500/40'
@@ -165,7 +166,6 @@ export default function Navbar() {
               }`}
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.93 }}
-              aria-label="Toggle theme"
             >
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
@@ -187,6 +187,7 @@ export default function Navbar() {
           {mounted && (
             <motion.button
               onClick={toggleTheme}
+              aria-label="Toggle theme"
               className={`p-2 rounded-lg border transition-all ${
                 isDark
                   ? 'bg-[#0a1628] border-sky-500/20 text-amber-400'
@@ -199,6 +200,8 @@ export default function Navbar() {
           )}
           <button
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isOpen}
             className={`p-2 rounded-lg transition-colors ${
               isDark ? 'text-slate-300 hover:bg-white/5' : 'text-slate-700 hover:bg-slate-100'
             }`}

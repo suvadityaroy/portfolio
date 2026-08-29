@@ -8,7 +8,7 @@ import { useState, useEffect, useRef, Suspense } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import dynamic from 'next/dynamic';
 
-import HeroAnimation from './HeroAnimation';
+const HeroAnimation = dynamic(() => import('./HeroAnimation'), { ssr: false });
 const Hero3D = dynamic(() => import('./Hero3D'), { ssr: false, loading: () => <div className="w-full h-[320px] flex items-center justify-center">3D</div> });
 
 // ── Animation variants ────────────────────────────────────────
@@ -95,16 +95,19 @@ export default function Hero() {
   const socials = [
     {
       href: 'https://github.com/suvadityaroy', icon: FaGithub,
+      label: 'Suvaditya Roy on GitHub',
       dark: 'bg-[#0a1628] border-slate-700 text-slate-300 hover:text-white hover:border-sky-500/50 hover:shadow-[0_0_18px_rgba(56,189,248,0.2)]',
       light: 'bg-white border-slate-200 text-slate-600 hover:text-slate-900 hover:border-indigo-300 hover:shadow-[0_4px_14px_rgba(79,70,229,0.12)]',
     },
     {
       href: 'https://linkedin.com/in/suvadityaroy', icon: FaLinkedin,
+      label: 'Suvaditya Roy on LinkedIn',
       dark: 'bg-blue-600 border-blue-500 text-white hover:bg-blue-500 hover:shadow-[0_0_18px_rgba(59,130,246,0.45)]',
       light: 'bg-blue-600 border-blue-500 text-white hover:bg-blue-700 hover:shadow-[0_4px_14px_rgba(59,130,246,0.35)]',
     },
     {
       href: 'mailto:suvadityaroy.dev@gmail.com', icon: Mail,
+      label: 'Email Suvaditya Roy',
       dark: 'bg-emerald-600 border-emerald-500 text-white hover:bg-emerald-500 hover:shadow-[0_0_18px_rgba(16,185,129,0.45)]',
       light: 'bg-emerald-600 border-emerald-500 text-white hover:bg-emerald-700 hover:shadow-[0_4px_14px_rgba(16,185,129,0.35)]',
     },
@@ -306,6 +309,7 @@ export default function Hero() {
                     isDark ? dark : light
                   }`}
                   data-cursor="hover"
+                  aria-label={socials[i].label}
                 >
                   <Icon className="w-5 h-5" />
                 </Link>

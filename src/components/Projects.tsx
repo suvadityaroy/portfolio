@@ -14,6 +14,7 @@ const projects = [
     description: 'Python-based IDS for cloud environments leveraging ML algorithms to identify anomalous behavior and security threats in real-time across AWS infrastructure.',
     tags: ['Python', 'AWS', 'Machine Learning', 'IDS'],
     image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800',
+    thumbnail: '/thumbnails/cloud-intrusion-detection-system.svg',
     github: 'https://github.com/suvadityaroy/Cloud-Intrusion-Detection-System',
     demo: '',
     tagColor: { dark: 'bg-sky-500/15 text-sky-300 border-sky-500/25', light: 'bg-sky-100 text-sky-700 border-sky-200' },
@@ -23,6 +24,7 @@ const projects = [
     description: 'Automated Python tool for auditing AWS IAM policies, identifying overly permissive permissions, privilege escalation risks, and compliance violations.',
     tags: ['Python', 'AWS', 'IAM', 'Security Automation'],
     image: 'https://images.unsplash.com/photo-1633265486064-086b219458ec?auto=format&fit=crop&q=80&w=800',
+    thumbnail: '/thumbnails/aws-iam-policy-audit-tool.svg',
     github: 'https://github.com/suvadityaroy/AWS-IAM-Policy-Audit',
     demo: '',
     tagColor: { dark: 'bg-orange-500/15 text-orange-300 border-orange-500/25', light: 'bg-orange-100 text-orange-700 border-orange-200' },
@@ -32,6 +34,7 @@ const projects = [
     description: 'Comprehensive security assessment tool for AWS environments scanning for misconfigurations, exposed resources, and compliance violations with auto remediation.',
     tags: ['Python', 'AWS', 'CSPM', 'Vulnerability Assessment'],
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
+    thumbnail: '/thumbnails/aws-security-scanner.svg',
     github: 'https://github.com/suvadityaroy/AWS-Security-Scanner',
     demo: '',
     tagColor: { dark: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/25', light: 'bg-emerald-100 text-emerald-700 border-emerald-200' },
@@ -41,6 +44,7 @@ const projects = [
     description: 'High-performance network scanner in Go leveraging Nmap for vulnerability assessment, port scanning, and asset discovery with concurrent execution.',
     tags: ['Go', 'Nmap', 'Network Security', 'VAPT'],
     image: 'https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?auto=format&fit=crop&q=80&w=800',
+    thumbnail: '/thumbnails/goscan-advanced-network-scanner.svg',
     github: 'https://github.com/suvadityaroy/GoScan-Advance-Network-Scanner-Using-Nmap',
     demo: '',
     tagColor: { dark: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/25', light: 'bg-cyan-100 text-cyan-700 border-cyan-200' },
@@ -50,6 +54,7 @@ const projects = [
     description: 'Decentralized voting platform using blockchain for tamper-proof elections with end-to-end encryption, voter anonymity, and immutable audit trails.',
     tags: ['Blockchain', 'Smart Contracts', 'Cryptography', 'Web3'],
     image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800',
+    thumbnail: '/thumbnails/blockchain-voting-system.svg',
     github: 'https://github.com/suvadityaroy/Online-Voting-System-Using-Blockchain-Technology',
     demo: '',
     tagColor: { dark: 'bg-violet-500/15 text-violet-300 border-violet-500/25', light: 'bg-violet-100 text-violet-700 border-violet-200' },
@@ -59,6 +64,7 @@ const projects = [
     description: 'Python-based stateful packet inspection firewall with deep packet analysis, custom rule-based filtering, and real-time threat blocking.',
     tags: ['Python', 'Network Security', 'Firewall', 'Packet Analysis'],
     image: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=800',
+    thumbnail: '/thumbnails/custom-network-firewall.svg',
     github: 'https://github.com/suvadityaroy/Firewall',
     demo: '',
     tagColor: { dark: 'bg-red-500/15 text-red-300 border-red-500/25', light: 'bg-red-100 text-red-700 border-red-200' },
@@ -83,7 +89,6 @@ function TiltCard({ children, className, ...props }: { children: React.ReactNode
   const rotateY = useMotionValue(0);
   const glowX = useMotionValue(50);
   const glowY = useMotionValue(50);
-
   const rotateXSpring = useSpring(rotateX, springCfg);
   const rotateYSpring = useSpring(rotateY, springCfg);
   const scale = useSpring(1, { stiffness: 200, damping: 20 });
@@ -95,8 +100,9 @@ function TiltCard({ children, className, ...props }: { children: React.ReactNode
     const py = (e.clientY - rect.top) / rect.height;
     rotateX.set((0.5 - py) * 14);
     rotateY.set((px - 0.5) * 14);
-    glowX.set(px * 100);
-    glowY.set(py * 100);
+    // set glow position in pixels (relative to card)
+    glowX.set(e.clientX - rect.left);
+    glowY.set(e.clientY - rect.top);
   }, [rotateX, rotateY, glowX, glowY]);
 
   const handleMouseEnter = useCallback(() => { scale.set(1.02); }, [scale]);
@@ -111,6 +117,8 @@ function TiltCard({ children, className, ...props }: { children: React.ReactNode
     ([x, y]) =>
       `radial-gradient(220px circle at ${x}% ${y}%, rgba(56,189,248,0.08), transparent 70%)`
   );
+  // Compose a transform for the composited glow element to avoid repainting backgrounds
+  const glowTransform = useTransform([glowX, glowY] as any, (v: any) => `translate3d(${v[0] - 220}px, ${v[1] - 220}px, 0)`);
 
   return (
     <motion.div
@@ -128,10 +136,10 @@ function TiltCard({ children, className, ...props }: { children: React.ReactNode
       onMouseLeave={handleMouseLeave}
       className={className}
     >
-      {/* Dynamic glow layer */}
+      {/* Dynamic glow layer (composited transform) */}
       <motion.div
-        className="absolute inset-0 rounded-2xl pointer-events-none z-0"
-        style={{ background: glowBg }}
+        className="tilt-glow pointer-events-none absolute z-0"
+        style={{ transform: glowTransform }}
       />
       {children}
     </motion.div>
@@ -206,7 +214,7 @@ export default function Projects() {
             >
               <TiltCard
                 data-cursor="hover"
-                data-preview={getPreviewSrc(project.image)}
+                data-preview={project.thumbnail ?? getPreviewSrc(project.image)}
                 className={`relative flex flex-col rounded-2xl border overflow-hidden h-full transition-all duration-300 cursor-default ${
                   isDark
                     ? 'bg-[#0a1628] border-sky-500/12 hover:border-sky-400/35 shadow-lg shadow-black/20 hover:shadow-[0_8px_50px_rgba(56,189,248,0.18)]'
@@ -258,7 +266,8 @@ export default function Projects() {
                       }`}
                       onClick={e => e.stopPropagation()}
                       data-cursor="hover"
-                      data-preview={getPreviewSrc(project.image)}
+                      data-preview={project.thumbnail ?? getPreviewSrc(project.image)}
+                      aria-label={`View ${project.title} on GitHub`}
                     >
                       <FaGithub className="w-4 h-4" />
                     </Link>

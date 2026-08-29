@@ -393,6 +393,34 @@ a, button, [role="button"] {
   }
 }
 
+/* Skip link — visible on focus for keyboard users */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-120%);
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 8px 8px;
+  z-index: 99999;
+  text-decoration: none;
+}
+.skip-link:focus {
+  transform: translateY(0%);
+  outline: 3px solid rgba(124,58,237,0.28);
+}
+
+/* Ensure icon-only controls and elements with aria-label have comfortable touch targets */
+a[aria-label], button[aria-label], a[data-cursor="hover"], button[data-cursor="hover"] {
+  min-width: 48px;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+}
+
 /* Interactive cursor styles */
 .cursor-dot, .cursor-ring { pointer-events: none; position: fixed; z-index: 9999; mix-blend-mode: screen; }
 .cursor-dot {
@@ -425,19 +453,43 @@ a, button, [role="button"] {
 .cursor-preview {
   position: fixed;
   z-index: 9998;
-  width: 200px;
-  height: 120px;
+  width: 180px;
+  height: 110px;
   object-fit: cover;
   border-radius: 10px;
-  box-shadow: 0 12px 40px rgba(7,10,25,0.6), 0 6px 20px rgba(124,58,237,0.08);
+  background: transparent;
+  border: 2px solid rgba(124,58,237,0.14);
+  padding: 6px;
+  box-shadow: 0 6px 18px rgba(7,10,25,0.35);
   transform: translate3d(-9999px, -9999px, 0);
-  transition: opacity 180ms ease, transform 120ms cubic-bezier(.2,.9,.2,1);
+  transition: opacity 160ms ease, transform 100ms cubic-bezier(.2,.9,.2,1);
   opacity: 0;
   pointer-events: none;
   will-change: transform, opacity;
 }
 
+/* Tilt card composited glow to avoid background repaints */
+.tilt-glow {
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(56,189,248,0.08), transparent 70%);
+  pointer-events: none;
+  will-change: transform;
+  transform: translate3d(-9999px, -9999px, 0);
+}
+
 @media (max-width: 900px) {
   .cursor-preview { display: none; }
+}
+
+/* While scrolling, hide cursor previews and expensive glows to avoid main-thread paint work */
+.disable-cursor-effects .cursor-preview,
+.disable-cursor-effects .tilt-glow,
+.disable-cursor-effects .cursor-ring {
+  opacity: 0 !important;
+  transform: translate3d(-9999px, -9999px, 0) !important;
+  transition: none !important;
+  pointer-events: none !important;
 }
 

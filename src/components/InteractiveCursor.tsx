@@ -8,11 +8,12 @@ export default function InteractiveCursor() {
   const rafRef = useRef<number | null>(null);
   const mouse = useRef({ x: 0, y: 0 });
   const pos = useRef({ x: 0, y: 0 });
-  const [hovering, setHovering] = useState(false);
-  const [active, setActive] = useState(false);
+  // Avoid React state for high-frequency values — use refs to prevent re-renders
+  const hoveringRef = useRef(false);
+  const activeRef = useRef(false);
   const previewRef = useRef<HTMLImageElement | null>(null);
   const previewSrc = useRef<string | null>(null);
-  const [showPreview, setShowPreview] = useState(false);
+  const showPreviewRef = useRef(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -37,28 +38,28 @@ export default function InteractiveCursor() {
       if (ringRef.current) ringRef.current.style.opacity = '0.95';
     }
 
-    function onDown() { setActive(true); }
-    function onUp() { setActive(false); }
+    function onDown() { activeRef.current = true; }
+    function onUp() { activeRef.current = false; }
 
     function onEnter(e: Event) {
       const el = e.target as HTMLElement;
       const cursor = el?.dataset?.cursor;
-      if (cursor) setHovering(true);
+      if (cursor) hoveringRef.current = true;
       const preview = el?.dataset?.preview;
       if (preview) {
         previewSrc.current = preview;
-        setShowPreview(true);
+        showPreviewRef.current = true;
         if (previewRef.current) previewRef.current.src = preview;
       }
     }
     function onLeave(e: Event) {
       const el = e.target as HTMLElement;
       const cursor = el?.dataset?.cursor;
-      if (cursor) setHovering(false);
+      if (cursor) hoveringRef.current = false;
       const preview = el?.dataset?.preview;
       if (preview) {
         previewSrc.current = null;
-        setShowPreview(false);
+        showPreviewRef.current = false;
         if (previewRef.current) previewRef.current.src = '';
       }
     }
@@ -69,6 +70,21 @@ export default function InteractiveCursor() {
     document.addEventListener('mouseover', onEnter);
     document.addEventListener('mouseout', onLeave);
 
+    // Temporarily disable heavy cursor effects while scrolling to avoid jank
+    let scrollTimer: number | null = null;
+    function onScroll() {
+      document.documentElement.classList.add('disable-cursor-effects');
+      // hide preview during scroll
+      showPreviewRef.current = false;
+      if (previewRef.current) previewRef.current.style.opacity = '0';
+      if (scrollTimer) window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(() => {
+        document.documentElement.classList.remove('disable-cursor-effects');
+        scrollTimer = null;
+      }, 160);
+    }
+    document.addEventListener('scroll', onScroll, { passive: true });
+
     const loop = () => {
       pos.current.x += (mouse.current.x - pos.current.x) * 0.18;
       pos.current.y += (mouse.current.y - pos.current.y) * 0.18;
@@ -78,16 +94,17 @@ export default function InteractiveCursor() {
         dotRef.current.style.transform = `translate3d(${x - 4}px, ${y - 4}px, 0)`;
       }
       if (ringRef.current) {
-        const scale = hovering ? 1.45 : active ? 0.9 : 1;
+        const scale = hoveringRef.current ? 1.45 : activeRef.current ? 0.9 : 1;
         ringRef.current.style.transform = `translate3d(${x - 22}px, ${y - 22}px, 0) scale(${scale})`;
-        ringRef.current.style.opacity = hovering ? '1' : '0.85';
+        ringRef.current.style.opacity = hoveringRef.current ? '1' : '0.85';
       }
       if (previewRef.current) {
-        // follow at an offset to the right-bottom
-        const px = x + 32;
-        const py = y + 18;
+        // follow at an offset to the right-bottom so native cursor remains visible
+        const px = x + 40; // more offset to avoid overlap
+        const py = y + 28;
         previewRef.current.style.transform = `translate3d(${px}px, ${py}px, 0)`;
-        previewRef.current.style.opacity = showPreview ? '1' : '0';
+        previewRef.current.style.opacity = showPreviewRef.current ? '1' : '0';
+        previewRef.current.style.borderColor = hoveringRef.current ? 'rgba(6,182,212,0.28)' : 'rgba(124,58,237,0.14)';
       }
       rafRef.current = requestAnimationFrame(loop);
     };
@@ -99,15 +116,17 @@ export default function InteractiveCursor() {
       document.removeEventListener('mouseup', onUp);
       document.removeEventListener('mouseover', onEnter);
       document.removeEventListener('mouseout', onLeave);
+      document.removeEventListener('scroll', onScroll);
+      if (scrollTimer) window.clearTimeout(scrollTimer);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [hovering, active, enabled]);
+  }, [enabled]);
 
   if (!enabled) return null;
 
   return (
     <>
-      <div ref={ringRef} className={`cursor-ring ${hovering ? 'cursor--hover' : ''} ${active ? 'cursor--active' : ''}`} aria-hidden />
+      <div ref={ringRef} className="cursor-ring" aria-hidden />
       <div ref={dotRef} className="cursor-dot" aria-hidden />
       <img ref={previewRef} className="cursor-preview" src="" alt="preview" aria-hidden />
     </>
